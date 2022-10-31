@@ -1,0 +1,329 @@
+INFO:root:called-params configs/pretrain/msn_fusion_random.yaml
+INFO:root:loaded params...
+{   'criterion': {   'batch_size': 64,
+                     'ent_weight': 0.0,
+                     'final_sharpen': 0.25,
+                     'me_max': True,
+                     'memax_weight': 1.0,
+                     'num_proto': 128,
+                     'start_sharpen': 0.25,
+                     'temperature': 0.1,
+                     'use_ent': True,
+                     'use_sinkhorn': True},
+    'data': {   'color_jitter_strength': 0.5,
+                'focal_size': 96,
+                'focal_views': 10,
+                'image_folder': '/imagenet/',
+                'label_smoothing': 0.0,
+                'num_workers': 10,
+                'patch_drop': 0.15,
+                'pin_mem': True,
+                'rand_size': 224,
+                'rand_views': 1,
+                'root_path': '.'},
+    'logging': {   'folder': 'checkpoint/msn_os_logs/',
+                   'write_tag': 'msn-experiment-fusion-128'},
+    'meta': {   'bottleneck': 1,
+                'copy_data': False,
+                'drop_path_rate': 0.0,
+                'hidden_dim': 2048,
+                'load_checkpoint': False,
+                'model_name': 'deit_small',
+                'output_dim': 256,
+                'read_checkpoint': None,
+                'use_bn': True,
+                'use_fp16': False,
+                'use_pred_head': False},
+    'optimization': {   'clip_grad': 3.0,
+                        'epochs': 100,
+                        'final_lr': 1e-06,
+                        'final_weight_decay': 0.4,
+                        'lr': 0.001,
+                        'start_lr': 0.0002,
+                        'warmup': 15,
+                        'weight_decay': 0.04}}
+INFO:torch.distributed.distributed_c10d:Added key: store_based_barrier_key:1 to store for rank: 0
+INFO:torch.distributed.distributed_c10d:Rank 0: Completed store-based barrier for 1 nodes.
+INFO:root:Running... (rank: 0/1)
+INFO:root:Running fusion
+INFO:root:Initialized (rank/world-size) 0/1
+INFO:root:Fusion(
+  (ehr_model): LSTM(
+    (layer0): LSTM(76, 128, batch_first=True)
+    (dense_layer): Linear(in_features=128, out_features=128, bias=True)
+  )
+  (cxr_model): VisionTransformer(
+    (patch_embed): PatchEmbed(
+      (proj): Conv2d(3, 384, kernel_size=(16, 16), stride=(16, 16))
+    )
+    (pos_drop): Dropout(p=0.0, inplace=False)
+    (blocks): ModuleList(
+      (0): Block(
+        (norm1): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+        (attn): Attention(
+          (qkv): Linear(in_features=384, out_features=1152, bias=True)
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=384, out_features=384, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+        )
+        (drop_path): Identity()
+        (norm2): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+        (mlp): MLP(
+          (fc1): Linear(in_features=384, out_features=1536, bias=True)
+          (act): GELU()
+          (fc2): Linear(in_features=1536, out_features=384, bias=True)
+          (drop): Dropout(p=0.0, inplace=False)
+        )
+      )
+      (1): Block(
+        (norm1): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+        (attn): Attention(
+          (qkv): Linear(in_features=384, out_features=1152, bias=True)
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=384, out_features=384, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+        )
+        (drop_path): Identity()
+        (norm2): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+        (mlp): MLP(
+          (fc1): Linear(in_features=384, out_features=1536, bias=True)
+          (act): GELU()
+          (fc2): Linear(in_features=1536, out_features=384, bias=True)
+          (drop): Dropout(p=0.0, inplace=False)
+        )
+      )
+      (2): Block(
+        (norm1): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+        (attn): Attention(
+          (qkv): Linear(in_features=384, out_features=1152, bias=True)
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=384, out_features=384, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+        )
+        (drop_path): Identity()
+        (norm2): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+        (mlp): MLP(
+          (fc1): Linear(in_features=384, out_features=1536, bias=True)
+          (act): GELU()
+          (fc2): Linear(in_features=1536, out_features=384, bias=True)
+          (drop): Dropout(p=0.0, inplace=False)
+        )
+      )
+      (3): Block(
+        (norm1): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+        (attn): Attention(
+          (qkv): Linear(in_features=384, out_features=1152, bias=True)
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=384, out_features=384, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+        )
+        (drop_path): Identity()
+        (norm2): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+        (mlp): MLP(
+          (fc1): Linear(in_features=384, out_features=1536, bias=True)
+          (act): GELU()
+          (fc2): Linear(in_features=1536, out_features=384, bias=True)
+          (drop): Dropout(p=0.0, inplace=False)
+        )
+      )
+      (4): Block(
+        (norm1): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+        (attn): Attention(
+          (qkv): Linear(in_features=384, out_features=1152, bias=True)
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=384, out_features=384, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+        )
+        (drop_path): Identity()
+        (norm2): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+        (mlp): MLP(
+          (fc1): Linear(in_features=384, out_features=1536, bias=True)
+          (act): GELU()
+          (fc2): Linear(in_features=1536, out_features=384, bias=True)
+          (drop): Dropout(p=0.0, inplace=False)
+        )
+      )
+      (5): Block(
+        (norm1): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+        (attn): Attention(
+          (qkv): Linear(in_features=384, out_features=1152, bias=True)
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=384, out_features=384, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+        )
+        (drop_path): Identity()
+        (norm2): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+        (mlp): MLP(
+          (fc1): Linear(in_features=384, out_features=1536, bias=True)
+          (act): GELU()
+          (fc2): Linear(in_features=1536, out_features=384, bias=True)
+          (drop): Dropout(p=0.0, inplace=False)
+        )
+      )
+      (6): Block(
+        (norm1): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+        (attn): Attention(
+          (qkv): Linear(in_features=384, out_features=1152, bias=True)
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=384, out_features=384, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+        )
+        (drop_path): Identity()
+        (norm2): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+        (mlp): MLP(
+          (fc1): Linear(in_features=384, out_features=1536, bias=True)
+          (act): GELU()
+          (fc2): Linear(in_features=1536, out_features=384, bias=True)
+          (drop): Dropout(p=0.0, inplace=False)
+        )
+      )
+      (7): Block(
+        (norm1): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+        (attn): Attention(
+          (qkv): Linear(in_features=384, out_features=1152, bias=True)
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=384, out_features=384, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+        )
+        (drop_path): Identity()
+        (norm2): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+        (mlp): MLP(
+          (fc1): Linear(in_features=384, out_features=1536, bias=True)
+          (act): GELU()
+          (fc2): Linear(in_features=1536, out_features=384, bias=True)
+          (drop): Dropout(p=0.0, inplace=False)
+        )
+      )
+      (8): Block(
+        (norm1): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+        (attn): Attention(
+          (qkv): Linear(in_features=384, out_features=1152, bias=True)
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=384, out_features=384, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+        )
+        (drop_path): Identity()
+        (norm2): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+        (mlp): MLP(
+          (fc1): Linear(in_features=384, out_features=1536, bias=True)
+          (act): GELU()
+          (fc2): Linear(in_features=1536, out_features=384, bias=True)
+          (drop): Dropout(p=0.0, inplace=False)
+        )
+      )
+      (9): Block(
+        (norm1): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+        (attn): Attention(
+          (qkv): Linear(in_features=384, out_features=1152, bias=True)
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=384, out_features=384, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+        )
+        (drop_path): Identity()
+        (norm2): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+        (mlp): MLP(
+          (fc1): Linear(in_features=384, out_features=1536, bias=True)
+          (act): GELU()
+          (fc2): Linear(in_features=1536, out_features=384, bias=True)
+          (drop): Dropout(p=0.0, inplace=False)
+        )
+      )
+      (10): Block(
+        (norm1): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+        (attn): Attention(
+          (qkv): Linear(in_features=384, out_features=1152, bias=True)
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=384, out_features=384, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+        )
+        (drop_path): Identity()
+        (norm2): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+        (mlp): MLP(
+          (fc1): Linear(in_features=384, out_features=1536, bias=True)
+          (act): GELU()
+          (fc2): Linear(in_features=1536, out_features=384, bias=True)
+          (drop): Dropout(p=0.0, inplace=False)
+        )
+      )
+      (11): Block(
+        (norm1): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+        (attn): Attention(
+          (qkv): Linear(in_features=384, out_features=1152, bias=True)
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=384, out_features=384, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+        )
+        (drop_path): Identity()
+        (norm2): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+        (mlp): MLP(
+          (fc1): Linear(in_features=384, out_features=1536, bias=True)
+          (act): GELU()
+          (fc2): Linear(in_features=1536, out_features=384, bias=True)
+          (drop): Dropout(p=0.0, inplace=False)
+        )
+      )
+    )
+    (norm): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+    (fc): Identity()
+  )
+  (projection): Linear(in_features=384, out_features=384, bias=True)
+)
+INFO:root:making data transforms
+INFO:root:MIMICCXR cxr_ehr fusion dataset
+INFO:root:Namespace(align=0.0, batch_size=64, beta_1=0.9, crop=224, cxr_data_dir='/data/MedFuse/2.0.0', daft_activation='linear', data_pairs='partial_ehr_cxr', data_ratio=1.0, depth=1, devices=['cuda:0'], dim=256, dropout=0.0, ehr_data_dir='/data/MedFuse/mimic-iv-extracted', epochs=100, eval=False, fname='configs/pretrain/msn_fusion_random.yaml', fusion='joint', fusion_type='lstm', imputation='previous', labels_set='pheno', layer_after=4, layers=1, load_state=None, load_state_cxr=None, load_state_ehr=None, lr=0.0001, missing_token=None, mmtm_ratio=4, modality='fusion', mode='train', network=None, normalizer_state='/scratch/projects/shamoutlab/ds5749/msn/src/medfuse/normalizers/ph_ts1.0.input_str:previous.start_time:zero.normalizer', num_classes=25, patience=15, pretrained=False, rec_dropout=0.0, resize=256, resume=False, save_dir='checkpoints', task='phenotyping', timestep=1.0, vision_backbone='densenet121', vision_num_classes=14)
+INFO:root:partial_ehr_cxrlstm
+INFO:root:MIMICCXR dataset created
+INFO:root:unsupervised data loader created
+INFO:root:iterations per epoch: 666
+INFO:root:Created prototypes: torch.Size([128, 256])
+INFO:root:Requires grad: True
+INFO:root:Using AdamW
+INFO:root:Epoch 1
+Traceback (most recent call last):
+  File "main.py", line 79, in <module>
+    args=(args.fname, num_gpus, args.devices, args))
+  File "/ext3/medfuse/lib/python3.6/site-packages/torch/multiprocessing/spawn.py", line 230, in spawn
+    return start_processes(fn, args, nprocs, join, daemon, start_method='spawn')
+  File "/ext3/medfuse/lib/python3.6/site-packages/torch/multiprocessing/spawn.py", line 188, in start_processes
+    while not context.join():
+  File "/ext3/medfuse/lib/python3.6/site-packages/torch/multiprocessing/spawn.py", line 150, in join
+    raise ProcessRaisedException(msg, error_index, failed_process.pid)
+torch.multiprocessing.spawn.ProcessRaisedException: 
+
+-- Process 0 terminated with the following error:
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/site-packages/torch/multiprocessing/spawn.py", line 59, in _wrap
+    fn(i, *args)
+  File "/scratch/projects/shamoutlab/ds5749/msn/main.py", line 66, in process_main
+    return msn_fusion(params, medfuse_args)
+  File "/scratch/projects/shamoutlab/ds5749/msn/src/msn_train_fusion.py", line 327, in main
+    for itr, (x, cxr, _, _, seq_length, _) in enumerate(unsupervised_loader):
+  File "/ext3/medfuse/lib/python3.6/site-packages/torch/utils/data/dataloader.py", line 521, in __next__
+    data = self._next_data()
+  File "/ext3/medfuse/lib/python3.6/site-packages/torch/utils/data/dataloader.py", line 1203, in _next_data
+    return self._process_data(data)
+  File "/ext3/medfuse/lib/python3.6/site-packages/torch/utils/data/dataloader.py", line 1229, in _process_data
+    data.reraise()
+  File "/ext3/medfuse/lib/python3.6/site-packages/torch/_utils.py", line 425, in reraise
+    raise self.exc_type(msg)
+RuntimeError: Caught RuntimeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/site-packages/torch/utils/data/_utils/worker.py", line 287, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/ext3/medfuse/lib/python3.6/site-packages/torch/utils/data/_utils/fetch.py", line 47, in fetch
+    return self.collate_fn(data)
+  File "/ext3/medfuse/lib/python3.6/site-packages/torch/utils/data/_utils/collate.py", line 84, in default_collate
+    return [default_collate(samples) for samples in transposed]
+  File "/ext3/medfuse/lib/python3.6/site-packages/torch/utils/data/_utils/collate.py", line 84, in <listcomp>
+    return [default_collate(samples) for samples in transposed]
+  File "/ext3/medfuse/lib/python3.6/site-packages/torch/utils/data/_utils/collate.py", line 84, in default_collate
+    return [default_collate(samples) for samples in transposed]
+  File "/ext3/medfuse/lib/python3.6/site-packages/torch/utils/data/_utils/collate.py", line 84, in <listcomp>
+    return [default_collate(samples) for samples in transposed]
+  File "/ext3/medfuse/lib/python3.6/site-packages/torch/utils/data/_utils/collate.py", line 64, in default_collate
+    return default_collate([torch.as_tensor(b) for b in batch])
+  File "/ext3/medfuse/lib/python3.6/site-packages/torch/utils/data/_utils/collate.py", line 56, in default_collate
+    return torch.stack(batch, 0, out=out)
+RuntimeError: stack expects each tensor to be equal size, but got [26, 76] at entry 0 and [198, 76] at entry 1
+
+

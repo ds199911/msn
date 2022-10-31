@@ -1,0 +1,25 @@
+meta:
+  model_name: deit_small
+  master_port: 8888
+  load_checkpoint: True
+  training: true
+  copy_data: false
+  device: cuda:0
+data:
+  root_path: .
+  image_folder: /imagenet/
+  num_classes: 14
+optimization:
+  weight_decay: 0.0
+  lr: 6.4
+  epochs: 100
+  num_blocks: 1
+  normalize: true
+logging:
+  folder: checkpoint/msn_logs/
+  write_tag: msn-lineval-experiment-linear-eval-cxr
+  pretrain_path: /scratch/projects/shamoutlab/ds5749/msn/checkpoint/msn_os_logs/msn-experiment-cxr-random-64-latest.pth.tar
+  # /scratch/projects/shamoutlab/ds5749/msn/checkpoint/msn_os_logs/msn-experiment-cxr-random-64-latest.pth.tar
+  # /scratch/projects/shamoutlab/ds5749/msn/checkpoint/msn_os_logs/msn-experiment-cxr-random-latest.pth.tar
+  # /scratch/projects/shamoutlab/ds5749/msn/checkpoint/msn_os_logs/msn-medfuse-cxr-latest.pth.tar
+  # /scratch/projects/shamoutlab/ds5749/msn/checkpoint/msn_os_logs/msn-experiment-cxr-random-16-latest.pth.tar

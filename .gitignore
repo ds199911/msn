@@ -1,0 +1,11 @@
+.*.swp
+.*.swo
+*.nfs*
+*__pycache__*
+*.tar
+*.csv
+/imagenet_subsets1
+/imagenet_subsets2
+/imagenet_subsets3 
+/checkpoint
+/sbatch_logs

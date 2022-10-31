@@ -1,0 +1,3504 @@
+INFO:root:loaded params...
+{   'data': {'image_folder': '/imagenet/', 'num_classes': 14, 'root_path': '.'},
+    'logging': {   'folder': 'checkpoint/msn_logs/',
+                   'pretrain_path': '/scratch/projects/shamoutlab/ds5749/msn/checkpoint/msn_os_logs/msn-experiment-cxr-random-latest.pth.tar',
+                   'write_tag': 'msn-lineval-experiment-linear-eval-cxr'},
+    'meta': {   'copy_data': False,
+                'device': 'cuda:0',
+                'load_checkpoint': True,
+                'master_port': 8888,
+                'model_name': 'deit_small',
+                'training': True},
+    'optimization': {   'epochs': 100,
+                        'lr': 6.4,
+                        'normalize': True,
+                        'num_blocks': 1,
+                        'weight_decay': 0.0}}
+INFO:root:Running linear-evaluation
+INFO:root:MIMICCXR dataset created
+INFO:root:unsupervised data loader created
+INFO:root:initialized data-loader (ipe 5081)
+INFO:root:MIMICCXR dataset created
+INFO:root:unsupervised data loader created
+INFO:root:initialized val data-loader (ipe 239)
+INFO:root:key "fc.weight" could not be found in loaded state dict
+INFO:root:key "fc.bias" could not be found in loaded state dict
+INFO:root:loaded pretrained model with msg: _IncompatibleKeys(missing_keys=['fc.weight', 'fc.bias'], unexpected_keys=[])
+INFO:root:loaded pretrained encoder from epoch: 1 path: /scratch/projects/shamoutlab/ds5749/msn/checkpoint/msn_os_logs/msn-experiment-cxr-random-latest.pth.tar
+INFO:root:VisionTransformer(
+  (patch_embed): PatchEmbed(
+    (proj): Conv2d(3, 384, kernel_size=(16, 16), stride=(16, 16))
+  )
+  (pos_drop): Dropout(p=0.0, inplace=False)
+  (blocks): ModuleList(
+    (0): Block(
+      (norm1): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+      (attn): Attention(
+        (qkv): Linear(in_features=384, out_features=1152, bias=True)
+        (attn_drop): Dropout(p=0.0, inplace=False)
+        (proj): Linear(in_features=384, out_features=384, bias=True)
+        (proj_drop): Dropout(p=0.0, inplace=False)
+      )
+      (drop_path): Identity()
+      (norm2): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+      (mlp): MLP(
+        (fc1): Linear(in_features=384, out_features=1536, bias=True)
+        (act): GELU()
+        (fc2): Linear(in_features=1536, out_features=384, bias=True)
+        (drop): Dropout(p=0.0, inplace=False)
+      )
+    )
+    (1): Block(
+      (norm1): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+      (attn): Attention(
+        (qkv): Linear(in_features=384, out_features=1152, bias=True)
+        (attn_drop): Dropout(p=0.0, inplace=False)
+        (proj): Linear(in_features=384, out_features=384, bias=True)
+        (proj_drop): Dropout(p=0.0, inplace=False)
+      )
+      (drop_path): Identity()
+      (norm2): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+      (mlp): MLP(
+        (fc1): Linear(in_features=384, out_features=1536, bias=True)
+        (act): GELU()
+        (fc2): Linear(in_features=1536, out_features=384, bias=True)
+        (drop): Dropout(p=0.0, inplace=False)
+      )
+    )
+    (2): Block(
+      (norm1): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+      (attn): Attention(
+        (qkv): Linear(in_features=384, out_features=1152, bias=True)
+        (attn_drop): Dropout(p=0.0, inplace=False)
+        (proj): Linear(in_features=384, out_features=384, bias=True)
+        (proj_drop): Dropout(p=0.0, inplace=False)
+      )
+      (drop_path): Identity()
+      (norm2): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+      (mlp): MLP(
+        (fc1): Linear(in_features=384, out_features=1536, bias=True)
+        (act): GELU()
+        (fc2): Linear(in_features=1536, out_features=384, bias=True)
+        (drop): Dropout(p=0.0, inplace=False)
+      )
+    )
+    (3): Block(
+      (norm1): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+      (attn): Attention(
+        (qkv): Linear(in_features=384, out_features=1152, bias=True)
+        (attn_drop): Dropout(p=0.0, inplace=False)
+        (proj): Linear(in_features=384, out_features=384, bias=True)
+        (proj_drop): Dropout(p=0.0, inplace=False)
+      )
+      (drop_path): Identity()
+      (norm2): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+      (mlp): MLP(
+        (fc1): Linear(in_features=384, out_features=1536, bias=True)
+        (act): GELU()
+        (fc2): Linear(in_features=1536, out_features=384, bias=True)
+        (drop): Dropout(p=0.0, inplace=False)
+      )
+    )
+    (4): Block(
+      (norm1): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+      (attn): Attention(
+        (qkv): Linear(in_features=384, out_features=1152, bias=True)
+        (attn_drop): Dropout(p=0.0, inplace=False)
+        (proj): Linear(in_features=384, out_features=384, bias=True)
+        (proj_drop): Dropout(p=0.0, inplace=False)
+      )
+      (drop_path): Identity()
+      (norm2): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+      (mlp): MLP(
+        (fc1): Linear(in_features=384, out_features=1536, bias=True)
+        (act): GELU()
+        (fc2): Linear(in_features=1536, out_features=384, bias=True)
+        (drop): Dropout(p=0.0, inplace=False)
+      )
+    )
+    (5): Block(
+      (norm1): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+      (attn): Attention(
+        (qkv): Linear(in_features=384, out_features=1152, bias=True)
+        (attn_drop): Dropout(p=0.0, inplace=False)
+        (proj): Linear(in_features=384, out_features=384, bias=True)
+        (proj_drop): Dropout(p=0.0, inplace=False)
+      )
+      (drop_path): Identity()
+      (norm2): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+      (mlp): MLP(
+        (fc1): Linear(in_features=384, out_features=1536, bias=True)
+        (act): GELU()
+        (fc2): Linear(in_features=1536, out_features=384, bias=True)
+        (drop): Dropout(p=0.0, inplace=False)
+      )
+    )
+    (6): Block(
+      (norm1): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+      (attn): Attention(
+        (qkv): Linear(in_features=384, out_features=1152, bias=True)
+        (attn_drop): Dropout(p=0.0, inplace=False)
+        (proj): Linear(in_features=384, out_features=384, bias=True)
+        (proj_drop): Dropout(p=0.0, inplace=False)
+      )
+      (drop_path): Identity()
+      (norm2): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+      (mlp): MLP(
+        (fc1): Linear(in_features=384, out_features=1536, bias=True)
+        (act): GELU()
+        (fc2): Linear(in_features=1536, out_features=384, bias=True)
+        (drop): Dropout(p=0.0, inplace=False)
+      )
+    )
+    (7): Block(
+      (norm1): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+      (attn): Attention(
+        (qkv): Linear(in_features=384, out_features=1152, bias=True)
+        (attn_drop): Dropout(p=0.0, inplace=False)
+        (proj): Linear(in_features=384, out_features=384, bias=True)
+        (proj_drop): Dropout(p=0.0, inplace=False)
+      )
+      (drop_path): Identity()
+      (norm2): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+      (mlp): MLP(
+        (fc1): Linear(in_features=384, out_features=1536, bias=True)
+        (act): GELU()
+        (fc2): Linear(in_features=1536, out_features=384, bias=True)
+        (drop): Dropout(p=0.0, inplace=False)
+      )
+    )
+    (8): Block(
+      (norm1): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+      (attn): Attention(
+        (qkv): Linear(in_features=384, out_features=1152, bias=True)
+        (attn_drop): Dropout(p=0.0, inplace=False)
+        (proj): Linear(in_features=384, out_features=384, bias=True)
+        (proj_drop): Dropout(p=0.0, inplace=False)
+      )
+      (drop_path): Identity()
+      (norm2): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+      (mlp): MLP(
+        (fc1): Linear(in_features=384, out_features=1536, bias=True)
+        (act): GELU()
+        (fc2): Linear(in_features=1536, out_features=384, bias=True)
+        (drop): Dropout(p=0.0, inplace=False)
+      )
+    )
+    (9): Block(
+      (norm1): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+      (attn): Attention(
+        (qkv): Linear(in_features=384, out_features=1152, bias=True)
+        (attn_drop): Dropout(p=0.0, inplace=False)
+        (proj): Linear(in_features=384, out_features=384, bias=True)
+        (proj_drop): Dropout(p=0.0, inplace=False)
+      )
+      (drop_path): Identity()
+      (norm2): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+      (mlp): MLP(
+        (fc1): Linear(in_features=384, out_features=1536, bias=True)
+        (act): GELU()
+        (fc2): Linear(in_features=1536, out_features=384, bias=True)
+        (drop): Dropout(p=0.0, inplace=False)
+      )
+    )
+    (10): Block(
+      (norm1): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+      (attn): Attention(
+        (qkv): Linear(in_features=384, out_features=1152, bias=True)
+        (attn_drop): Dropout(p=0.0, inplace=False)
+        (proj): Linear(in_features=384, out_features=384, bias=True)
+        (proj_drop): Dropout(p=0.0, inplace=False)
+      )
+      (drop_path): Identity()
+      (norm2): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+      (mlp): MLP(
+        (fc1): Linear(in_features=384, out_features=1536, bias=True)
+        (act): GELU()
+        (fc2): Linear(in_features=1536, out_features=384, bias=True)
+        (drop): Dropout(p=0.0, inplace=False)
+      )
+    )
+    (11): Block(
+      (norm1): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+      (attn): Attention(
+        (qkv): Linear(in_features=384, out_features=1152, bias=True)
+        (attn_drop): Dropout(p=0.0, inplace=False)
+        (proj): Linear(in_features=384, out_features=384, bias=True)
+        (proj_drop): Dropout(p=0.0, inplace=False)
+      )
+      (drop_path): Identity()
+      (norm2): LayerNorm((384,), eps=1e-06, elementwise_affine=True)
+      (mlp): MLP(
+        (fc1): Linear(in_features=384, out_features=1536, bias=True)
+        (act): GELU()
+        (fc2): Linear(in_features=1536, out_features=384, bias=True)
+        (drop): Dropout(p=0.0, inplace=False)
+      )
+    )
+  )
+  (norm): None
+  (fc): Linear(in_features=384, out_features=14, bias=True)
+)
+INFO:root:putting model in training mode
+INFO:root:7486080
+INFO:root:Epoch:1
+INFO:root:epoch loss: 0.30443890555399744
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.015001916212022973
+INFO:root:Epoch:2
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.6876541705372521,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.2630538659658515,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.26041245175669614
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.014562285898403258
+INFO:root:Epoch:3
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.714852299098431,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.2832084510621078,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.253479832105516
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.014276667596481607
+INFO:root:Epoch:4
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7312405000559975,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.29789031069763433,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.24920164413135767
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.014099935416841198
+INFO:root:Epoch:5
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7412322045345273,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.30756586141330267,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.24613253193852636
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 290, in linear_eval
+    logger.info('train auroc_mean:', train_top1['auroc_mean'])
+Message: 'train auroc_mean:'
+Arguments: (0.7615951789676055,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 291, in linear_eval
+    logger.info('train auprc_mean:', train_top1['auprc_mean'])
+Message: 'train auprc_mean:'
+Arguments: (0.2907914139332352,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013960514513086884
+INFO:root:Epoch:6
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7497146611032394,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.31484279458271747,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.24386454038168004
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013864352733125557
+INFO:root:Epoch:7
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7551631534333317,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.3203265806708068,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.24227104029920457
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013800640409210023
+INFO:root:Epoch:8
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7596890505604658,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.3250081018222876,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.24080762090269586
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.01373348138013756
+INFO:root:Epoch:9
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7633916333045024,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.32868817483149776,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.2397245611160366
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.01367747930590268
+INFO:root:Epoch:10
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.766379393035111,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.3323474264416199,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.23860075014051876
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 290, in linear_eval
+    logger.info('train auroc_mean:', train_top1['auroc_mean'])
+Message: 'train auroc_mean:'
+Arguments: (0.7850124144578707,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 291, in linear_eval
+    logger.info('train auprc_mean:', train_top1['auprc_mean'])
+Message: 'train auprc_mean:'
+Arguments: (0.3142495983245886,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013630573189626925
+INFO:root:Epoch:11
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7691574753419756,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.3354382751382782,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.23792919057299128
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013593166280604562
+INFO:root:Epoch:12
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7710070681904648,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.33802359506045015,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.23706892961619688
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013554509328097205
+INFO:root:Epoch:13
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7724993006299302,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.3404059133527311,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.2365550088764551
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013523811586985695
+INFO:root:Epoch:14
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7746210572423495,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.3426339913516518,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.23582171082432124
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013494291421795097
+INFO:root:Epoch:15
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7763085085191455,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.3446663377170268,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.23521329701398447
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 290, in linear_eval
+    logger.info('train auroc_mean:', train_top1['auroc_mean'])
+Message: 'train auroc_mean:'
+Arguments: (0.7957649350308377,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 291, in linear_eval
+    logger.info('train auprc_mean:', train_top1['auprc_mean'])
+Message: 'train auprc_mean:'
+Arguments: (0.32628993507694243,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013469137381883241
+INFO:root:Epoch:16
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7772510914859578,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.3460318743820158,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.23475849044250235
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.0134397656476256
+INFO:root:Epoch:17
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7783921958156007,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.34718868467270686,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.23408613642547524
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013425446361966124
+INFO:root:Epoch:18
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7794481578966124,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.34948526192447255,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.23372817911901264
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013401262108746112
+INFO:root:Epoch:19
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7806358566821127,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.35031768992834705,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.23328832477034955
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013405331553987715
+INFO:root:Epoch:20
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7811622966621462,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.35174625521209046,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.23290260628604836
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 290, in linear_eval
+    logger.info('train auroc_mean:', train_top1['auroc_mean'])
+Message: 'train auroc_mean:'
+Arguments: (0.8021487932855937,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 291, in linear_eval
+    logger.info('train auprc_mean:', train_top1['auprc_mean'])
+Message: 'train auprc_mean:'
+Arguments: (0.3350870771932928,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013371486720478552
+INFO:root:Epoch:21
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7825632771202609,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.3526346174974995,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.23263459098744382
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013365423733900438
+INFO:root:Epoch:22
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7827441205771641,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.3546033867196325,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.23220874090902427
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013346009579635797
+INFO:root:Epoch:23
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7832988983006587,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.35467909396986724,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.23172688533168354
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013325334794759234
+INFO:root:Epoch:24
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7843466236092124,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.3566464496861858,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.23148511168326105
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013320701964796351
+INFO:root:Epoch:25
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.785066887868135,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.35696904182969613,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.23102700514244157
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 290, in linear_eval
+    logger.info('train auroc_mean:', train_top1['auroc_mean'])
+Message: 'train auroc_mean:'
+Arguments: (0.807513089395373,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 291, in linear_eval
+    logger.info('train auprc_mean:', train_top1['auprc_mean'])
+Message: 'train auprc_mean:'
+Arguments: (0.34238950582789335,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013307367633867629
+INFO:root:Epoch:26
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7856128150775998,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.3581914790792652,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.2307196215698391
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013298551783132825
+INFO:root:Epoch:27
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7862704528959419,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.35915530891528874,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.2303959214405513
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013281699569880833
+INFO:root:Epoch:28
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7864603804377408,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.36002183326608606,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.23019601621175112
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013279013082024338
+INFO:root:Epoch:29
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7872702411976021,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.36041005946517596,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.22990093417824944
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013264383388255389
+INFO:root:Epoch:30
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7875114629553687,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.36132076488383164,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.22951317899467275
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 290, in linear_eval
+    logger.info('train auroc_mean:', train_top1['auroc_mean'])
+Message: 'train auroc_mean:'
+Arguments: (0.8115874463443374,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 291, in linear_eval
+    logger.info('train auprc_mean:', train_top1['auprc_mean'])
+Message: 'train auprc_mean:'
+Arguments: (0.3482688138440823,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013264431534754763
+INFO:root:Epoch:31
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7878539469076874,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.36124195126818975,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.2293026842025879
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013248950562662929
+INFO:root:Epoch:32
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7881998106449348,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.3621869808358586,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.22908271988606363
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013248242700318139
+INFO:root:Epoch:33
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7883253671562744,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.36269102652287655,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.22885877979470975
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.01324013228070147
+INFO:root:Epoch:34
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7890521953050981,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.3635660680874854,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.22847785805021184
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013223476234300707
+INFO:root:Epoch:35
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7891341281100118,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.3636612491739224,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.2282290753549747
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 290, in linear_eval
+    logger.info('train auroc_mean:', train_top1['auroc_mean'])
+Message: 'train auroc_mean:'
+Arguments: (0.8148052888966104,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 291, in linear_eval
+    logger.info('train auprc_mean:', train_top1['auprc_mean'])
+Message: 'train auprc_mean:'
+Arguments: (0.3532508381005554,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013225686151876715
+INFO:root:Epoch:36
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7895145315797371,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.3637343365342307,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.22806940091668657
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013214939558184586
+INFO:root:Epoch:37
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7900323798699885,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.36365984337655416,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.22770677237406511
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013236607661915445
+INFO:root:Epoch:38
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7899822482475409,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.36367321774227346,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.22757733439635489
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013209180463207352
+INFO:root:Epoch:39
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7908029890111656,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.36505075174667967,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.22731155743560344
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013215042619906033
+INFO:root:Epoch:40
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7905509663928411,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.365025955754504,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.22711025573176866
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 290, in linear_eval
+    logger.info('train auroc_mean:', train_top1['auroc_mean'])
+Message: 'train auroc_mean:'
+Arguments: (0.8179061360219119,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 291, in linear_eval
+    logger.info('train auprc_mean:', train_top1['auprc_mean'])
+Message: 'train auprc_mean:'
+Arguments: (0.35779696750153706,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013208057345003858
+INFO:root:Epoch:41
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7909260722678165,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.3648255837612918,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.22681749681231897
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013191669050269042
+INFO:root:Epoch:42
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7913299856199673,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.36531712925213056,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.22653375216938454
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013192410201942843
+INFO:root:Epoch:43
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7908615358539938,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.36552139634897163,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.22639526712952507
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013199180681342756
+INFO:root:Epoch:44
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7915607391750772,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.3654480749543497,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.22605746452559333
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013199928243947156
+INFO:root:Epoch:45
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.791362533300961,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.36601216092376276,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.22589607520296193
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 290, in linear_eval
+    logger.info('train auroc_mean:', train_top1['auroc_mean'])
+Message: 'train auroc_mean:'
+Arguments: (0.8210984847872288,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 291, in linear_eval
+    logger.info('train auprc_mean:', train_top1['auprc_mean'])
+Message: 'train auprc_mean:'
+Arguments: (0.3627569604911674,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.01319064069711606
+INFO:root:Epoch:46
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7916525000629223,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.36539826290784766,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.22560231994248778
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013185954215934347
+INFO:root:Epoch:47
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7914353626286207,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.3656193323597416,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.2254187025868841
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013182261408466308
+INFO:root:Epoch:48
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7917114412367737,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.36550700597999697,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.22534195291927964
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013179543229614368
+INFO:root:Epoch:49
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7923466182645476,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.3669323529757321,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.22495797234339007
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val loss: 0.013193199904831674
+INFO:root:Epoch:50
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 297, in linear_eval
+    logger.info('val auroc_mean: ', val_top1['auroc_mean'])
+Message: 'val auroc_mean: '
+Arguments: (0.7921150251356884,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "cxr_emb_eval.py", line 303, in <module>
+    main()
+  File "cxr_emb_eval.py", line 52, in main
+    return linear_eval(params)
+  File "cxr_emb_eval.py", line 298, in linear_eval
+    logger.info('val auprc_mean: ', val_top1['auprc_mean'])
+Message: 'val auprc_mean: '
+Arguments: (0.3665835681532435,)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:epoch loss: 0.22468724480103
+Message: 'train auroc_mean:'
+Arguments: (0.8236741392518311,)
+Message: 'train auprc_mean:'
+Arguments: (0.3685597727821591,)
+INFO:root:val loss: 0.013192080725274015
+Message: 'val auroc_mean: '
+Arguments: (0.7923035555684693,)
+Arguments: (0.36636487649986466,)

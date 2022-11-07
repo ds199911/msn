@@ -144,10 +144,9 @@ def init_fusion_data(
         
         def my_collate(batch):
             x = [item[0] for item in batch]
-
-            seq_length = [item[0][0].shape[0] for item in batch]
             if isinstance(x[0], list):
-                x, seq_length = pad_zeros_mask(x)
+                x, _ = pad_zeros_mask(x)
+                seq_length = [item[0][0].shape[0] for item in batch]
             else:
                 x, seq_length = pad_zeros(x)
 

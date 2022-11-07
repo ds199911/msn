@@ -34,6 +34,7 @@ class LSTM(nn.Module):
                 nn.init.xavier_uniform_(model.weight_ih_l0)
                 nn.init.zeros_(model.bias_hh_l0)
                 nn.init.zeros_(model.bias_ih_l0)
+
     def forward_features(self, x, seq_lengths):
         x = torch.nn.utils.rnn.pack_padded_sequence(x, seq_lengths, batch_first=True, enforce_sorted=False)
         for layer in range(self.layers):
@@ -46,18 +47,23 @@ class LSTM(nn.Module):
 
     def forward(self, x, seq_lengths):
         if not isinstance(x, list):
-            return self.forward_features(x, seq_lengths)
-        else:
-            idx_crops = torch.cumsum(torch.unique_consecutive(
-                torch.tensor([inp.shape[-1] for inp in x]),
-                return_counts=True,
-            )[1], 0)
-            start_idx = 0
-            for end_idx in idx_crops:
-                _z = self.forward_features(torch.cat(x[start_idx:end_idx]))
-                if start_idx == 0:
-                    z = _z
-                else:
-                    h = torch.cat((h, _h))
-                start_idx = end_idx
-            return z
+            x = [x]
+        idx_crops = torch.cumsum(torch.unique_consecutive(
+            torch.tensor([inp.shape[-1] for inp in x]),
+            return_counts=True,
+        )[1], 0)
+        
+        # print('ehr')
+        # print('idx_crops', idx_crops)
+
+        start_idx = 0
+        for end_idx in idx_crops:
+            # print('ehr input', torch.cat(x[start_idx:end_idx]).shape)
+            # print(len(seq_lengths * (end_idx - start_idx)))
+            _z, _ = self.forward_features(torch.cat(x[start_idx:end_idx]), seq_lengths * (end_idx - start_idx))
+            if start_idx == 0:
+                z = _z
+            else:
+                z = torch.cat((z, _z))
+            start_idx = end_idx
+        return z

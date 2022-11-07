@@ -342,8 +342,6 @@ def main(args, medfuse_params=None):
                 imgs = [u.to(device, non_blocking=True) for u in cxr]
                 ehr = [u.to(device, non_blocking=True).float() for u in x]
                 return (imgs, ehr)
-            print(type(seq_length))
-            print(len(seq_length))
             res, dtime = gpu_timer(load_imgs)
             imgs, ehr = res
             data_meter.update(dtime)
@@ -358,14 +356,15 @@ def main(args, medfuse_params=None):
                 #    head) is None, and _forward_head just returns the
                 #    identity, z=h
                 # h, z = encoder(ehr[1:], seq_length[1:], imgs[1:], return_before_head=True, patch_drop=patch_drop)
-                print(len(imgs[1:]))
-                print('imgs',len(imgs))
-                h, z = encoder(ehr[1], seq_length, imgs[1:], return_before_head=True, patch_drop=patch_drop)
+                # print(len(imgs[1:]))
+                # print('imgs',len(imgs))
+
+                z = encoder(ehr[1:], seq_length, imgs[1:], return_before_head=True, patch_drop=patch_drop)
                 with torch.no_grad():
-                    h, _ = target_encoder(ehr[0], seq_length, imgs[0], return_before_head=True)
+                    h = target_encoder(ehr[0], seq_length, imgs[0], return_before_head=True)
                 # Step 1. convert representations to fp32
                 h, z = h.float(), z.float()
-
+                # print('h', h.shape, 'z', z.shape)
 
                 # Step 2. determine anchor views/supports and their
                 #         corresponding target views/supports

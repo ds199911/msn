@@ -180,7 +180,7 @@ class MultiTransform(object):
 
     def __init__(
         self,
-        views=1,
+        views=11,
     ):
         self.views = views
     def vertical_mask(self, data, ratio):

@@ -4,7 +4,7 @@
 #SBATCH -t 96:00:00
 #SBATCH --gres=gpu:1
 #SBATCH --mem=32GB
-#SBATCH --job-name=medfuse_cxr_pretrain-32-random
+#SBATCH --job-name=medfuse_fusion_pretrain-512-random
 
 module purge
 

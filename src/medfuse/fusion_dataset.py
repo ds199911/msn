@@ -191,7 +191,6 @@ def my_collate(batch):
     assert (x[0][0].shape == x[0][1].shape)
     assert x[1][0].shape == x[0][0].shape
     targets_ehr = np.array([item[2] for item in batch])
-
     targets_cxr = torch.stack([torch.zeros(14) if item[3] is None else item[3] for item in batch])
     print(batch[0][0])
     return [x, img, targets_ehr, targets_cxr, seq_length, pairs]

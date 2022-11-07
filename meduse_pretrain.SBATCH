@@ -2,9 +2,9 @@
 #SBATCH -n 1
 #SBATCH --cpus-per-task=16
 #SBATCH -t 96:00:00
-#SBATCH --gres=gpu:1
+#SBATCH --gres=gpu:v100:1
 #SBATCH --mem=32GB
-#SBATCH --job-name=medfuse_fusion_pretrain-512-random
+#SBATCH --job-name=medfuse_fusion_pretrain-256-random
 
 module purge
 

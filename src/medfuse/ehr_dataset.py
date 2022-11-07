@@ -126,17 +126,20 @@ def get_data_loader(discretizer, normalizer, dataset_dir, batch_size):
         
 def my_collate(batch):
     x = [item[0] for item in batch]
-    x, seq_length = pad_zeros(x)
     targets = np.array([item[1] for item in batch])
+    if isinstance(x[0], list):
+        x, seq_length = pad_zeros_mask(x)
+    else:
+        x, seq_length = pad_zeros(x)
     return [x, targets, seq_length]
 
-def mask_collate(batch):
-    transform = MultiTransform()
-    x = [item[0] for item in batch]
-    x, seq_length = pad_zeros(x)
-    x = [transform(item[0]) for item in batch]
-    targets = np.array([item[1] for item in batch])
-    return [x, targets, seq_length]
+# def mask_collate(batch):
+#     transform = MultiTransform()
+#     x = [item[0] for item in batch]
+#     x, seq_length = pad_zeros(x)
+#     x = [transform(item[0]) for item in batch]
+#     targets = np.array([item[1] for item in batch])
+#     return [x, targets, seq_length]
 
 def pad_zeros(arr, min_length=None):
 
@@ -150,6 +153,27 @@ def pad_zeros(arr, min_length=None):
         ret = [np.concatenate([x, np.zeros((min_length - x.shape[0],) + x.shape[1:], dtype=dtype)], axis=0)
                for x in ret]
     return np.array(ret), seq_length
+
+def pad_zeros_mask(arr, min_length=None):
+
+    dtype = arr[0].dtype
+    max_len = max(seq_length)
+    ret = []
+    for xs in arr:
+        ret.append([np.concatenate([x, np.zeros((max_len - x.shape[0],) + x.shape[1:], dtype=dtype)], axis=0)
+           for x in xs])  
+    if (min_length is not None) and ret[0].shape[0] < min_length:
+        for xs in arr:
+            ret.append([np.concatenate([x, np.zeros((min_length - x.shape[0],) + x.shape[1:], dtype=dtype)], axis=0)
+            for x in xs]) 
+    res = []
+    for i in range(len(ret[0])):
+        batch = []
+        for j in range(len(ret)):
+            batch.append(res[j][i])
+        res.append(torch.stack(batch))
+    seq_length = [res[0].shape[0] for x in arr]
+    return res, seq_length
 
 
 class MultiTransform(object):

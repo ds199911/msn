@@ -4,7 +4,7 @@
 # This source code is licensed under the license found in the
 # LICENSE file in the root directory of this source tree.
 #
-
+import dill as pickle
 import os
 import subprocess
 import time
@@ -60,26 +60,26 @@ def init_data(
         if subset_file is not None:
             dataset = ImageNetSubset(dataset, subset_file)
         logger.info('ImageNet dataset created')
-    # dist_sampler = torch.utils.data.distributed.DistributedSampler(
-    #     dataset=dataset,
-    #     num_replicas=world_size,
-    #     rank=rank)
-    # data_loader = torch.utils.data.DataLoader(
-    #     dataset,
-    #     sampler=dist_sampler,
-    #     batch_size=batch_size,
-    #     drop_last=drop_last,
-    #     pin_memory=pin_mem,
-        # num_workers=num_workers)
-
-    #use this to turn of distributed data sampler 
+    dist_sampler = torch.utils.data.distributed.DistributedSampler(
+        dataset=dataset,
+        num_replicas=world_size,
+        rank=rank)
     data_loader = torch.utils.data.DataLoader(
         dataset,
+        sampler=dist_sampler,
         batch_size=batch_size,
         drop_last=drop_last,
         pin_memory=pin_mem,
         num_workers=num_workers)
-    dist_sampler=None
+
+    #use this to turn of distributed data sampler 
+    # data_loader = torch.utils.data.DataLoader(
+    #     dataset,
+    #     batch_size=batch_size,
+    #     drop_last=drop_last,
+    #     pin_memory=pin_mem,
+    #     num_workers=num_workers)
+    # dist_sampler=None
 
     logger.info('unsupervised data loader created')
 
@@ -144,34 +144,31 @@ def init_fusion_data(
         
         def my_collate(batch):
             x = [item[0] for item in batch]
-            pairs = [False if item[1] is None else True for item in batch]
+
+            seq_length = [item[0][0].shape[0] for item in batch]
+            if isinstance(x[0], list):
+                x, seq_length = pad_zeros_mask(x)
+            else:
+                x, seq_length = pad_zeros(x)
+
             try:
                 img = torch.stack([torch.zeros(3, 224, 224) if item[1] is None else item[1] for item in batch])
             except:
-                img = [item[1] for item in batch]
-            x, seq_length = pad_zeros(x)
-            assert (x[0][0].shape == x[0][1].shape)
-            assert x[1][0].shape == x[0][0].shape
+                # img = [item[1] for item in batch]
+                img = []
+                for i in range(len(batch[0][1])):
+                    imgs = []
+                    for j in range(len(batch)):
+                        imgs.append(batch[j][1][i])
+                    img.append(torch.stack(imgs))
+
+            # assert (x[0][0].shape == x[0][1].shape)
+            # assert x[1][0].shape == x[0][0].shape
             targets_ehr = np.array([item[2] for item in batch])
             targets_cxr = torch.stack([torch.zeros(14) if item[3] is None else item[3] for item in batch])
-            print(batch[0][0])
+            pairs = [False if item[1] is None else True for item in batch]
+            # print(batch[0][0])
             return [x, img, targets_ehr, targets_cxr, seq_length, pairs]
-        def pad_zeros(arrs, min_length=None):
-            x, seq_length = [], []
-            seq_length = [arr[0].shape[0] for arr in arrs]
-            max_len = max(seq_length)
-            for arr in arrs:
-                dtype = arr[0].dtype
-                # seq_length = [x.shape[0] for x in arr]
-                # max_len = max(seq_length)
-                ret = [np.concatenate([x, np.zeros((max_len - x.shape[0],) + x.shape[1:], dtype=dtype)], axis=0)
-                    for x in arr]
-                if (min_length is not None) and ret[0].shape[0] < min_length:
-                    ret = [np.concatenate([x, np.zeros((min_length - x.shape[0],) + x.shape[1:], dtype=dtype)], axis=0)
-                        for x in ret]
-                x.append(np.array(ret))
-                seq_length.append(seq_length)
-            return x, seq_length
         # dist_sampler = torch.utils.data.distributed.DistributedSampler(
         #     dataset=dataset,
         #     num_replicas=world_size,
@@ -189,13 +186,137 @@ def init_fusion_data(
         batch_size=batch_size,
         drop_last=drop_last,
         pin_memory=pin_mem,
-        num_workers=num_workers,
+        num_workers=0,
         collate_fn=my_collate)
     dist_sampler=None
 
     logger.info('unsupervised data loader created')
 
     return (data_loader, dist_sampler)
+
+
+def init_ehr_data(
+    transform,
+    batch_size,
+    pin_mem=True,
+    num_workers=8,
+    world_size=1,
+    rank=0,
+    root_path=None,
+    image_folder=None,
+    training=True,
+    copy_data=False,
+    drop_last=True,
+    subset_file=None,
+    dataset_name='MIMICCXR',
+    args=None
+):
+    if dataset_name == 'MIMICCXR':
+        logger.info('MIMICCXR ehr fusion dataset')
+
+        args.data_pairs = 'partial_ehr_cxr'
+        args.fusion_type = 'lstm'
+        logger.info(args)
+        def read_timeseries(args):
+            path = f'{args.ehr_data_dir}/{args.task}/train/14991576_episode3_timeseries.csv'
+            ret = []
+            with open(path, "r") as tsfile:
+                header = tsfile.readline().strip().split(',')
+                assert header[0] == "Hours"
+                for line in tsfile:
+                    mas = line.strip().split(',')
+                    ret.append(np.array(mas))
+            return np.stack(ret)
+
+        discretizer = Discretizer(timestep=float(args.timestep),
+                          store_masks=True,
+                          impute_strategy='previous',
+                          start_time='zero')
+        discretizer_header = discretizer.transform(read_timeseries(args))[1].split(',')
+        cont_channels = [i for (i, x) in enumerate(discretizer_header) if x.find("->") == -1]
+
+        normalizer = Normalizer(fields=cont_channels)  # choose here which columns to standardize
+        normalizer_state = args.normalizer_state
+        if normalizer_state is None:
+            normalizer_state = 'normalizers/ph_ts{}.input_str:previous.start_time:zero.normalizer'.format(args.timestep)
+            normalizer_state = os.path.join(os.path.dirname(__file__), normalizer_state)
+        normalizer.load_params(normalizer_state)
+
+        logger.info(args.data_pairs + args.fusion_type)
+
+        ehr_train_ds, ehr_val_ds, cxr_test_ds = get_datasets(discretizer, normalizer, args)
+        logger.info('MIMICCXR dataset created')
+        
+        if training: dataset = ehr_train_ds
+        else: dataset = ehr_val_ds
+      
+        def my_collate(batch):
+            x = [item[0] for item in batch]
+            if isinstance(x[0], list):
+                x, seq_length = pad_zeros_mask(x)
+            else:
+                x, seq_length = pad_zeros(x)
+            targets = np.array([item[1] for item in batch])
+            return [x, targets, seq_length]
+        
+        dist_sampler = torch.utils.data.distributed.DistributedSampler(
+            dataset=dataset,
+            num_replicas=world_size,
+            rank=rank)
+        data_loader = torch.utils.data.DataLoader(
+            dataset,
+            sampler=dist_sampler,
+            batch_size=batch_size,
+            drop_last=drop_last,
+            pin_memory=pin_mem,
+            num_workers=0,
+            collate_fn=my_collate)
+    #use this to turn of distributed data sampler 
+    # data_loader = torch.utils.data.DataLoader(
+    #     dataset,
+    #     batch_size=batch_size,
+    #     drop_last=drop_last,
+    #     pin_memory=pin_mem,
+    #     num_workers=0,
+    #     collate_fn=my_collate)
+    # dist_sampler=None
+
+    logger.info('unsupervised data loader created')
+
+    return (data_loader, dist_sampler)
+
+def pad_zeros(arr, min_length=None):
+
+    dtype = arr[0].dtype
+    seq_length = [x.shape[0] for x in arr]
+    max_len = max(seq_length)
+    ret = [np.concatenate([x, np.zeros((max_len - x.shape[0],) + x.shape[1:], dtype=dtype)], axis=0)
+        for x in arr]
+    if (min_length is not None) and ret[0].shape[0] < min_length:
+        ret = [np.concatenate([x, np.zeros((min_length - x.shape[0],) + x.shape[1:], dtype=dtype)], axis=0)
+            for x in ret]
+    return np.array(ret), seq_length
+
+def pad_zeros_mask(arr, min_length=None):
+
+        dtype = arr[0][0].dtype
+        max_len = max([x[0].shape[0] for x in arr])
+        ret = []
+        for xs in arr:
+            ret.append([torch.cat([torch.tensor(x), torch.zeros((max_len - x.shape[0],) + x.shape[1:])], axis=0)
+            for x in xs])  
+        if (min_length is not None) and ret[0].shape[0] < min_length:
+            for xs in arr:
+                ret.append([torch.cat([torch.tensor(x), np.zeros((min_length - x.shape[0],) + x.shape[1:])], axis=0)
+                for x in xs]) 
+        res = []
+        for i in range(len(ret[0])):
+            batch = []
+            for j in range(len(ret)):
+                batch.append(ret[j][i])
+            res.append(torch.stack(batch))
+        seq_length = [res[0].shape[0] for x in arr]
+        return res, seq_length
 
 def make_transforms(
     rand_size=224,

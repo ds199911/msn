@@ -23,8 +23,10 @@ class Fusion(nn.Module):
     def forward(self, x, seq_lengths=None, img=None, return_before_head=True,patch_drop=0., pairs=None):
         ehr_feature, _ = self.ehr_model(x, seq_lengths)   
         cxr_feature = self.cxr_model(img, return_before_head=True, patch_drop=patch_drop)
-        input = torch.cat([ehr_feature, cxr_feature], dim=1)
-        joint_feature = self.projection(input)
+        print(len(cxr_feature), cxr_feature[0].shape, cxr_feature[1].shape)
+        print(ehr_feature.shape)
+        joint_feature = torch.cat([ehr_feature, cxr_feature], dim=1)
+        joint_feature = self.projection(joint_feature)
         return joint_feature
 
 def fusion_model(

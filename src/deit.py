@@ -217,6 +217,10 @@ class VisionTransformer(nn.Module):
             torch.tensor([inp.shape[-1] for inp in x]),
             return_counts=True,
         )[1], 0)
+        print
+        print('idx_crops', idx_crops)
+        print(x[0].shape)
+        print(len(x))
         start_idx = 0
         for end_idx in idx_crops:
             _h = self.forward_features(torch.cat(x[start_idx:end_idx]), patch_drop)

@@ -322,11 +322,12 @@ def main(args):
 
             def load_imgs():
                 # -- unsupervised imgs
+                print(len(udata))
+                print(udata[0].shape)
                 imgs = [u.to(device, non_blocking=True) for u in udata]
                 return imgs
             imgs, dtime = gpu_timer(load_imgs)
             data_meter.update(dtime)
-
             def train_step():
                 optimizer.zero_grad()
 
@@ -339,7 +340,7 @@ def main(args):
                 h, z = encoder(imgs[1:], return_before_head=True, patch_drop=patch_drop)
                 with torch.no_grad():
                     h, _ = target_encoder(imgs[0], return_before_head=True)
-
+                print(h.shape, z.shape)
                 # Step 1. convert representations to fp32
                 h, z = h.float(), z.float()
 

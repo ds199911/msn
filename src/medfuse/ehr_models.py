@@ -34,8 +34,7 @@ class LSTM(nn.Module):
                 nn.init.xavier_uniform_(model.weight_ih_l0)
                 nn.init.zeros_(model.bias_hh_l0)
                 nn.init.zeros_(model.bias_ih_l0)
-
-    def forward(self, x, seq_lengths):
+    def forward_features(self, x, seq_lengths):
         x = torch.nn.utils.rnn.pack_padded_sequence(x, seq_lengths, batch_first=True, enforce_sorted=False)
         for layer in range(self.layers):
             x, (ht, _) = getattr(self, f'layer{layer}')(x)
@@ -43,10 +42,22 @@ class LSTM(nn.Module):
         if self.do is not None:
             feats = self.do(feats)
         out = self.dense_layer(feats)
-        # scores = torch.sigmoid(out)
-        # return scores, feats
         return out, feats
 
-
-# model = LSTM()
-# print(model)
+    def forward(self, x, seq_lengths):
+        if not isinstance(x, list):
+            return self.forward_features(x, seq_lengths)
+        else:
+            idx_crops = torch.cumsum(torch.unique_consecutive(
+                torch.tensor([inp.shape[-1] for inp in x]),
+                return_counts=True,
+            )[1], 0)
+            start_idx = 0
+            for end_idx in idx_crops:
+                _z = self.forward_features(torch.cat(x[start_idx:end_idx]))
+                if start_idx == 0:
+                    z = _z
+                else:
+                    h = torch.cat((h, _h))
+                start_idx = end_idx
+            return z

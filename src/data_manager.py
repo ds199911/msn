@@ -99,7 +99,8 @@ def init_fusion_data(
     drop_last=True,
     subset_file=None,
     dataset_name='MIMICCXR',
-    args=None
+    args=None,
+    rand_views=2
 ):
     if dataset_name == 'MIMICCXR':
         logger.info('MIMICCXR cxr_ehr fusion dataset')
@@ -143,23 +144,28 @@ def init_fusion_data(
         else: dataset = val_ds
         
         def my_collate(batch):
+            img = []
+            for i in range(len(batch[0][0])):
+                imgs = []
+                for j in range(len(batch)):
+                    try:
+                        imgs.append(batch[j][1][i])
+                    except:
+                        # print(batch[j][1])
+                        if i < rand_views:
+                            #rand_size: 224
+                            imgs.append(torch.zeros(3, 224, 224))
+                        else:
+                            # focal_size: 96
+                            imgs.append(torch.zeros(3, 96, 96))
+                img.append(torch.stack(imgs))
+
             x = [item[0] for item in batch]
             if isinstance(x[0], list):
                 x, _ = pad_zeros_mask(x)
                 seq_length = [item[0][0].shape[0] for item in batch]
             else:
                 x, seq_length = pad_zeros(x)
-
-            try:
-                img = torch.stack([torch.zeros(3, 224, 224) if item[1] is None else item[1] for item in batch])
-            except:
-                # img = [item[1] for item in batch]
-                img = []
-                for i in range(len(batch[0][1])):
-                    imgs = []
-                    for j in range(len(batch)):
-                        imgs.append(batch[j][1][i])
-                    img.append(torch.stack(imgs))
 
             # assert (x[0][0].shape == x[0][1].shape)
             # assert x[1][0].shape == x[0][0].shape

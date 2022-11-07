@@ -53,13 +53,8 @@ class LSTM(nn.Module):
             return_counts=True,
         )[1], 0)
         
-        # print('ehr')
-        # print('idx_crops', idx_crops)
-
         start_idx = 0
         for end_idx in idx_crops:
-            # print('ehr input', torch.cat(x[start_idx:end_idx]).shape)
-            # print(len(seq_lengths * (end_idx - start_idx)))
             _z, _ = self.forward_features(torch.cat(x[start_idx:end_idx]), seq_lengths * (end_idx - start_idx))
             if start_idx == 0:
                 z = _z

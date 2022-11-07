@@ -217,7 +217,8 @@ def main(args, medfuse_params=None):
          image_folder=image_folder,
          training=True,
          copy_data=copy_data,
-         args=medfuse_params)
+         args=medfuse_params,
+         rand_views=rand_views+1)
     ipe = len(unsupervised_loader)
     logger.info(f'iterations per epoch: {ipe}')
 

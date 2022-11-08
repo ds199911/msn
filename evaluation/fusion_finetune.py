@@ -1,19 +1,15 @@
 import argparse
-from functools import total_ordering
 import logging
 import pprint
 import yaml
 import sys
 import os
+sys.path.append('..')
 
 import numpy as np
 
 import torch
 import torchvision.transforms as transforms
-
-import sys 
-sys.path.append('..')
-
 from src.medfuse.utils import computeAUROC
 import src.deit as deit
 from src.utils import (
@@ -21,15 +17,19 @@ from src.utils import (
     init_distributed,
     WarmupCosineSchedule
 )
-from src.data_manager import init_data
-# from src.sgd import SGD
-import warnings
-warnings.filterwarnings("ignore")
+from src.sgd import SGD
+
+from src.data_manager import (
+    init_fusion_data,
+    make_transforms
+)
+from src.medfuse.fusion_models import fusion_model
+from src.medfuse.arguments import args_parser
+
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 logger = logging.getLogger()
 
-
-parser = argparse.ArgumentParser()
+parser = args_parser()
 parser.add_argument(
     '--fname', type=str,
     help='yaml file containing config file names to launch',
@@ -45,11 +45,8 @@ def main():
         pp = pprint.PrettyPrinter(indent=4)
         pp.pprint(params)
 
-    # dump = params['logging']['folder'] +  f'params-train.yaml'
-    # with open(dump, 'w') as f:
-    #     yaml.dump(params, f)
     logger.info('Running linear-evaluation')
-    return linear_eval(params)
+    return linear_eval(params, args)
 
 def load_pretrained(
     r_path,
@@ -88,9 +85,12 @@ def init_model(
     weight_decay=0
 ):
     # -- init model
-    encoder = deit.__dict__[model_name]()
-    emb_dim = 192 if 'tiny' in model_name else 384 if 'small' in model_name else 768 if 'base' in model_name else 1024 if 'large' in model_name else 1280
+    encoder = fusion_model(device)
+    # encoder = deit.__dict__[model_name]()
+    # emb_dim = 192 if 'tiny' in model_name else 384 if 'small' in model_name else 768 if 'base' in model_name else 1024 if 'large' in model_name else 1280
+    emb_dim = 512
     emb_dim *= num_blocks
+    ln = torch.nn.LayerNorm(emb_dim)
     encoder.fc = torch.nn.Linear(emb_dim, num_classes)
     encoder.norm = None
 
@@ -100,29 +100,16 @@ def init_model(
         encoder=encoder,
         device_str=device_str)
 
+
     # -- init optimizer
     optimizer, scheduler = None, None
     param_groups = encoder.parameters()
-    # optimizer = SGD(
-    #     param_groups,
-    #     nesterov=True,
-    #     weight_decay=weight_decay,
-    #     momentum=0.9,
-    #     lr=ref_lr)
     optimizer = torch.optim.AdamW(param_groups, lr=1e-6)
-    # scheduler = WarmupCosineSchedule(
-    #     optimizer,
-    #     warmup_steps=warmup_epochs*iterations_per_epoch,
-    #     start_lr=ref_lr,
-    #     ref_lr=ref_lr,
-    #     T_max=num_epochs*iterations_per_epoch)
-    # if world_size > 1:
-    #     linear_classifier = DistributedDataParallel(linear_classifier)
-
+    
     return encoder, optimizer, scheduler
 
 
-def linear_eval(args):
+def linear_eval(args, medfuse_args):
     model_name = args['meta']['model_name']
     port = args['meta']['master_port']
     load_checkpoint = args['meta']['load_checkpoint']
@@ -154,14 +141,12 @@ def linear_eval(args):
     w_enc_path = r_file_enc #os.path.join(folder, f'{tag}-lin-eval.pth.tar')
     r_enc_path = r_file_enc
 
-    scaler = torch.cuda.amp.GradScaler(enabled=True)
     batch_size = 64
     load_checkpoint = True
     num_epochs = 1
 
     # -- init loss
     criterion = torch.nn.BCEWithLogitsLoss() #multi-label loss
-    # criterion = torch.nn.CrossEntropyLoss()
 
     # -- make train data transforms and data loaders/samples
     transform = transforms.Compose([
@@ -171,15 +156,13 @@ def linear_eval(args):
         transforms.Normalize(
             (0.485, 0.456, 0.406),
             (0.229, 0.224, 0.225))])
-    data_loader, dist_sampler = init_data(
+    data_loader, dist_sampler = init_fusion_data(
         transform=transform,
         batch_size=batch_size,
-        world_size=None,
-        rank=None,
-        root_path=root_path,
-        image_folder=image_folder,
         training=training,
-        copy_data=copy_data)
+        copy_data=copy_data,
+        dataset_name='MIMICCXR',
+        args=medfuse_args)
 
     ipe = len(data_loader)
     logger.info(f'initialized data-loader (ipe {ipe})')
@@ -192,16 +175,16 @@ def linear_eval(args):
         transforms.Normalize(
             (0.485, 0.456, 0.406),
             (0.229, 0.224, 0.225))])
-    val_data_loader, val_dist_sampler = init_data(
+    val_data_loader, val_dist_sampler = init_fusion_data(
         transform=val_transform,
         batch_size=batch_size,
-        world_size=None,
-        rank=None,
         root_path=root_path,
         image_folder=image_folder,
         training=False,
         drop_last=False,
-        copy_data=copy_data)
+        copy_data=copy_data,
+        dataset_name='MIMICCXR',
+        args=medfuse_args)
     logger.info(f'initialized val data-loader (ipe {len(val_data_loader)})')
 
      # -- init model and optimizer
@@ -222,7 +205,6 @@ def linear_eval(args):
     logger.info(encoder)
 
     start_epoch = 0
-  
     logger.info('putting model in training mode')
     encoder.train()
     logger.info(sum(p.numel() for n, p in encoder.named_parameters()
@@ -237,10 +219,12 @@ def linear_eval(args):
         encoder.train()
         outGT = torch.FloatTensor().to(device)
         outPRED = torch.FloatTensor().to(device)
+        top1_correct, top5_correct, total = 0, 0, 0
         total_loss = 0
         for i, data in enumerate(data_loader):
-            inputs, labels = data[0].to(device), data[1].to(device)
-            outputs = encoder(inputs)
+            with torch.cuda.amp.autocast(enabled=True):
+                x, img, labels, seq_length = data[0].to(device).float(), data[1].to(device), torch.tensor(data[2]).to(device).float(), data[4]
+                outputs = encoder(x, seq_length, img, return_before_head=True)
             loss = criterion(outputs, labels) 
 
             outPRED = torch.cat((outPRED, outputs), 0)
@@ -249,7 +233,6 @@ def linear_eval(args):
             if training:
                 loss.backward()
                 optimizer.step()
-                # scheduler.step()
                 optimizer.zero_grad()
         logger.info("train loss: {}".format(total_loss/(len(data_loader))))
         if compute_metrics:
@@ -258,19 +241,18 @@ def linear_eval(args):
         return None
 
     def val_step():
+        total_loss = 0
         encoder.eval()
         outGT = torch.FloatTensor().to(device)
         outPRED = torch.FloatTensor().to(device)
-        total_loss = 0
         top1_correct, total = 0, 0
         for i, data in enumerate(val_data_loader):
-            with torch.no_grad():
-                inputs, labels = data[0].to(device), data[1].to(device)
-                outputs = encoder(inputs)
+                x, img, labels, seq_length = data[0].to(device).float(), data[1].to(device), torch.tensor(data[2]).to(device).float(), data[4]
+                outputs = encoder(x, seq_length, img, return_before_head=True)
                 loss = criterion(outputs, labels) 
-            outPRED = torch.cat((outPRED, outputs), 0)
-            outGT = torch.cat((outGT, labels), 0)
-            total_loss += loss.item()
+                outPRED = torch.cat((outPRED, outputs), 0)
+                outGT = torch.cat((outGT, labels), 0)
+                total_loss += loss.item()
         logger.info("val loss: {}".format(total_loss/(len(data_loader))))
         metrics = computeAUROC(outGT.data.cpu().numpy(), outPRED.data.cpu().numpy())
         return metrics
@@ -292,6 +274,7 @@ def linear_eval(args):
         logger.info(val_top1['auroc_mean'])
         logger.info('val auprc_mean: ')
         logger.info(val_top1['auprc_mean'])
+
     return train_top1, val_top1
             
 if __name__ == '__main__':

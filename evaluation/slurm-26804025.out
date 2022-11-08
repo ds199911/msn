@@ -1,7 +1,7 @@
 INFO:root:loaded params...
 {   'data': {'image_folder': '/imagenet/', 'num_classes': 25, 'root_path': '.'},
     'logging': {   'folder': 'checkpoint/msn_logs/',
-                   'pretrain_path': '/scratch/projects/shamoutlab/ds5749/multi-modal-msn/checkpoint/msn_fusion_logs/msn-experiment-fusion-128-latest.pth.tar',
+                   'pretrain_path': '/scratch/projects/shamoutlab/ds5749/multi-modal-msn/checkpoint/msn_fusion_logs/msn-experiment-fusion-256-latest.pth.tar',
                    'write_tag': 'msn-lineval-experiment-linear-eval-fusion-128'},
     'meta': {   'copy_data': False,
                 'device': 'cuda:0',
@@ -30,7 +30,7 @@ INFO:root:initialized val data-loader (ipe 7)
 INFO:root:key "fc.weight" could not be found in loaded state dict
 INFO:root:key "fc.bias" could not be found in loaded state dict
 INFO:root:loaded pretrained model with msg: _IncompatibleKeys(missing_keys=['fc.weight', 'fc.bias'], unexpected_keys=['fc.fc1.weight', 'fc.fc1.bias', 'fc.bn1.weight', 'fc.bn1.bias', 'fc.bn1.running_mean', 'fc.bn1.running_var', 'fc.bn1.num_batches_tracked', 'fc.fc2.weight', 'fc.fc2.bias', 'fc.bn2.weight', 'fc.bn2.bias', 'fc.bn2.running_mean', 'fc.bn2.running_var', 'fc.bn2.num_batches_tracked', 'fc.fc3.weight', 'fc.fc3.bias'])
-INFO:root:loaded pretrained encoder from epoch: 36 path: /scratch/projects/shamoutlab/ds5749/multi-modal-msn/checkpoint/msn_fusion_logs/msn-experiment-fusion-128-latest.pth.tar
+INFO:root:loaded pretrained encoder from epoch: 61 path: /scratch/projects/shamoutlab/ds5749/multi-modal-msn/checkpoint/msn_fusion_logs/msn-experiment-fusion-256-latest.pth.tar
 INFO:root:Fusion(
   (ehr_model): LSTM(
     (layer0): LSTM(76, 128, batch_first=True)
@@ -588,13 +588,3 @@ INFO:root:epoch: 329
 INFO:root:epoch: 330
 INFO:root:epoch: 331
 INFO:root:epoch: 332
-INFO:root:train metrics
-INFO:root:train auroc_mean:
-INFO:root:0.5219629297601336
-INFO:root:train auprc_mean:
-INFO:root:0.19774043857467485
-INFO:root:val metrics
-INFO:root:val auroc_mean: 
-INFO:root:0.5174988659441148
-INFO:root:val auprc_mean: 
-INFO:root:0.2425818420288861

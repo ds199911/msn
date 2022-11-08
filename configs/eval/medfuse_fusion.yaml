@@ -20,4 +20,6 @@ logging:
   folder: checkpoint/msn_logs/
   write_tag: msn-lineval-experiment-linear-eval-fusion-128
   pretrain_path: /scratch/projects/shamoutlab/ds5749/multi-modal-msn/checkpoint/msn_fusion_logs/msn-experiment-fusion-128-latest.pth.tar
+
   # /scratch/projects/shamoutlab/ds5749/multi-modal-msn/checkpoint/msn_fusion_logs/msn-experiment-fusion-256-latest.pth.tar
+  # /scratch/projects/shamoutlab/ds5749/multi-modal-msn/checkpoint/msn_fusion_logs/msn-experiment-fusion-128-latest.pth.tar

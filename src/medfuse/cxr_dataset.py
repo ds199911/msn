@@ -81,7 +81,7 @@ def get_cxr_datasets(transform):
     #     color_jitter=0.5)
 
     dataset_train = MIMICCXR(split='train', transform=transform)
-    dataset_validate = MIMICCXR(split='validate')
+    dataset_validate = MIMICCXR(split='validate', transform=transform)
     dataset_test = MIMICCXR(split='test')
 
     return dataset_train, dataset_validate, dataset_test

@@ -19,6 +19,7 @@ class Fusion(nn.Module):
         self.joint_dim = 512
         self.projection = nn.Linear(self.ehr_dim+self.cxr_dim, self.joint_dim)
         self.fc = None
+        self.norm = None
 
     def forward(self, x, seq_lengths=None, img=None, return_before_head=True,patch_drop=0., pairs=None):
         ehr_feature = self.ehr_model(x, seq_lengths)   

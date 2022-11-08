@@ -135,7 +135,7 @@ def init_fusion_data(
 
         logger.info(args.data_pairs + args.fusion_type)
 
-        ehr_train_ds, ehr_val_ds, cxr_test_ds = get_datasets(discretizer, normalizer, args)
+        ehr_train_ds, ehr_val_ds, cxr_test_ds = get_datasets(discretizer, normalizer, args, False)
         cxr_train_ds, cxr_val_ds, ehr_test_ds = get_cxr_datasets(transform)
         train_ds, val_ds, _ = load_cxr_ehr(args, ehr_train_ds, ehr_val_ds, cxr_train_ds, cxr_val_ds, ehr_test_ds, cxr_test_ds)
         logger.info('MIMICCXR dataset created')
@@ -144,21 +144,21 @@ def init_fusion_data(
         else: dataset = val_ds
         
         def my_collate(batch):
-            img = []
-            for i in range(len(batch[0][0])):
-                imgs = []
-                for j in range(len(batch)):
-                    try:
-                        imgs.append(batch[j][1][i])
-                    except:
-                        # print(batch[j][1])
-                        if i < rand_views:
-                            #rand_size: 224
-                            imgs.append(torch.zeros(3, 224, 224))
-                        else:
-                            # focal_size: 96
-                            imgs.append(torch.zeros(3, 96, 96))
-                img.append(torch.stack(imgs))
+            if isinstance(batch[0][1], list):
+                img = []
+                for i in range(len(batch[0][0])):
+                    imgs = []
+                    for j in range(len(batch)):
+                        try:
+                            imgs.append(batch[j][1][i])
+                        except:
+                            if i < rand_views: 
+                                imgs.append(torch.zeros(3, 224, 224)) #rand_size: 224
+                            else:
+                                imgs.append(torch.zeros(3, 96, 96)) # focal_size: 96
+                    img.append(torch.stack(imgs))
+            else:
+                img = torch.stack([torch.zeros(3, 224, 224) if item[1] is None else item[1] for item in batch])
 
             x = [item[0] for item in batch]
             if isinstance(x[0], list):
@@ -166,13 +166,9 @@ def init_fusion_data(
                 seq_length = [item[0][0].shape[0] for item in batch]
             else:
                 x, seq_length = pad_zeros(x)
-
-            # assert (x[0][0].shape == x[0][1].shape)
-            # assert x[1][0].shape == x[0][0].shape
             targets_ehr = np.array([item[2] for item in batch])
             targets_cxr = torch.stack([torch.zeros(14) if item[3] is None else item[3] for item in batch])
             pairs = [False if item[1] is None else True for item in batch]
-            # print(batch[0][0])
             return [x, img, targets_ehr, targets_cxr, seq_length, pairs]
         # dist_sampler = torch.utils.data.distributed.DistributedSampler(
         #     dataset=dataset,
@@ -292,19 +288,17 @@ def init_ehr_data(
 
 def pad_zeros(arr, min_length=None):
 
-    dtype = arr[0].dtype
     seq_length = [x.shape[0] for x in arr]
     max_len = max(seq_length)
-    ret = [np.concatenate([x, np.zeros((max_len - x.shape[0],) + x.shape[1:], dtype=dtype)], axis=0)
+    ret = [torch.cat([torch.tensor(x), torch.zeros((max_len - x.shape[0],) + x.shape[1:])], axis=0)
         for x in arr]
     if (min_length is not None) and ret[0].shape[0] < min_length:
-        ret = [np.concatenate([x, np.zeros((min_length - x.shape[0],) + x.shape[1:], dtype=dtype)], axis=0)
+        ret = [torch.cat([x, np.zeros((min_length - x.shape[0],) + x.shape[1:])], axis=0)
             for x in ret]
-    return np.array(ret), seq_length
+    return torch.stack(ret), seq_length
 
 def pad_zeros_mask(arr, min_length=None):
 
-        dtype = arr[0][0].dtype
         max_len = max([x[0].shape[0] for x in arr])
         ret = []
         for xs in arr:

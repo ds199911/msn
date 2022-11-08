@@ -57,7 +57,7 @@ def args_parser():
     parser.add_argument('--beta_1', type=float, default=0.9,
                         help='beta_1 param for Adam optimizer')
     parser.add_argument('--normalizer_state', type=str, 
-                        default='/scratch/projects/shamoutlab/ds5749/msn/src/medfuse/normalizers/ph_ts1.0.input_str:previous.start_time:zero.normalizer',
+                        default='/scratch/projects/shamoutlab/ds5749/multi-modal-msn/src/medfuse/normalizers/ph_ts1.0.input_str:previous.start_time:zero.normalizer',
                         help='Path to a state file of a normalizer. Leave none if you want to '
                                 'use one of the provided ones.')
 

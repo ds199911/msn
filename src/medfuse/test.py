@@ -22,7 +22,7 @@ from arguments import args_parser
 parser = args_parser()
 # add more arguments here ...
 args = parser.parse_args()
-print(args)
+# print(args)
 
 # if args.missing_token is not None:
 #     from trainers.fusion_tokens_trainer import FusionTokensTrainer as FusionTrainer
@@ -50,10 +50,11 @@ discretizer = Discretizer(timestep=float(args.timestep),
                           impute_strategy='previous',
                           start_time='zero')
 
-
 discretizer_header = discretizer.transform(read_timeseries(args))[1].split(',')
+# print('discretizer_header',discretizer_header)
+# print([(i, x) for (i, x) in enumerate(discretizer_header)])
 cont_channels = [i for (i, x) in enumerate(discretizer_header) if x.find("->") == -1]
-
+# print(cont_channels)
 normalizer = Normalizer(fields=cont_channels)  # choose here which columns to standardize
 normalizer_state = args.normalizer_state
 if normalizer_state is None:
@@ -84,7 +85,7 @@ for itr, batch in enumerate(train_dl):
     # x, targets, seq_length
     # print(batch)
     # print(len(batch))
-    print(a)
+    # print(a)
     print(a.shape)
     # print(b.shape)
     # print(len(c))

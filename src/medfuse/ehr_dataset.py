@@ -25,7 +25,6 @@ class EHRdataset(Dataset):
         self._data = self._data[1:]
 
 
-
         self._data = [line.split(',') for line in self._data]
         self.data_map = {
             mas[0]: {
@@ -47,6 +46,7 @@ class EHRdataset(Dataset):
     def _read_timeseries(self, ts_filename, time_bound=None):
         
         ret = []
+        print(ts_filename)
         with open(os.path.join(self._dataset_dir, ts_filename), "r") as tsfile:
             header = tsfile.readline().strip().split(',')
             assert header[0] == "Hours"
@@ -91,19 +91,24 @@ class EHRdataset(Dataset):
     def __getitem__(self, index, time_bound=None):
         if isinstance(index, int):
             index = self.names[index]
+            print(index)
         ret = self.read_by_file_name(index, time_bound)
         data = ret["X"]
+        if self.transforms is not None:
+            data = self.transforms(data)
+            for i in range(data):
+                data[i] = self.discretizer.transform(data[i], end=ts)[0] 
+                if (self.normalizer is not None):
+                    data[i] = self.normalizer.transform(data[i])
+        else:
+            data = self.discretizer.transform(data, end=ts)[0] 
+            if (self.normalizer is not None):
+                data = self.normalizer.transform(data)
         ts = ret["t"] if ret['t'] > 0.0 else self._period_length
         ys = ret["y"]
         names = ret["name"]
-        data = self.discretizer.transform(data, end=ts)[0] 
-        if (self.normalizer is not None):
-            data = self.normalizer.transform(data)
-        if self.transforms is not None:
-            data = self.transforms(data)
         ys = np.array(ys, dtype=np.int32) if len(ys) > 1 else np.array(ys, dtype=np.int32)[0]
         return data, ys
-
     
     def __len__(self):
         return len(self.names)
@@ -128,14 +133,21 @@ def get_data_loader(discretizer, normalizer, dataset_dir, batch_size):
 
     return train_dl, val_dl, test_dl
         
+
 def my_collate(batch):
     x = [item[0] for item in batch]
+    x, seq_length = pad_zeros(x)
     targets = np.array([item[1] for item in batch])
-    if isinstance(x[0], list):
-        x, seq_length = pad_zeros_mask(x)
-    else:
-        x, seq_length = pad_zeros(x)
     return [x, targets, seq_length]
+
+# def my_collate(batch):
+#     x = [item[0] for item in batch]
+#     targets = np.array([item[1] for item in batch])
+#     # if isinstance(x[0], list):
+#     #     x, seq_length = pad_zeros_mask(x)
+#     # else:
+#     x, seq_length = pad_zeros(x)
+#     return [x, targets, seq_length]
 
 # def mask_collate(batch):
 #     transform = MultiTransform()
@@ -146,11 +158,9 @@ def my_collate(batch):
 #     return [x, targets, seq_length]
 
 def pad_zeros(arr, min_length=None):
-
     dtype = arr[0].dtype
     seq_length = [x.shape[0] for x in arr]
     max_len = max(seq_length)
-    # print('max', max_len)
     ret = [np.concatenate([x, np.zeros((max_len - x.shape[0],) + x.shape[1:], dtype=dtype)], axis=0)
            for x in arr]
     if (min_length is not None) and ret[0].shape[0] < min_length:
@@ -188,7 +198,7 @@ class MultiTransform(object):
     ):
         self.views = views
     def vertical_mask(self, data, ratio):
-        # mask over each timesetp (t, features)
+        # mask over each timestep (t, features)
         length = data.shape[0]
         a = np.zeros(length, dtype=int)
         a[:int(length*ratio)] = 1

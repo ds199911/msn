@@ -588,3 +588,13 @@ INFO:root:epoch: 329
 INFO:root:epoch: 330
 INFO:root:epoch: 331
 INFO:root:epoch: 332
+INFO:root:train metrics
+INFO:root:train auroc_mean:
+INFO:root:0.5171416553852967
+INFO:root:train auprc_mean:
+INFO:root:0.19565296026511486
+INFO:root:val metrics
+INFO:root:val auroc_mean: 
+INFO:root:0.5028653203833374
+INFO:root:val auprc_mean: 
+INFO:root:0.22850441177556619

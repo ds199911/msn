@@ -86,7 +86,10 @@ for itr, batch in enumerate(train_dl):
     # print(batch)
     # print(len(batch))
     # print(a)
-    print(a.shape)
+    print(len(a))
+    print(a[0].shape)
+    print(b)
+    print(c)
     # print(b.shape)
     # print(len(c))
     break

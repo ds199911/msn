@@ -19,7 +19,7 @@ class Discretizer:
             self._is_categorical_channel = config['is_categorical_channel']
             self._possible_values = config['possible_values']
             self._normal_values = config['normal_values']
-
+            self._id_normal_values = {self._channel_to_id[name]:value for (name,value) in self._normal_values.items()}
         self._header = ["Hours"] + self._id_to_channel
         self._timestep = timestep
         self._store_masks = store_masks
@@ -36,7 +36,6 @@ class Discretizer:
             header = self._header
         assert header[0] == "Hours"
         eps = 1e-6
-
         N_channels = len(self._id_to_channel)
         ts = [float(row[0]) for row in X]
         for i in range(len(ts) - 1):
@@ -77,6 +76,8 @@ class Discretizer:
         def write(data, bin_id, channel, value, begin_pos):
             channel_id = self._channel_to_id[channel]
             if self._is_categorical_channel[channel]:
+                # print(self._possible_values[channel])
+                # print(value)
                 category_id = self._possible_values[channel].index(value)
                 N_values = len(self._possible_values[channel])
                 one_hot = np.zeros((N_values,))

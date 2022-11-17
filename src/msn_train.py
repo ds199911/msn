@@ -42,11 +42,12 @@ from src.utils import (
 from src.losses import init_msn_loss
 from src.data_manager import (
     init_data,
+    init_ehr_data,
     make_transforms
 )
 
 from torch.nn.parallel import DistributedDataParallel
-
+from src.medfuse.ehr_models import LSTM
 # --
 log_timings = True
 log_freq = 10
@@ -63,7 +64,7 @@ logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 logger = logging.getLogger()
 
 
-def main(args):
+def main, medfuse_params=None):
 
     # ----------------------------------------------------------------------- #
     #  PASSED IN PARAMS FROM CONFIG FILE
@@ -102,6 +103,7 @@ def main(args):
     _final_T = args['criterion']['final_sharpen']
 
     # -- DATA
+    modality = args['data']['modality']
     label_smoothing = args['data']['label_smoothing']
     pin_mem = False if 'pin_mem' not in args['data'] else args['data']['pin_mem']
     num_workers = 1 if 'num_workers' not in args['data'] else args['data']['num_workers']
@@ -165,6 +167,7 @@ def main(args):
     # -- init model
     encoder = init_model(
         device=device,
+        modality=modality,
         model_name=model_name,
         two_layer=two_layer,
         use_pred=use_pred_head,
@@ -200,18 +203,29 @@ def main(args):
         color_jitter=color_jitter)
 
     # -- init data-loaders/samplers
-    (unsupervised_loader,
-     unsupervised_sampler) = init_data(
-         transform=transform,
-         batch_size=batch_size,
-         pin_mem=pin_mem,
-         num_workers=num_workers,
-         world_size=world_size,
-         rank=rank,
-         root_path=root_path,
-         image_folder=image_folder,
-         training=True,
-         copy_data=copy_data)
+    if modality == 'img':
+        (unsupervised_loader,
+        unsupervised_sampler) = init_data(
+            transform=transform,
+            batch_size=batch_size,
+            pin_mem=pin_mem,
+            num_workers=num_workers,
+            world_size=world_size,
+            rank=rank,
+            root_path=root_path,
+            image_folder=image_folder,
+            training=True,
+            copy_data=copy_data)
+    elif modality == 'ehr':
+        (unsupervised_loader,
+        unsupervised_sampler) = init_ehr_data(
+            batch_size=batch_size,
+            pin_mem=pin_mem,
+            num_workers=num_workers,
+            world_size=world_size,
+            rank=rank,
+            training=True,
+            args=medfuse_params)
     ipe = len(unsupervised_loader)
     logger.info(f'iterations per epoch: {ipe}')
 
@@ -318,15 +332,21 @@ def main(args):
         time_meter = AverageMeter()
         data_meter = AverageMeter()
 
-        for itr, (udata, _) in enumerate(unsupervised_loader):
+        for itr, data in enumerate(unsupervised_loader):
 
             def load_imgs():
                 # -- unsupervised imgs
-                print(len(udata))
-                print(udata[0].shape)
-                imgs = [u.to(device, non_blocking=True) for u in udata]
+                imgs = [u.to(device, non_blocking=True) for u in data[0]]
                 return imgs
-            imgs, dtime = gpu_timer(load_imgs)
+            def load_ehr():
+                # -- unsupervised ehrs
+                ehr = [u.to(device, non_blocking=True).float() for u in data[0]]
+                return ehr
+            if modality == 'img':
+                imgs, dtime = gpu_timer(load_imgs)
+            elif modality == 'ehr':
+                ehr, dtime = gpu_timer(load_ehr)
+                seq_length = data[2]
             data_meter.update(dtime)
             def train_step():
                 optimizer.zero_grad()
@@ -337,9 +357,15 @@ def main(args):
                 # -- If use_pred_head=False, then encoder.pred (prediction
                 #    head) is None, and _forward_head just returns the
                 #    identity, z=h
-                h, z = encoder(imgs[1:], return_before_head=True, patch_drop=patch_drop)
+                if modality == 'img':
+                    h, z = encoder(imgs[1:], return_before_head=True, patch_drop=patch_drop)
+                elif modality == 'ehr':
+                    h, z = encoder(ehr[1:], seq_length, return_before_head=True, patch_drop=patch_drop)
                 with torch.no_grad():
-                    h, _ = target_encoder(imgs[0], return_before_head=True)
+                    if modality == 'img':
+                        h, _ = target_encoder(imgs[0], return_before_head=True)
+                    elif modality == 'ehr':
+                        h, _ = target_encoder(ehr[0], seq_length, return_before_head=True)
                 print(h.shape, z.shape)
                 # Step 1. convert representations to fp32
                 h, z = h.float(), z.float()
@@ -508,6 +534,7 @@ def load_checkpoint(
 
 def init_model(
     device,
+    modality='img',
     model_name='resnet50',
     use_pred=False,
     use_bn=False,
@@ -517,8 +544,12 @@ def init_model(
     output_dim=128,
     drop_path_rate=0.1,
 ):
-    encoder = deit.__dict__[model_name](drop_path_rate=drop_path_rate)
-    emb_dim = 192 if 'tiny' in model_name else 384 if 'small' in model_name else 768 if 'base' in model_name else 1024 if 'large' in model_name else 1280
+    if modality == 'ehr':
+        encoder = LSTM()
+        emb_dim = 128
+    else:
+        encoder = deit.__dict__[model_name](drop_path_rate=drop_path_rate)
+        emb_dim = 192 if 'tiny' in model_name else 384 if 'small' in model_name else 768 if 'base' in model_name else 1024 if 'large' in model_name else 1280
 
     # -- projection head
     encoder.fc = None
@@ -546,7 +577,6 @@ def init_model(
     encoder.to(device)
     logger.info(encoder)
     return encoder
-
 
 def init_opt(
     encoder,

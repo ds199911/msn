@@ -135,7 +135,7 @@ def init_fusion_data(
 
         logger.info(args.data_pairs + args.fusion_type)
 
-        ehr_train_ds, ehr_val_ds, cxr_test_ds = get_datasets(discretizer, normalizer, args, False)
+        ehr_train_ds, ehr_val_ds, cxr_test_ds = get_datasets(discretizer, normalizer, args, augmentation=True)
         cxr_train_ds, cxr_val_ds, ehr_test_ds = get_cxr_datasets(transform)
         train_ds, val_ds, _ = load_cxr_ehr(args, ehr_train_ds, ehr_val_ds, cxr_train_ds, cxr_val_ds, ehr_test_ds, cxr_test_ds)
         logger.info('MIMICCXR dataset created')
@@ -197,18 +197,13 @@ def init_fusion_data(
 
 
 def init_ehr_data(
-    transform,
     batch_size,
     pin_mem=True,
     num_workers=8,
     world_size=1,
     rank=0,
-    root_path=None,
-    image_folder=None,
     training=True,
-    copy_data=False,
     drop_last=True,
-    subset_file=None,
     dataset_name='MIMICCXR',
     args=None
 ):
@@ -245,7 +240,7 @@ def init_ehr_data(
 
         logger.info(args.data_pairs + args.fusion_type)
 
-        ehr_train_ds, ehr_val_ds, cxr_test_ds = get_datasets(discretizer, normalizer, args)
+        ehr_train_ds, ehr_val_ds, cxr_test_ds = get_datasets(discretizer, normalizer, args, argumentation=True)
         logger.info('MIMICCXR dataset created')
         
         if training: dataset = ehr_train_ds
@@ -253,11 +248,11 @@ def init_ehr_data(
       
         def my_collate(batch):
             x = [item[0] for item in batch]
+            targets = np.array([item[1] for item in batch])
             if isinstance(x[0], list):
                 x, seq_length = pad_zeros_mask(x)
             else:
                 x, seq_length = pad_zeros(x)
-            targets = np.array([item[1] for item in batch])
             return [x, targets, seq_length]
         
         dist_sampler = torch.utils.data.distributed.DistributedSampler(
@@ -287,7 +282,6 @@ def init_ehr_data(
     return (data_loader, dist_sampler)
 
 def pad_zeros(arr, min_length=None):
-
     seq_length = [x.shape[0] for x in arr]
     max_len = max(seq_length)
     ret = [torch.cat([torch.tensor(x), torch.zeros((max_len - x.shape[0],) + x.shape[1:])], axis=0)
@@ -298,24 +292,23 @@ def pad_zeros(arr, min_length=None):
     return torch.stack(ret), seq_length
 
 def pad_zeros_mask(arr, min_length=None):
-
-        max_len = max([x[0].shape[0] for x in arr])
-        ret = []
+    max_len = max([x[0].shape[0] for x in arr])
+    seq_length = [x[0].shape[0] for x in arr]
+    ret = []
+    for xs in arr:
+        ret.append([torch.cat([torch.tensor(x), torch.zeros((max_len - x.shape[0],) + x.shape[1:])], axis=0)
+        for x in xs])  
+    if (min_length is not None) and ret[0].shape[0] < min_length:
         for xs in arr:
-            ret.append([torch.cat([torch.tensor(x), torch.zeros((max_len - x.shape[0],) + x.shape[1:])], axis=0)
-            for x in xs])  
-        if (min_length is not None) and ret[0].shape[0] < min_length:
-            for xs in arr:
-                ret.append([torch.cat([torch.tensor(x), np.zeros((min_length - x.shape[0],) + x.shape[1:])], axis=0)
-                for x in xs]) 
-        res = []
-        for i in range(len(ret[0])):
-            batch = []
-            for j in range(len(ret)):
-                batch.append(ret[j][i])
-            res.append(torch.stack(batch))
-        seq_length = [res[0].shape[0] for x in arr]
-        return res, seq_length
+            ret.append([torch.cat([torch.tensor(x), np.zeros((min_length - x.shape[0],) + x.shape[1:])], axis=0)
+            for x in xs]) 
+    res = []
+    for i in range(len(ret[0])):
+        batch = []
+        for j in range(len(ret)):
+            batch.append(ret[j][i])
+        res.append(torch.stack(batch))
+    return res, seq_length
 
 def make_transforms(
     rand_size=224,

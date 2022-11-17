@@ -8,7 +8,6 @@ from torch.utils.data import Dataset
 import glob
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
-
 class EHRdataset(Dataset):
     def __init__(self, discretizer, normalizer, listfile, dataset_dir, return_names=True,  transforms=None, period_length=48.0,):
         self.return_names = return_names
@@ -46,7 +45,6 @@ class EHRdataset(Dataset):
     def _read_timeseries(self, ts_filename, time_bound=None):
         
         ret = []
-        print(ts_filename)
         with open(os.path.join(self._dataset_dir, ts_filename), "r") as tsfile:
             header = tsfile.readline().strip().split(',')
             assert header[0] == "Hours"
@@ -91,12 +89,12 @@ class EHRdataset(Dataset):
     def __getitem__(self, index, time_bound=None):
         if isinstance(index, int):
             index = self.names[index]
-            print(index)
         ret = self.read_by_file_name(index, time_bound)
         data = ret["X"]
+        ts = ret["t"] if ret['t'] > 0.0 else self._period_length
         if self.transforms is not None:
             data = self.transforms(data)
-            for i in range(data):
+            for i in range(len(data)):
                 data[i] = self.discretizer.transform(data[i], end=ts)[0] 
                 if (self.normalizer is not None):
                     data[i] = self.normalizer.transform(data[i])
@@ -104,7 +102,6 @@ class EHRdataset(Dataset):
             data = self.discretizer.transform(data, end=ts)[0] 
             if (self.normalizer is not None):
                 data = self.normalizer.transform(data)
-        ts = ret["t"] if ret['t'] > 0.0 else self._period_length
         ys = ret["y"]
         names = ret["name"]
         ys = np.array(ys, dtype=np.int32) if len(ys) > 1 else np.array(ys, dtype=np.int32)[0]
@@ -115,7 +112,7 @@ class EHRdataset(Dataset):
 
 
 def get_datasets(discretizer, normalizer, args, augmentation=True):
-    transform = MultiTransform(views=11)
+    transform = MultiTransform(views=11, normal_values=discretizer._id_normal_values)
     if augmentation:
         train_ds = EHRdataset(discretizer, normalizer, f'{args.ehr_data_dir}/{args.task}/train_listfile.csv', os.path.join(args.ehr_data_dir, f'{args.task}/train'), transforms=transform)
     else: 
@@ -134,28 +131,21 @@ def get_data_loader(discretizer, normalizer, dataset_dir, batch_size):
     return train_dl, val_dl, test_dl
         
 
-def my_collate(batch):
-    x = [item[0] for item in batch]
-    x, seq_length = pad_zeros(x)
-    targets = np.array([item[1] for item in batch])
-    return [x, targets, seq_length]
-
 # def my_collate(batch):
 #     x = [item[0] for item in batch]
-#     targets = np.array([item[1] for item in batch])
-#     # if isinstance(x[0], list):
-#     #     x, seq_length = pad_zeros_mask(x)
-#     # else:
 #     x, seq_length = pad_zeros(x)
+#     targets = np.array([item[1] for item in batch])
 #     return [x, targets, seq_length]
 
-# def mask_collate(batch):
-#     transform = MultiTransform()
-#     x = [item[0] for item in batch]
-#     x, seq_length = pad_zeros(x)
-#     x = [transform(item[0]) for item in batch]
-#     targets = np.array([item[1] for item in batch])
-#     return [x, targets, seq_length]
+def my_collate(batch):
+    x = [item[0] for item in batch]
+    targets = np.array([item[1] for item in batch])
+    if isinstance(x[0], list):
+        x, seq_length = pad_zeros_mask(x)
+    else:
+        x, seq_length = pad_zeros(x)
+    return [x, targets, seq_length]
+
 
 def pad_zeros(arr, min_length=None):
     dtype = arr[0].dtype
@@ -169,24 +159,22 @@ def pad_zeros(arr, min_length=None):
     return np.array(ret), seq_length
 
 def pad_zeros_mask(arr, min_length=None):
-
-    dtype = arr[0].dtype
-    max_len = max(seq_length)
+    max_len = max([x[0].shape[0] for x in arr])
+    seq_length = [x[0].shape[0] for x in arr]
     ret = []
     for xs in arr:
-        ret.append([np.concatenate([x, np.zeros((max_len - x.shape[0],) + x.shape[1:], dtype=dtype)], axis=0)
-           for x in xs])  
+        ret.append([torch.cat([torch.tensor(x), torch.zeros((max_len - x.shape[0],) + x.shape[1:])], axis=0)
+        for x in xs])  
     if (min_length is not None) and ret[0].shape[0] < min_length:
         for xs in arr:
-            ret.append([np.concatenate([x, np.zeros((min_length - x.shape[0],) + x.shape[1:], dtype=dtype)], axis=0)
+            ret.append([torch.cat([torch.tensor(x), np.zeros((min_length - x.shape[0],) + x.shape[1:])], axis=0)
             for x in xs]) 
     res = []
     for i in range(len(ret[0])):
         batch = []
         for j in range(len(ret)):
-            batch.append(res[j][i])
+            batch.append(ret[j][i])
         res.append(torch.stack(batch))
-    seq_length = [res[0].shape[0] for x in arr]
     return res, seq_length
 
 
@@ -194,28 +182,32 @@ class MultiTransform(object):
 
     def __init__(
         self,
-        views=11,
+        views,
+        normal_values
     ):
         self.views = views
-    def vertical_mask(self, data, ratio):
+        self.normal_values = normal_values
+        self.rows = np.array([value for value in self.normal_values.values()])
+    def vertical_mask(self, data, ratio=0.25):
         # mask over each timestep (t, features)
         length = data.shape[0]
-        a = np.zeros(length, dtype=int)
+        a = np.zeros(length , dtype=int)
         a[:int(length*ratio)] = 1
         np.random.shuffle(a)
         a = a.astype(bool)
-        data[a,:] = torch.zeros(data.shape[1])
+        data[a,1:] = self.rows
         return data
 
-    def horizontal_mask(self, data, ratio):
+    def horizontal_mask(self, data, ratio=0.25):
         # mask over each feature (t, features)
-        length = data.shape[1]
-        a = np.zeros(length, dtype=int)
-        a[:int(length*ratio)] = 1
-        np.random.shuffle(a)
-        a = a.astype(bool)
-        data = data.T * a
-        return data.T
+        # TODO exclude feature[0]
+        length = data.shape[1] - 1
+        features = np.unique(np.random.randint(low=0, high=length, size=int(length*ratio)))
+        for i in features:
+            data[:,i+1] = self.normal_values[i]
+            # for j in range(data.shape[0]):
+            #     assert data[j,i+1] == self.normal_values[i]
+        return data
     
     def __call__(self, img):
         img_views = [img]
@@ -223,6 +215,6 @@ class MultiTransform(object):
         # -- generate random views
         if self.views > 0:
             for i in range(self.views):
-                img_views.append(self.vertical_mask(img, ratio=0.5))
+                img_views.append(self.vertical_mask(self.horizontal_mask(img)))
 
         return img_views

@@ -324,19 +324,7 @@ def main(args, medfuse_params=None):
         maxp_meter = AverageMeter()
         time_meter = AverageMeter()
         data_meter = AverageMeter()
-
-        # for itr, (udata, _) in enumerate(unsupervised_loader):
-        # for itr, (x, label, seq_length) in enumerate(unsupervised_loader):
-        #     def load_imgs():
-        #         # -- unsupervised imgs
-        #         ehr = [u.to(device, non_blocking=True) for u in x]
-        #         return ehr
-        #     ehr, dtime = gpu_timer(load_imgs)
-        #     logging.info(ehr[0].shape)
-        #     logging.info(len(ehr))
-            # res, dtime = gpu_timer(load_imgs)
-            # imgs, ehr = res
-            # data_meter.update(dtime)
+        
         for itr, (x, cxr, _, _, seq_length, _) in enumerate(unsupervised_loader):
             def load_imgs():
                 # -- unsupervised imgs
@@ -356,10 +344,11 @@ def main(args, medfuse_params=None):
                 # -- If use_pred_head=False, then encoder.pred (prediction
                 #    head) is None, and _forward_head just returns the
                 #    identity, z=h
-                # h, z = encoder(ehr[1:], seq_length[1:], imgs[1:], return_before_head=True, patch_drop=patch_drop)
+
                 # print(len(imgs[1:]))
                 # print('imgs',len(imgs))
-
+                print(len(ehr), ehr[0].shape, ehr[10].shape)
+                print('imgs',len(imgs), imgs[0].shape)
                 z = encoder(ehr[1:], seq_length, imgs[1:], return_before_head=True, patch_drop=patch_drop)
                 with torch.no_grad():
                     h = target_encoder(ehr[0], seq_length, imgs[0], return_before_head=True)

@@ -72,7 +72,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     num_gpus = len(args.devices)
-    if args.modality == 'fusion':
+    if args.modality == 'fusion' or args.modality == "ehr":
         mp.spawn(
         process_main,
         nprocs=num_gpus,

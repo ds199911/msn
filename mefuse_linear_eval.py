@@ -16,21 +16,22 @@ from src.utils import (
     init_distributed,
     WarmupCosineSchedule
 )
-from src.data_manager import init_data
+from src.data_manager import init_data, init_ehr_data
 from src.sgd import SGD
-
-# from linear_eval import main as linear_eval
-
+from src.medfuse.arguments import args_parser
+from src.medfuse.ehr_models import LSTM
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 logger = logging.getLogger()
 
 
-parser = argparse.ArgumentParser()
+parser = args_parser()
 parser.add_argument(
     '--fname', type=str,
     help='yaml file containing config file names to launch',
     default='configs.yaml')
-
+parser.add_argument(
+    '--modality', type=str,
+    default='img')
 def main():
 
 # -- load script params
@@ -45,6 +46,8 @@ def main():
     # with open(dump, 'w') as f:
     #     yaml.dump(params, f)
     logger.info('Running linear-evaluation')
+    if args.modality == 'ehr':
+        return linear_eval(params, medfuse_params=args)
     return linear_eval(params)
 
 class LinearClassifier(torch.nn.Module):
@@ -120,14 +123,20 @@ def init_model(
     normalize,
     model_name='resnet50',
     warmup_epochs=0,
-    weight_decay=0
+    weight_decay=0,
+    modality='img'
 ):
     # -- init model
-    encoder = deit.__dict__[model_name]()
-    emb_dim = 192 if 'tiny' in model_name else 384 if 'small' in model_name else 768 if 'base' in model_name else 1024 if 'large' in model_name else 1280
-    emb_dim *= num_blocks
-    encoder.fc = None
-    encoder.norm = None
+    if modality = 'img':
+        encoder = deit.__dict__[model_name]()
+        emb_dim = 192 if 'tiny' in model_name else 384 if 'small' in model_name else 768 if 'base' in model_name else 1024 if 'large' in model_name else 1280
+        emb_dim *= num_blocks
+        encoder.fc = None
+        encoder.norm = None
+    elif modality = 'ehr':
+        encoder = LSTM()
+        emb_dim = 128
+
 
     encoder.to(device)
     encoder, _ = load_pretrained(
@@ -165,7 +174,7 @@ def init_model(
     return encoder, linear_classifier, optimizer, scheduler
 
 
-def linear_eval(args):
+def linear_eval(args, medfuse_params=None):
     model_name = args['meta']['model_name']
     port = args['meta']['master_port']
     load_checkpoint = args['meta']['load_checkpoint']
@@ -206,45 +215,60 @@ def linear_eval(args):
     criterion = torch.nn.BCEWithLogitsLoss() #multi-label loss
     # criterion = torch.nn.CrossEntropyLoss()
 
-    # -- make train data transforms and data loaders/samples
-    transform = transforms.Compose([
-        transforms.RandomResizedCrop(size=224, scale=(0.08, 1.0)),
-        transforms.RandomHorizontalFlip(),
-        transforms.ToTensor(),
-        transforms.Normalize(
-            (0.485, 0.456, 0.406),
-            (0.229, 0.224, 0.225))])
-    data_loader, dist_sampler = init_data(
-        transform=transform,
-        batch_size=batch_size,
-        world_size=None,
-        rank=None,
-        root_path=root_path,
-        image_folder=image_folder,
-        training=training,
-        copy_data=copy_data)
-
-    ipe = len(data_loader)
-    logger.info(f'initialized data-loader (ipe {ipe})')
-
-    # -- make val data transforms and data loaders/samples
-    val_transform = transforms.Compose([
+    if args.modality == 'img':
+        # -- make train data transforms and data loaders/samples
+        transform = transforms.Compose([
+            transforms.RandomResizedCrop(size=224, scale=(0.08, 1.0)),
+            transforms.RandomHorizontalFlip(),
+            transforms.ToTensor(),
+            transforms.Normalize(
+                (0.485, 0.456, 0.406),
+                (0.229, 0.224, 0.225))])
+        data_loader, dist_sampler = init_data(
+            transform=transform,
+            batch_size=batch_size,
+            world_size=None,
+            rank=None,
+            root_path=root_path,
+            image_folder=image_folder,
+            training=training,
+            copy_data=copy_data)
+        
+        # -- make val data transforms and data loaders/samples
+        val_transform = transforms.Compose([
         transforms.Resize(size=256),
         transforms.CenterCrop(size=224),
         transforms.ToTensor(),
         transforms.Normalize(
             (0.485, 0.456, 0.406),
             (0.229, 0.224, 0.225))])
-    val_data_loader, val_dist_sampler = init_data(
-        transform=val_transform,
-        batch_size=batch_size,
-        world_size=None,
-        rank=None,
-        root_path=root_path,
-        image_folder=image_folder,
-        training=False,
-        drop_last=False,
-        copy_data=copy_data)
+        val_data_loader, val_dist_sampler = init_data(
+            transform=val_transform,
+            batch_size=batch_size,
+            world_size=None,
+            rank=None,
+            root_path=root_path,
+            image_folder=image_folder,
+            training=False,
+            drop_last=False,
+            copy_data=copy_data)
+    elif args.modality == 'ehr':
+        data_loader, dist_sampler = init_ehr_data(
+            batch_size=batch_size,
+            world_size=None,
+            rank=None,
+            training=training,
+            args=medfuse_params,
+            augmentation=False)    
+        val_data_loader, val_dist_sampler = init_ehr_data(
+            batch_size=batch_size,
+            world_size=None,
+            rank=None,
+            training=False,
+            args=medfuse_params,
+            augmentation=False) 
+    ipe = len(data_loader)
+    logger.info(f'initialized data-loader (ipe {ipe})')
     logger.info(f'initialized val data-loader (ipe {len(val_data_loader)})')
 
      # -- init model and optimizer
@@ -261,7 +285,8 @@ def linear_eval(args):
         ref_lr=ref_lr,
         weight_decay=wd,
         num_epochs=num_epochs,
-        model_name=model_name)
+        model_name=model_name,
+        modality=args.modality)
     logger.info(encoder)
 
     best_acc = None

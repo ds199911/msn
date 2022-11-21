@@ -28,11 +28,11 @@ parser.add_argument(
     '--devices', type=str, nargs='+', default=['cuda:0'],
     help='which devices to use on local machine')
 parser.add_argument(
-    '--modality', type=str, default='imgs',
+    '--modality', type=str, default='img',
     help='which modality to use')
 
 
-def process_main(rank, fname, world_size, devices, medfuse_args=None):
+def process_main(rank, fname, world_size, devices, modality='img', medfuse_args=None):
     import os
     os.environ['CUDA_VISIBLE_DEVICES'] = str(devices[rank].split(':')[-1])
 
@@ -61,10 +61,14 @@ def process_main(rank, fname, world_size, devices, medfuse_args=None):
     world_size, rank = init_distributed(rank_and_world_size=(rank, world_size))
     logger.info(f'Running... (rank: {rank}/{world_size})')
 
-    if medfuse_args is not None:
+    if modality == 'fusion':
         logger.info(f'Running fusion')
         return msn_fusion(params, medfuse_args)
-    return msn(params)
+    elif modality == 'ehr':
+        logger.info(f'Running ehr')
+        return msn(params, medfuse_args)
+    else:
+        return msn(params)
 
 
 
@@ -72,11 +76,12 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     num_gpus = len(args.devices)
-    if args.modality == 'fusion' or args.modality == "ehr":
+    assert args.modality == 'ehr'
+    if args.modality == 'fusion' or args.modality == 'ehr':
         mp.spawn(
         process_main,
         nprocs=num_gpus,
-        args=(args.fname, num_gpus, args.devices, args))
+        args=(args.fname, num_gpus, args.devices, args.modality, args))
     else:
         mp.spawn(
         process_main,

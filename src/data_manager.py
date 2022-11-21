@@ -205,7 +205,8 @@ def init_ehr_data(
     training=True,
     drop_last=True,
     dataset_name='MIMICCXR',
-    args=None
+    args=None,
+    augmentation=True
 ):
     if dataset_name == 'MIMICCXR':
         logger.info('MIMICCXR ehr fusion dataset')
@@ -240,7 +241,7 @@ def init_ehr_data(
 
         logger.info(args.data_pairs + args.fusion_type)
 
-        ehr_train_ds, ehr_val_ds, cxr_test_ds = get_datasets(discretizer, normalizer, args, argumentation=True)
+        ehr_train_ds, ehr_val_ds, cxr_test_ds = get_datasets(discretizer, normalizer, args, augmentation=augmentation)
         logger.info('MIMICCXR dataset created')
         
         if training: dataset = ehr_train_ds

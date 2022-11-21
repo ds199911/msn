@@ -64,7 +64,7 @@ logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 logger = logging.getLogger()
 
 
-def main, medfuse_params=None):
+def main(args, medfuse_params=None):
 
     # ----------------------------------------------------------------------- #
     #  PASSED IN PARAMS FROM CONFIG FILE
@@ -203,6 +203,7 @@ def main, medfuse_params=None):
         color_jitter=color_jitter)
 
     # -- init data-loaders/samplers
+    logger.info(args)
     if modality == 'img':
         (unsupervised_loader,
         unsupervised_sampler) = init_data(
@@ -333,7 +334,8 @@ def main, medfuse_params=None):
         data_meter = AverageMeter()
 
         for itr, data in enumerate(unsupervised_loader):
-
+            # logger.info(itr)
+            # continue
             def load_imgs():
                 # -- unsupervised imgs
                 imgs = [u.to(device, non_blocking=True) for u in data[0]]
@@ -347,6 +349,7 @@ def main, medfuse_params=None):
             elif modality == 'ehr':
                 ehr, dtime = gpu_timer(load_ehr)
                 seq_length = data[2]
+
             data_meter.update(dtime)
             def train_step():
                 optimizer.zero_grad()
@@ -360,16 +363,15 @@ def main, medfuse_params=None):
                 if modality == 'img':
                     h, z = encoder(imgs[1:], return_before_head=True, patch_drop=patch_drop)
                 elif modality == 'ehr':
-                    h, z = encoder(ehr[1:], seq_length, return_before_head=True, patch_drop=patch_drop)
+                    z = encoder(ehr[1:], seq_length)
                 with torch.no_grad():
                     if modality == 'img':
                         h, _ = target_encoder(imgs[0], return_before_head=True)
                     elif modality == 'ehr':
-                        h, _ = target_encoder(ehr[0], seq_length, return_before_head=True)
-                print(h.shape, z.shape)
+                        h = target_encoder(ehr[0], seq_length)
+                # print(h.shape, z.shape)
                 # Step 1. convert representations to fp32
                 h, z = h.float(), z.float()
-
 
                 # Step 2. determine anchor views/supports and their
                 #         corresponding target views/supports

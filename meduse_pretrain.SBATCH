@@ -4,7 +4,7 @@
 #SBATCH -t 48:00:00
 #SBATCH --gres=gpu
 #SBATCH --mem=32GB
-#SBATCH --job-name=medfuse_fusion_pretrain-256-random
+#SBATCH --job-name=ehr_pretrain-128-random
 
 module purge
 
@@ -15,8 +15,8 @@ singularity exec --nv \
         "source /ext3/env.sh; conda activate /ext3/medfuse;
         python main.py \
          --fname configs/pretrain/msn_ehr_lstm.yaml \
-         --devices cuda:0
-         --modality ehr"
+         --modality ehr \
+         --devices cuda:0"
 
 
         #  python mefuse_linear_eval.py --fname configs/eval/medfuse_cxr_vits16.yaml
@@ -30,3 +30,5 @@ singularity exec --nv \
         #  --fname configs/pretrain/msn_fusion_random.yaml \
         #  --devices cuda:0 \
         #  --modality fusion" :v100:1
+
+        # python main.py --fname configs/pretrain/msn_ehr_lstm.yaml --devices cuda:0 --modality ehr #SBATCH --gres=gpu

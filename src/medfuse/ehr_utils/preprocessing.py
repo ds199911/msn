@@ -7,6 +7,8 @@ import pickle
 import json
 import os
 
+from logging import getLogger
+logger = getLogger()
 
 class Discretizer:
     def __init__(self, timestep=0.8, store_masks=True, impute_strategy='zero', start_time='zero',
@@ -76,9 +78,15 @@ class Discretizer:
         def write(data, bin_id, channel, value, begin_pos):
             channel_id = self._channel_to_id[channel]
             if self._is_categorical_channel[channel]:
-                # print(self._possible_values[channel])
-                # print(value)
-                category_id = self._possible_values[channel].index(value)
+                try:
+                    category_id = self._possible_values[channel].index(value)
+                except:
+                    logger.info(channel)
+                    logger.info(value)
+                    if value == '5 O': value = '5 Oriented'
+                    elif value == '4 S': value = '4 Spontaneously'
+                    category_id = self._possible_values[channel].index(value)
+
                 N_values = len(self._possible_values[channel])
                 one_hot = np.zeros((N_values,))
                 one_hot[category_id] = 1
@@ -104,8 +112,11 @@ class Discretizer:
                 if mask[bin_id][channel_id] == 1:
                     unused_data += 1
                 mask[bin_id][channel_id] = 1
-
-                write(data, bin_id, channel, row[j], begin_pos)
+                
+                try:
+                    write(data, bin_id, channel, row[j], begin_pos)
+                except:
+                    logger.info(channel, row[j])
                 original_value[bin_id][channel_id] = row[j]
 
         # impute missing values

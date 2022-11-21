@@ -200,21 +200,27 @@ class MultiTransform(object):
 
     def horizontal_mask(self, data, ratio=0.25):
         # mask over each feature (t, features)
-        # TODO exclude feature[0]
         length = data.shape[1] - 1
         features = np.unique(np.random.randint(low=0, high=length, size=int(length*ratio)))
         for i in features:
             data[:,i+1] = self.normal_values[i]
-            # for j in range(data.shape[0]):
-            #     assert data[j,i+1] == self.normal_values[i]
         return data
     
+    def drop_start(self, data, max_percent=0.4):
+        length = data.shape[0]
+        start = np.random.randint(low=1, high=int(max_percent*length), size=1)
+        return data[start:,:]
+
     def __call__(self, img):
         img_views = [img]
 
         # -- generate random views
         if self.views > 0:
-            for i in range(self.views):
-                img_views.append(self.vertical_mask(self.horizontal_mask(img)))
+            # img_views = []
+            # img_views.append(self.horizontal_mask(self.vertical_mask(img)))
+            for _ in range(self.views//2):
+                img_views.append(self.vertical_mask(img))
+            for _ in range(self.views - (self.views//2)):
+                img_views.append(self.horizontal_mask(img))
 
         return img_views

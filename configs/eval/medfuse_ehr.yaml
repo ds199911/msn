@@ -1,14 +1,14 @@
 meta:
-  model_name: deit_small
+  model_name: LSTM
   master_port: 8888
-  load_checkpoint: false
+  load_checkpoint: True
   training: true
   copy_data: false
   device: cuda:0
 data:
   root_path: .
   image_folder: /imagenet/
-  num_classes: 1000
+  num_classes: 25
 optimization:
   weight_decay: 0.0
   lr: 6.4
@@ -17,5 +17,5 @@ optimization:
   normalize: true
 logging:
   folder: ./checkpoint/msn_logs/
-  write_tag: msn-lineval-experiment-linear-eval
-  pretrain_path: /scratch/projects/shamoutlab/ds5749/msn/pretrained/vits16_800ep.pth.tar
+  write_tag: msn-lineval-experiment-ehr
+  pretrain_path: /scratch/projects/shamoutlab/ds5749/multi-modal-msn/checkpoint/msn_ehr_logs/msn-experiment-1-latest.pth.tar

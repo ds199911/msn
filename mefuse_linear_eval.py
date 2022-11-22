@@ -47,8 +47,8 @@ def main():
     #     yaml.dump(params, f)
     logger.info('Running linear-evaluation')
     if args.modality == 'ehr':
-        return linear_eval(params, medfuse_params=args)
-    return linear_eval(params)
+        return linear_eval(params, modality=args.modality, medfuse_params=args)
+    return linear_eval(params, modality=args.modality)
 
 class LinearClassifier(torch.nn.Module):
 
@@ -127,16 +127,15 @@ def init_model(
     modality='img'
 ):
     # -- init model
-    if modality = 'img':
+    if modality == 'img':
         encoder = deit.__dict__[model_name]()
         emb_dim = 192 if 'tiny' in model_name else 384 if 'small' in model_name else 768 if 'base' in model_name else 1024 if 'large' in model_name else 1280
-        emb_dim *= num_blocks
-        encoder.fc = None
-        encoder.norm = None
-    elif modality = 'ehr':
+    elif modality == 'ehr':
         encoder = LSTM()
         emb_dim = 128
-
+    emb_dim *= num_blocks
+    encoder.fc = None
+    encoder.norm = None
 
     encoder.to(device)
     encoder, _ = load_pretrained(
@@ -174,7 +173,7 @@ def init_model(
     return encoder, linear_classifier, optimizer, scheduler
 
 
-def linear_eval(args, medfuse_params=None):
+def linear_eval(args, modality='img', medfuse_params=None):
     model_name = args['meta']['model_name']
     port = args['meta']['master_port']
     load_checkpoint = args['meta']['load_checkpoint']
@@ -215,7 +214,7 @@ def linear_eval(args, medfuse_params=None):
     criterion = torch.nn.BCEWithLogitsLoss() #multi-label loss
     # criterion = torch.nn.CrossEntropyLoss()
 
-    if args.modality == 'img':
+    if medfuse_params is None:
         # -- make train data transforms and data loaders/samples
         transform = transforms.Compose([
             transforms.RandomResizedCrop(size=224, scale=(0.08, 1.0)),
@@ -252,21 +251,23 @@ def linear_eval(args, medfuse_params=None):
             training=False,
             drop_last=False,
             copy_data=copy_data)
-    elif args.modality == 'ehr':
+    elif modality == 'ehr':
         data_loader, dist_sampler = init_ehr_data(
             batch_size=batch_size,
             world_size=None,
             rank=None,
             training=training,
             args=medfuse_params,
-            augmentation=False)    
+            augmentation=False,
+            distributed=False)    
         val_data_loader, val_dist_sampler = init_ehr_data(
             batch_size=batch_size,
             world_size=None,
             rank=None,
             training=False,
             args=medfuse_params,
-            augmentation=False) 
+            augmentation=False,
+            distributed=False) 
     ipe = len(data_loader)
     logger.info(f'initialized data-loader (ipe {ipe})')
     logger.info(f'initialized val data-loader (ipe {len(val_data_loader)})')
@@ -286,7 +287,7 @@ def linear_eval(args, medfuse_params=None):
         weight_decay=wd,
         num_epochs=num_epochs,
         model_name=model_name,
-        modality=args.modality)
+        modality=modality)
     logger.info(encoder)
 
     best_acc = None

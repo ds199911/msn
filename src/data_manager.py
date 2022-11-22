@@ -41,7 +41,8 @@ def init_data(
     copy_data=False,
     drop_last=True,
     subset_file=None,
-    dataset_name='MIMICCXR'
+    dataset_name='MIMICCXR',
+    distributed=True
 ):
     if dataset_name == 'MIMICCXR':
         if training:
@@ -60,26 +61,26 @@ def init_data(
         if subset_file is not None:
             dataset = ImageNetSubset(dataset, subset_file)
         logger.info('ImageNet dataset created')
-    dist_sampler = torch.utils.data.distributed.DistributedSampler(
-        dataset=dataset,
-        num_replicas=world_size,
-        rank=rank)
-    data_loader = torch.utils.data.DataLoader(
-        dataset,
-        sampler=dist_sampler,
-        batch_size=batch_size,
-        drop_last=drop_last,
-        pin_memory=pin_mem,
-        num_workers=num_workers)
-
-    #use this to turn of distributed data sampler 
-    # data_loader = torch.utils.data.DataLoader(
-    #     dataset,
-    #     batch_size=batch_size,
-    #     drop_last=drop_last,
-    #     pin_memory=pin_mem,
-    #     num_workers=num_workers)
-    # dist_sampler=None
+    if distributed:
+        dist_sampler = torch.utils.data.distributed.DistributedSampler(
+            dataset=dataset,
+            num_replicas=world_size,
+            rank=rank)
+        data_loader = torch.utils.data.DataLoader(
+            dataset,
+            sampler=dist_sampler,
+            batch_size=batch_size,
+            drop_last=drop_last,
+            pin_memory=pin_mem,
+            num_workers=num_workers)
+    else:
+        data_loader = torch.utils.data.DataLoader(
+            dataset,
+            batch_size=batch_size,
+            drop_last=drop_last,
+            pin_memory=pin_mem,
+            num_workers=num_workers)
+        dist_sampler=None
 
     logger.info('unsupervised data loader created')
 
@@ -100,7 +101,8 @@ def init_fusion_data(
     subset_file=None,
     dataset_name='MIMICCXR',
     args=None,
-    rand_views=2
+    rand_views=2,
+    distributed=True
 ):
     if dataset_name == 'MIMICCXR':
         logger.info('MIMICCXR cxr_ehr fusion dataset')
@@ -170,26 +172,28 @@ def init_fusion_data(
             targets_cxr = torch.stack([torch.zeros(14) if item[3] is None else item[3] for item in batch])
             pairs = [False if item[1] is None else True for item in batch]
             return [x, img, targets_ehr, targets_cxr, seq_length, pairs]
-        # dist_sampler = torch.utils.data.distributed.DistributedSampler(
-        #     dataset=dataset,
-        #     num_replicas=world_size,
-        #     rank=rank)
-        # data_loader = torch.utils.data.DataLoader(
-        #     dataset,
-        #     sampler=dist_sampler,
-        #     batch_size=batch_size,
-        #     drop_last=drop_last,
-        #     pin_memory=pin_mem,
-        #     num_workers=num_workers)
-    #use this to turn of distributed data sampler 
-    data_loader = torch.utils.data.DataLoader(
-        dataset,
-        batch_size=batch_size,
-        drop_last=drop_last,
-        pin_memory=pin_mem,
-        num_workers=0,
-        collate_fn=my_collate)
-    dist_sampler=None
+        
+    if distributed:
+        dist_sampler = torch.utils.data.distributed.DistributedSampler(
+            dataset=dataset,
+            num_replicas=world_size,
+            rank=rank)
+        data_loader = torch.utils.data.DataLoader(
+            dataset,
+            sampler=dist_sampler,
+            batch_size=batch_size,
+            drop_last=drop_last,
+            pin_memory=pin_mem,
+            num_workers=num_workers)
+    else:
+        data_loader = torch.utils.data.DataLoader(
+            dataset,
+            batch_size=batch_size,
+            drop_last=drop_last,
+            pin_memory=pin_mem,
+            num_workers=0,
+            collate_fn=my_collate)
+        dist_sampler=None
 
     logger.info('unsupervised data loader created')
 
@@ -206,7 +210,8 @@ def init_ehr_data(
     drop_last=True,
     dataset_name='MIMICCXR',
     args=None,
-    augmentation=True
+    augmentation=True,
+    distributed=True
 ):
     if dataset_name == 'MIMICCXR':
         logger.info('MIMICCXR ehr fusion dataset')
@@ -255,28 +260,28 @@ def init_ehr_data(
             else:
                 x, seq_length = pad_zeros(x)
             return [x, targets, seq_length]
-        
-        dist_sampler = torch.utils.data.distributed.DistributedSampler(
-            dataset=dataset,
-            num_replicas=world_size,
-            rank=rank)
-        data_loader = torch.utils.data.DataLoader(
-            dataset,
-            sampler=dist_sampler,
-            batch_size=batch_size,
-            drop_last=drop_last,
-            pin_memory=pin_mem,
-            num_workers=0,
-            collate_fn=my_collate)
-    #use this to turn of distributed data sampler 
-    # data_loader = torch.utils.data.DataLoader(
-    #     dataset,
-    #     batch_size=batch_size,
-    #     drop_last=drop_last,
-    #     pin_memory=pin_mem,
-    #     num_workers=0,
-    #     collate_fn=my_collate)
-    # dist_sampler=None
+        if distributed:
+            dist_sampler = torch.utils.data.distributed.DistributedSampler(
+                dataset=dataset,
+                num_replicas=world_size,
+                rank=rank)
+            data_loader = torch.utils.data.DataLoader(
+                dataset,
+                sampler=dist_sampler,
+                batch_size=batch_size,
+                drop_last=drop_last,
+                pin_memory=pin_mem,
+                num_workers=0,
+                collate_fn=my_collate)
+        else:
+            data_loader = torch.utils.data.DataLoader(
+                dataset,
+                batch_size=batch_size,
+                drop_last=drop_last,
+                pin_memory=pin_mem,
+                num_workers=0,
+                collate_fn=my_collate)
+            dist_sampler=None
 
     logger.info('unsupervised data loader created')
 

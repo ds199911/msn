@@ -26,3 +26,10 @@ singularity exec --nv \
         /scratch/work/public/singularity/ubuntu-20.04.4.sif /bin/bash -c \
         "source /ext3/env.sh; conda activate /ext3/medfuse;
         python mefuse_linear_eval.py --fname configs/eval/medfuse_cxr_vits16.yaml"
+
+singularity exec --nv \
+        --overlay /scratch/projects/shamoutlab/ds5749/MedFuse/medfuse.ext3:ro \
+        --overlay /scratch/projects/shamoutlab/data/data.sqf:ro \
+        /scratch/work/public/singularity/ubuntu-20.04.4.sif /bin/bash -c \
+        "source /ext3/env.sh; conda activate /ext3/medfuse;
+        python mefuse_linear_eval.py --fname configs/eval/medfuse_ehr.yaml --modality ehr"

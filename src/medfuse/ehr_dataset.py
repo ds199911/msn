@@ -112,8 +112,8 @@ class EHRdataset(Dataset):
 
 
 def get_datasets(discretizer, normalizer, args, augmentation=True):
-    transform = MultiTransform(views=11, normal_values=discretizer._id_normal_values)
     if augmentation:
+        transform = MultiTransform(views=11, normal_values=discretizer._id_normal_values, augmentation=augmentation)
         train_ds = EHRdataset(discretizer, normalizer, f'{args.ehr_data_dir}/{args.task}/train_listfile.csv', os.path.join(args.ehr_data_dir, f'{args.task}/train'), transforms=transform)
     else: 
         train_ds = EHRdataset(discretizer, normalizer, f'{args.ehr_data_dir}/{args.task}/train_listfile.csv', os.path.join(args.ehr_data_dir, f'{args.task}/train'))
@@ -183,11 +183,13 @@ class MultiTransform(object):
     def __init__(
         self,
         views,
-        normal_values
+        normal_values,
+        augmentation
     ):
         self.views = views
         self.normal_values = normal_values
         self.rows = np.array([value for value in self.normal_values.values()])
+        self.augmentation = augmentation
     def vertical_mask(self, data, ratio=0.25):
         # mask over each timestep (t, features)
         length = data.shape[0]
@@ -208,7 +210,7 @@ class MultiTransform(object):
     
     def drop_start(self, data, max_percent=0.4):
         length = data.shape[0]
-        start = np.random.randint(low=1, high=int(max_percent*length), size=1)
+        start = int(np.random.randint(low=1, high=int(max_percent*length), size=1))
         return data[start:,:]
 
     def __call__(self, img):
@@ -216,11 +218,15 @@ class MultiTransform(object):
 
         # -- generate random views
         if self.views > 0:
-            # img_views = []
-            # img_views.append(self.horizontal_mask(self.vertical_mask(img)))
-            for _ in range(self.views//2):
-                img_views.append(self.vertical_mask(img))
-            for _ in range(self.views - (self.views//2)):
-                img_views.append(self.horizontal_mask(img))
-
+            if self.augmentation == 'vertical_horizontal':
+                for _ in range(self.views//2):
+                    img_views.append(self.vertical_mask(img))
+                for _ in range(self.views - (self.views//2)):
+                    img_views.append(self.horizontal_mask(img))
+            elif self.augmentation == 'vertical_and_horizontal':
+                for _ in range(self.views):
+                    img_views.append(self.horizontal_mask(self.vertical_mask(img)))
+            elif self.augmentation == 'drop_start':
+                for _ in range(self.views):
+                    img_views.append((self.drop_start(img)))
         return img_views

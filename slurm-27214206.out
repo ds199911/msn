@@ -169,3 +169,164 @@ INFO:root:[1,   460] loss: 3.965 (3.931 0.034 4.113) (np: 37.2, max-t: 0.064) [w
 INFO:root:[1,   460] grad_stats: [0.00e+00 0.00e+00] (1.81e+00, 6.19e+00)
 INFO:root:[1,   470] loss: 3.955 (3.921 0.034 4.104) (np: 37.4, max-t: 0.065) [wd: 2.57e-01] [lr: 2.38e-04] [mem: 1.43e+03] (43 ms; 22 ms)
 INFO:root:[1,   470] grad_stats: [0.00e+00 0.00e+00] (2.92e+00, 1.03e+01)
+INFO:root:[1,   480] loss: 3.947 (3.911 0.035 4.096) (np: 37.5, max-t: 0.066) [wd: 2.64e-01] [lr: 2.39e-04] [mem: 1.43e+03] (43 ms; 22 ms)
+INFO:root:[1,   480] grad_stats: [0.00e+00 0.00e+00] (2.43e+00, 8.42e+00)
+INFO:root:[1,   490] loss: 3.938 (3.902 0.036 4.087) (np: 37.6, max-t: 0.067) [wd: 2.70e-01] [lr: 2.39e-04] [mem: 1.60e+03] (43 ms; 22 ms)
+INFO:root:[1,   490] grad_stats: [0.00e+00 0.00e+00] (2.58e+00, 9.10e+00)
+INFO:root:[1,   500] loss: 3.928 (3.892 0.036 4.078) (np: 37.7, max-t: 0.068) [wd: 2.77e-01] [lr: 2.40e-04] [mem: 1.60e+03] (44 ms; 22 ms)
+INFO:root:[1,   500] grad_stats: [0.00e+00 0.00e+00] (1.47e+00, 5.12e+00)
+INFO:root:[1,   510] loss: 3.920 (3.883 0.037 4.070) (np: 37.9, max-t: 0.069) [wd: 2.83e-01] [lr: 2.41e-04] [mem: 1.60e+03] (43 ms; 22 ms)
+INFO:root:[1,   510] grad_stats: [0.00e+00 0.00e+00] (1.56e+00, 5.36e+00)
+INFO:root:[1,   520] loss: 3.911 (3.874 0.037 4.062) (np: 38.0, max-t: 0.069) [wd: 2.90e-01] [lr: 2.42e-04] [mem: 1.60e+03] (43 ms; 22 ms)
+INFO:root:[1,   520] grad_stats: [0.00e+00 0.00e+00] (1.48e+00, 5.19e+00)
+INFO:root:[1,   530] loss: 3.904 (3.866 0.038 4.055) (np: 38.1, max-t: 0.070) [wd: 2.96e-01] [lr: 2.43e-04] [mem: 1.60e+03] (43 ms; 22 ms)
+INFO:root:[1,   530] grad_stats: [0.00e+00 0.00e+00] (1.69e+00, 6.11e+00)
+INFO:root:[1,   540] loss: 3.895 (3.857 0.038 4.047) (np: 38.2, max-t: 0.071) [wd: 3.02e-01] [lr: 2.43e-04] [mem: 1.60e+03] (43 ms; 22 ms)
+INFO:root:[1,   540] grad_stats: [0.00e+00 0.00e+00] (1.72e+00, 6.27e+00)
+INFO:root:[1,   550] loss: 3.887 (3.848 0.038 4.039) (np: 38.3, max-t: 0.072) [wd: 3.08e-01] [lr: 2.44e-04] [mem: 1.60e+03] (44 ms; 22 ms)
+INFO:root:[1,   550] grad_stats: [0.00e+00 0.00e+00] (1.86e+00, 6.86e+00)
+INFO:root:[1,   560] loss: 3.879 (3.839 0.039 4.032) (np: 38.4, max-t: 0.073) [wd: 3.14e-01] [lr: 2.45e-04] [mem: 1.60e+03] (44 ms; 22 ms)
+INFO:root:[1,   560] grad_stats: [0.00e+00 0.00e+00] (2.38e+00, 8.58e+00)
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:Glascow coma scale verbal response
+INFO:root:5 O
+INFO:root:[1,   570] loss: 3.872 (3.832 0.040 4.025) (np: 38.5, max-t: 0.073) [wd: 3.19e-01] [lr: 2.46e-04] [mem: 1.60e+03] (44 ms; 22 ms)
+INFO:root:[1,   570] grad_stats: [0.00e+00 0.00e+00] (2.05e+00, 7.45e+00)
+INFO:root:[1,   580] loss: 3.864 (3.823 0.040 4.017) (np: 38.6, max-t: 0.074) [wd: 3.25e-01] [lr: 2.47e-04] [mem: 1.60e+03] (44 ms; 22 ms)
+INFO:root:[1,   580] grad_stats: [0.00e+00 0.00e+00] (3.21e+00, 1.14e+01)
+INFO:root:[1,   590] loss: 3.856 (3.815 0.041 4.010) (np: 38.7, max-t: 0.075) [wd: 3.30e-01] [lr: 2.47e-04] [mem: 1.60e+03] (44 ms; 22 ms)
+INFO:root:[1,   590] grad_stats: [0.00e+00 0.00e+00] (2.17e+00, 7.68e+00)
+INFO:root:[1,   600] loss: 3.848 (3.807 0.042 4.003) (np: 38.8, max-t: 0.076) [wd: 3.36e-01] [lr: 2.48e-04] [mem: 1.60e+03] (43 ms; 22 ms)
+INFO:root:[1,   600] grad_stats: [0.00e+00 0.00e+00] (2.46e+00, 8.81e+00)
+INFO:root:[1,   610] loss: 3.841 (3.799 0.042 3.996) (np: 38.9, max-t: 0.077) [wd: 3.41e-01] [lr: 2.49e-04] [mem: 1.60e+03] (43 ms; 22 ms)
+INFO:root:[1,   610] grad_stats: [0.00e+00 0.00e+00] (1.09e+00, 3.91e+00)
+INFO:root:[1,   620] loss: 3.834 (3.791 0.043 3.989) (np: 39.0, max-t: 0.078) [wd: 3.46e-01] [lr: 2.50e-04] [mem: 1.60e+03] (44 ms; 22 ms)
+INFO:root:[1,   620] grad_stats: [0.00e+00 0.00e+00] (1.32e+00, 4.77e+00)
+INFO:root:[1,   630] loss: 3.827 (3.784 0.043 3.983) (np: 39.1, max-t: 0.079) [wd: 3.51e-01] [lr: 2.51e-04] [mem: 1.60e+03] (44 ms; 22 ms)
+INFO:root:[1,   630] grad_stats: [0.00e+00 0.00e+00] (2.59e+00, 9.57e+00)
+INFO:root:[1,   640] loss: 3.820 (3.776 0.044 3.976) (np: 39.2, max-t: 0.079) [wd: 3.55e-01] [lr: 2.51e-04] [mem: 1.60e+03] (44 ms; 22 ms)
+INFO:root:[1,   640] grad_stats: [0.00e+00 0.00e+00] (1.16e+00, 4.11e+00)
+INFO:root:[1,   650] loss: 3.814 (3.769 0.045 3.970) (np: 39.3, max-t: 0.080) [wd: 3.60e-01] [lr: 2.52e-04] [mem: 1.60e+03] (44 ms; 23 ms)
+INFO:root:[1,   650] grad_stats: [0.00e+00 0.00e+00] (2.66e+00, 9.66e+00)
+INFO:root:[1,   660] loss: 3.807 (3.762 0.045 3.963) (np: 39.4, max-t: 0.081) [wd: 3.64e-01] [lr: 2.53e-04] [mem: 1.60e+03] (44 ms; 23 ms)
+INFO:root:[1,   660] grad_stats: [0.00e+00 0.00e+00] (3.49e+00, 1.31e+01)
+INFO:root:avg. loss 3.804
+/ext3/medfuse/lib/python3.6/site-packages/torch/nn/modules/rnn.py:683: UserWarning: RNN module weights are not part of single contiguous chunk of memory. This means they need to be compacted at every call, possibly greatly increasing memory usage. To compact weights again call flatten_parameters(). (Triggered internally at  /opt/conda/conda-bld/pytorch_1623448272031/work/aten/src/ATen/native/cudnn/RNN.cpp:924.)
+  self.num_layers, self.dropout, self.training, self.bidirectional)

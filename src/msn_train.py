@@ -1,10 +1,3 @@
-# Copyright (c) Facebook, Inc. and its affiliates.
-# All rights reserved.
-#
-# This source code is licensed under the license found in the
-# LICENSE file in the root directory of this source tree.
-#
-
 import os
 
 # -- FOR DISTRIBUTED TRAINING ENSURE ONLY 1 DEVICE VISIBLE PER PROCESS
@@ -107,14 +100,21 @@ def main(args, medfuse_params=None):
     label_smoothing = args['data']['label_smoothing']
     pin_mem = False if 'pin_mem' not in args['data'] else args['data']['pin_mem']
     num_workers = 1 if 'num_workers' not in args['data'] else args['data']['num_workers']
-    color_jitter = args['data']['color_jitter_strength']
-    root_path = args['data']['root_path']
-    image_folder = args['data']['image_folder']
-    patch_drop = args['data']['patch_drop']
-    rand_size = args['data']['rand_size']
-    rand_views = args['data']['rand_views']
-    focal_views = args['data']['focal_views']
-    focal_size = args['data']['focal_size']
+    try:
+        #img augmentations
+        color_jitter = args['data']['color_jitter_strength']
+        root_path = args['data']['root_path']
+        image_folder = args['data']['image_folder']
+        patch_drop = args['data']['patch_drop']
+        rand_size = args['data']['rand_size']
+        rand_views = args['data']['rand_views']
+        focal_views = args['data']['focal_views']
+        focal_size = args['data']['focal_size']
+        views = focal_views+rand_views
+    except:
+        #ehr augmentation
+        views = args['data']['views']
+        augmentation = args['data']['augmentation']
     # --
 
     # -- OPTIMIZATION
@@ -138,8 +138,9 @@ def main(args, medfuse_params=None):
         pass
 
     # -- init torch distributed backend
-    world_size, rank = init_distributed()
-    logger.info(f'Initialized (rank/world-size) {rank}/{world_size}')
+    # world_size, rank = init_distributed()
+    world_size, rank = 1, 0
+    # logger.info(f'Initialized (rank/world-size) {rank}/{world_size}')
     # if rank > 0:
     #     logger.setLevel(logging.ERROR)
 
@@ -152,7 +153,6 @@ def main(args, medfuse_params=None):
     latest_path = os.path.join(folder, f'{tag}-latest.pth.tar')
     load_path = None
     if load_model:
-        # load_path = os.path.join(folder, r_file) if r_file is not None else latest_path
         load_path = r_file
 
     # -- make csv_logger
@@ -177,13 +177,13 @@ def main(args, medfuse_params=None):
         output_dim=output_dim,
         drop_path_rate=drop_path_rate)
     target_encoder = copy.deepcopy(encoder)
-    if (world_size > 1):
-        encoder = torch.nn.SyncBatchNorm.convert_sync_batchnorm(encoder)
-        target_encoder = torch.nn.SyncBatchNorm.convert_sync_batchnorm(target_encoder)
+    # if (world_size > 1):
+    #     encoder = torch.nn.SyncBatchNorm.convert_sync_batchnorm(encoder)
+    #     target_encoder = torch.nn.SyncBatchNorm.convert_sync_batchnorm(target_encoder)
 
     # -- init losses
     msn = init_msn_loss(
-        num_views=focal_views+rand_views,
+        num_views=views,
         tau=temperature,
         me_max=reg,
         return_preds=True)
@@ -194,17 +194,15 @@ def main(args, medfuse_params=None):
         targets = targets.long().view(-1, 1).to(device)
         return torch.full((len(targets), num_classes), off_value, device=device).scatter_(1, targets, on_value)
 
-    # -- make data transforms
-    transform = make_transforms(
-        rand_size=rand_size,
-        focal_size=focal_size,
-        rand_views=rand_views+1,
-        focal_views=focal_views,
-        color_jitter=color_jitter)
-
     # -- init data-loaders/samplers
     logger.info(args)
     if modality == 'img':
+        transform = make_transforms(
+            rand_size=rand_size,
+            focal_size=focal_size,
+            rand_views=rand_views+1,
+            focal_views=focal_views,
+            color_jitter=color_jitter)
         (unsupervised_loader,
         unsupervised_sampler) = init_data(
             transform=transform,
@@ -226,7 +224,8 @@ def main(args, medfuse_params=None):
             world_size=world_size,
             rank=rank,
             training=True,
-            args=medfuse_params)
+            args=medfuse_params,
+            augmentation=augmentation)
     ipe = len(unsupervised_loader)
     logger.info(f'iterations per epoch: {ipe}')
 
@@ -322,7 +321,7 @@ def main(args, medfuse_params=None):
         logger.info('Epoch %d' % (epoch + 1))
 
         # -- update distributed-data-loader epoch
-        unsupervised_sampler.set_epoch(epoch)
+        # unsupervised_sampler.set_epoch(epoch)
 
         loss_meter = AverageMeter()
         ploss_meter = AverageMeter()

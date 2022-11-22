@@ -210,8 +210,8 @@ def init_ehr_data(
     drop_last=True,
     dataset_name='MIMICCXR',
     args=None,
-    augmentation=True,
-    distributed=True
+    augmentation='vertical_horizontal',
+    distributed=False
 ):
     if dataset_name == 'MIMICCXR':
         logger.info('MIMICCXR ehr fusion dataset')

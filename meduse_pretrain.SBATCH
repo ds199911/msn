@@ -1,10 +1,10 @@
 #!/bin/bash
 #SBATCH -n 1
-#SBATCH --cpus-per-task=16
-#SBATCH -t 48:00:00
+#SBATCH --cpus-per-task=28
+#SBATCH -t 96:00:00
 #SBATCH --gres=gpu
 #SBATCH --mem=32GB
-#SBATCH --job-name=ehr_pretrain-128-random
+#SBATCH --job-name=ehr_pretrain-128-vertical_and_horizontal
 
 module purge
 

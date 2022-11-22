@@ -11,27 +11,21 @@ criterion:
   use_sinkhorn: true
 data:
   modality: ehr
-  color_jitter_strength: 0.5
   pin_mem: true
   num_workers: 10
-  image_folder: /imagenet/
   label_smoothing: 0.0
-  patch_drop: 0.15
-  rand_size: 224
-  focal_size: 96
-  rand_views: 1
-  focal_views: 10
-  root_path: .
+  augmentation: drop_start
+  views: 11
 logging:
   folder: checkpoint/msn_ehr_logs/
-  write_tag: msn-experiment-1
+  write_tag: msn-ehr-experiment-drop_start
 meta:
   bottleneck: 1
   copy_data: false
   drop_path_rate: 0.0
   hidden_dim: 1024
   load_checkpoint: false
-  model_name: deit_small
+  model_name: lstm
   output_dim: 128
   read_checkpoint: null
   use_bn: true
@@ -39,7 +33,7 @@ meta:
   use_pred_head: false
 optimization:
   clip_grad: 3.0
-  epochs: 1
+  epochs: 100
   final_lr: 1.0e-06
   final_weight_decay: 0.4
   lr: 0.001

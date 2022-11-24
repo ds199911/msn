@@ -1,0 +1,175 @@
+INFO:root:called-params configs/pretrain/msn_ehr_lstm.yaml
+INFO:root:loaded params...
+{   'criterion': {   'batch_size': 64,
+                     'ent_weight': 0.0,
+                     'final_sharpen': 0.25,
+                     'me_max': True,
+                     'memax_weight': 1.0,
+                     'num_proto': 128,
+                     'start_sharpen': 0.25,
+                     'temperature': 0.1,
+                     'use_ent': True,
+                     'use_sinkhorn': True},
+    'data': {   'augmentation': 'vertical_horizontal',
+                'distributed': False,
+                'label_smoothing': 0.0,
+                'modality': 'ehr',
+                'num_workers': 16,
+                'pin_mem': True,
+                'views': 11},
+    'logging': {   'folder': 'checkpoint/msn_ehr_logs/',
+                   'write_tag': 'msn-ehr-experiment-vertical_horizontal'},
+    'meta': {   'bottleneck': 1,
+                'copy_data': False,
+                'drop_path_rate': 0.0,
+                'hidden_dim': 1024,
+                'load_checkpoint': False,
+                'model_name': 'lstm',
+                'output_dim': 128,
+                'read_checkpoint': None,
+                'use_bn': True,
+                'use_fp16': False,
+                'use_pred_head': False},
+    'optimization': {   'clip_grad': 3.0,
+                        'epochs': 100,
+                        'final_lr': 1e-06,
+                        'final_weight_decay': 0.4,
+                        'lr': 0.001,
+                        'start_lr': 0.0002,
+                        'warmup': 15,
+                        'weight_decay': 0.04}}
+INFO:root:Running ehr
+INFO:root:LSTM(
+  (layer0): LSTM(76, 128, batch_first=True)
+  (dense_layer): Linear(in_features=128, out_features=128, bias=True)
+  (fc): Sequential(
+    (fc1): Linear(in_features=128, out_features=1024, bias=True)
+    (bn1): BatchNorm1d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (gelu1): GELU()
+    (fc2): Linear(in_features=1024, out_features=1024, bias=True)
+    (bn2): BatchNorm1d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (gelu2): GELU()
+    (fc3): Linear(in_features=1024, out_features=128, bias=True)
+  )
+)
+INFO:root:{'criterion': {'ent_weight': 0.0, 'final_sharpen': 0.25, 'me_max': True, 'memax_weight': 1.0, 'num_proto': 128, 'start_sharpen': 0.25, 'temperature': 0.1, 'batch_size': 64, 'use_ent': True, 'use_sinkhorn': True}, 'data': {'modality': 'ehr', 'pin_mem': True, 'num_workers': 16, 'distributed': False, 'label_smoothing': 0.0, 'augmentation': 'vertical_horizontal', 'views': 11}, 'logging': {'folder': 'checkpoint/msn_ehr_logs/', 'write_tag': 'msn-ehr-experiment-vertical_horizontal'}, 'meta': {'bottleneck': 1, 'copy_data': False, 'drop_path_rate': 0.0, 'hidden_dim': 1024, 'load_checkpoint': False, 'model_name': 'lstm', 'output_dim': 128, 'read_checkpoint': None, 'use_bn': True, 'use_fp16': False, 'use_pred_head': False}, 'optimization': {'clip_grad': 3.0, 'epochs': 100, 'final_lr': 1e-06, 'final_weight_decay': 0.4, 'lr': 0.001, 'start_lr': 0.0002, 'warmup': 15, 'weight_decay': 0.04}}
+INFO:root:MIMICCXR ehr fusion dataset
+INFO:root:Namespace(align=0.0, batch_size=64, beta_1=0.9, crop=224, cxr_data_dir='/data/MedFuse/2.0.0', daft_activation='linear', data_pairs='partial_ehr_cxr', data_ratio=1.0, depth=1, devices=['cuda:0'], dim=256, dropout=0.0, ehr_data_dir='/data/MedFuse/mimic-iv-extracted', epochs=100, eval=False, fname='configs/pretrain/msn_ehr_lstm.yaml', fusion='joint', fusion_type='lstm', imputation='previous', labels_set='pheno', layer_after=4, layers=1, load_state=None, load_state_cxr=None, load_state_ehr=None, lr=0.0001, missing_token=None, mmtm_ratio=4, modality='ehr', mode='train', network=None, normalizer_state='/scratch/projects/shamoutlab/ds5749/multi-modal-msn/src/medfuse/normalizers/ph_ts1.0.input_str:previous.start_time:zero.normalizer', num_classes=25, patience=15, pretrained=False, rec_dropout=0.0, resize=256, resume=False, save_dir='checkpoints', task='phenotyping', timestep=1.0, vision_backbone='densenet121', vision_num_classes=14)
+INFO:root:partial_ehr_cxrlstm
+INFO:root:MIMICCXR dataset created
+INFO:root:unsupervised data loader created
+INFO:root:iterations per epoch: 666
+INFO:root:Created prototypes: torch.Size([128, 128])
+INFO:root:Requires grad: True
+INFO:root:Using AdamW
+INFO:root:Epoch 1
+INFO:root:[1,     0] loss: 5.277 (4.990 0.287 4.532) (np: 28.0, max-t: 0.033) [wd: 4.00e-02] [lr: 2.00e-04] [mem: 4.17e+02] (330 ms; 33 ms)
+INFO:root:[1,     0] grad_stats: [0.00e+00 0.00e+00] (9.57e-01, 6.74e+00)
+INFO:root:[1,    10] loss: 4.897 (4.798 0.098 4.710) (np: 26.1, max-t: 0.030) [wd: 4.00e-02] [lr: 2.01e-04] [mem: 6.79e+02] (124 ms; 11 ms)
+INFO:root:[1,    10] grad_stats: [0.00e+00 0.00e+00] (1.80e-01, 1.32e+00)
+INFO:root:[1,    20] loss: 4.782 (4.724 0.058 4.726) (np: 26.7, max-t: 0.031) [wd: 4.00e-02] [lr: 2.02e-04] [mem: 6.99e+02] (89 ms; 10 ms)
+INFO:root:[1,    20] grad_stats: [0.00e+00 0.00e+00] (1.75e-01, 9.84e-01)
+INFO:root:[1,    30] loss: 4.725 (4.683 0.042 4.716) (np: 27.1, max-t: 0.031) [wd: 4.00e-02] [lr: 2.02e-04] [mem: 6.99e+02] (79 ms; 10 ms)
+INFO:root:[1,    30] grad_stats: [0.00e+00 0.00e+00] (4.15e-01, 1.43e+00)
+INFO:root:[1,    40] loss: 4.679 (4.645 0.034 4.693) (np: 27.8, max-t: 0.032) [wd: 4.00e-02] [lr: 2.03e-04] [mem: 6.99e+02] (69 ms; 10 ms)
+INFO:root:[1,    40] grad_stats: [0.00e+00 0.00e+00] (6.98e-01, 2.25e+00)
+INFO:root:[1,    50] loss: 4.642 (4.613 0.029 4.671) (np: 28.2, max-t: 0.032) [wd: 4.00e-02] [lr: 2.04e-04] [mem: 1.06e+03] (65 ms; 10 ms)
+INFO:root:[1,    50] grad_stats: [0.00e+00 0.00e+00] (5.38e-01, 1.95e+00)
+INFO:root:[1,    60] loss: 4.608 (4.582 0.026 4.651) (np: 28.7, max-t: 0.034) [wd: 4.00e-02] [lr: 2.05e-04] [mem: 1.06e+03] (63 ms; 10 ms)
+INFO:root:[1,    60] grad_stats: [0.00e+00 0.00e+00] (2.72e-01, 1.37e+00)
+INFO:root:[1,    70] loss: 4.584 (4.560 0.024 4.631) (np: 28.9, max-t: 0.034) [wd: 4.00e-02] [lr: 2.06e-04] [mem: 1.06e+03] (61 ms; 10 ms)
+INFO:root:[1,    70] grad_stats: [0.00e+00 0.00e+00] (4.41e-01, 2.13e+00)
+INFO:root:[1,    80] loss: 4.559 (4.536 0.022 4.614) (np: 29.2, max-t: 0.035) [wd: 4.00e-02] [lr: 2.06e-04] [mem: 1.06e+03] (60 ms; 10 ms)
+INFO:root:[1,    80] grad_stats: [0.00e+00 0.00e+00] (5.06e-01, 2.34e+00)
+INFO:root:[1,    90] loss: 4.534 (4.512 0.021 4.598) (np: 29.5, max-t: 0.036) [wd: 4.00e-02] [lr: 2.07e-04] [mem: 1.06e+03] (59 ms; 10 ms)
+INFO:root:[1,    90] grad_stats: [0.00e+00 0.00e+00] (5.23e-01, 2.06e+00)
+INFO:root:[1,   100] loss: 4.511 (4.490 0.021 4.582) (np: 29.7, max-t: 0.036) [wd: 4.00e-02] [lr: 2.08e-04] [mem: 1.06e+03] (57 ms; 10 ms)
+INFO:root:[1,   100] grad_stats: [0.00e+00 0.00e+00] (4.13e-01, 2.10e+00)
+INFO:root:[1,   110] loss: 4.486 (4.466 0.020 4.564) (np: 30.1, max-t: 0.037) [wd: 4.00e-02] [lr: 2.09e-04] [mem: 1.28e+03] (57 ms; 10 ms)
+INFO:root:[1,   110] grad_stats: [0.00e+00 0.00e+00] (6.07e-01, 2.50e+00)
+INFO:root:[1,   120] loss: 4.463 (4.443 0.020 4.548) (np: 30.4, max-t: 0.038) [wd: 4.00e-02] [lr: 2.10e-04] [mem: 1.28e+03] (56 ms; 10 ms)
+INFO:root:[1,   120] grad_stats: [0.00e+00 0.00e+00] (6.21e-01, 2.49e+00)
+INFO:root:[1,   130] loss: 4.441 (4.421 0.019 4.530) (np: 30.6, max-t: 0.039) [wd: 4.00e-02] [lr: 2.10e-04] [mem: 1.28e+03] (54 ms; 10 ms)
+INFO:root:[1,   130] grad_stats: [0.00e+00 0.00e+00] (4.88e-01, 2.20e+00)
+INFO:root:[1,   140] loss: 4.418 (4.398 0.019 4.512) (np: 31.2, max-t: 0.040) [wd: 4.00e-02] [lr: 2.11e-04] [mem: 1.28e+03] (55 ms; 10 ms)
+INFO:root:[1,   140] grad_stats: [0.00e+00 0.00e+00] (6.18e-01, 2.37e+00)
+INFO:root:[1,   150] loss: 4.396 (4.376 0.019 4.495) (np: 31.5, max-t: 0.040) [wd: 4.00e-02] [lr: 2.12e-04] [mem: 1.28e+03] (55 ms; 10 ms)
+INFO:root:[1,   150] grad_stats: [0.00e+00 0.00e+00] (1.00e+00, 3.81e+00)
+INFO:root:[1,   160] loss: 4.372 (4.353 0.019 4.478) (np: 31.9, max-t: 0.041) [wd: 4.00e-02] [lr: 2.13e-04] [mem: 1.28e+03] (54 ms; 10 ms)
+INFO:root:[1,   160] grad_stats: [0.00e+00 0.00e+00] (7.34e-01, 2.83e+00)
+INFO:root:[1,   170] loss: 4.355 (4.334 0.020 4.460) (np: 32.2, max-t: 0.042) [wd: 4.00e-02] [lr: 2.14e-04] [mem: 1.28e+03] (54 ms; 10 ms)
+INFO:root:[1,   170] grad_stats: [0.00e+00 0.00e+00] (1.27e+00, 4.61e+00)
+INFO:root:[1,   180] loss: 4.333 (4.313 0.021 4.445) (np: 32.6, max-t: 0.043) [wd: 4.00e-02] [lr: 2.14e-04] [mem: 1.28e+03] (53 ms; 10 ms)
+INFO:root:[1,   180] grad_stats: [0.00e+00 0.00e+00] (4.52e-01, 2.29e+00)
+INFO:root:[1,   190] loss: 4.313 (4.292 0.021 4.428) (np: 33.0, max-t: 0.044) [wd: 4.00e-02] [lr: 2.15e-04] [mem: 1.28e+03] (54 ms; 10 ms)
+INFO:root:[1,   190] grad_stats: [0.00e+00 0.00e+00] (7.19e-01, 3.13e+00)
+INFO:root:[1,   200] loss: 4.292 (4.271 0.022 4.411) (np: 33.3, max-t: 0.045) [wd: 4.00e-02] [lr: 2.16e-04] [mem: 1.28e+03] (54 ms; 10 ms)
+INFO:root:[1,   200] grad_stats: [0.00e+00 0.00e+00] (6.97e-01, 2.72e+00)
+INFO:root:[1,   210] loss: 4.274 (4.252 0.022 4.395) (np: 33.6, max-t: 0.046) [wd: 4.00e-02] [lr: 2.17e-04] [mem: 1.28e+03] (54 ms; 10 ms)
+INFO:root:[1,   210] grad_stats: [0.00e+00 0.00e+00] (1.03e+00, 4.09e+00)
+INFO:root:[1,   220] loss: 4.254 (4.232 0.023 4.379) (np: 33.9, max-t: 0.047) [wd: 4.00e-02] [lr: 2.18e-04] [mem: 1.28e+03] (53 ms; 10 ms)
+INFO:root:[1,   220] grad_stats: [0.00e+00 0.00e+00] (6.72e-01, 2.64e+00)
+INFO:root:[1,   230] loss: 4.234 (4.211 0.023 4.363) (np: 34.1, max-t: 0.048) [wd: 4.00e-02] [lr: 2.18e-04] [mem: 1.28e+03] (53 ms; 10 ms)
+INFO:root:[1,   230] grad_stats: [0.00e+00 0.00e+00] (7.25e-01, 2.97e+00)
+INFO:root:[1,   240] loss: 4.214 (4.192 0.023 4.347) (np: 34.4, max-t: 0.049) [wd: 4.00e-02] [lr: 2.19e-04] [mem: 1.28e+03] (53 ms; 10 ms)
+INFO:root:[1,   240] grad_stats: [0.00e+00 0.00e+00] (1.09e+00, 3.48e+00)
+INFO:root:[1,   250] loss: 4.197 (4.173 0.024 4.332) (np: 34.7, max-t: 0.050) [wd: 4.00e-02] [lr: 2.20e-04] [mem: 1.28e+03] (53 ms; 10 ms)
+INFO:root:[1,   250] grad_stats: [0.00e+00 0.00e+00] (1.27e+00, 4.81e+00)
+INFO:root:[1,   260] loss: 4.181 (4.156 0.024 4.318) (np: 34.9, max-t: 0.050) [wd: 4.00e-02] [lr: 2.21e-04] [mem: 1.28e+03] (53 ms; 10 ms)
+INFO:root:[1,   260] grad_stats: [0.00e+00 0.00e+00] (9.29e-01, 3.43e+00)
+INFO:root:[1,   270] loss: 4.163 (4.138 0.024 4.303) (np: 35.1, max-t: 0.051) [wd: 4.00e-02] [lr: 2.22e-04] [mem: 1.28e+03] (53 ms; 10 ms)
+INFO:root:[1,   270] grad_stats: [0.00e+00 0.00e+00] (1.22e+00, 4.06e+00)
+INFO:root:[1,   280] loss: 4.147 (4.122 0.025 4.289) (np: 35.3, max-t: 0.052) [wd: 4.00e-02] [lr: 2.23e-04] [mem: 1.28e+03] (52 ms; 10 ms)
+INFO:root:[1,   280] grad_stats: [0.00e+00 0.00e+00] (1.07e+00, 3.48e+00)
+INFO:root:[1,   290] loss: 4.130 (4.104 0.026 4.276) (np: 35.5, max-t: 0.054) [wd: 4.00e-02] [lr: 2.23e-04] [mem: 1.28e+03] (52 ms; 10 ms)
+INFO:root:[1,   290] grad_stats: [0.00e+00 0.00e+00] (1.21e+00, 4.85e+00)
+INFO:root:[1,   300] loss: 4.115 (4.089 0.027 4.262) (np: 35.7, max-t: 0.054) [wd: 4.00e-02] [lr: 2.24e-04] [mem: 1.60e+03] (52 ms; 10 ms)
+INFO:root:[1,   300] grad_stats: [0.00e+00 0.00e+00] (1.34e+00, 4.78e+00)
+INFO:root:[1,   310] loss: 4.100 (4.073 0.027 4.249) (np: 35.9, max-t: 0.055) [wd: 4.00e-02] [lr: 2.25e-04] [mem: 1.60e+03] (52 ms; 10 ms)
+INFO:root:[1,   310] grad_stats: [0.00e+00 0.00e+00] (1.69e+00, 5.43e+00)
+INFO:root:[1,   320] loss: 4.086 (4.058 0.028 4.235) (np: 36.0, max-t: 0.056) [wd: 4.00e-02] [lr: 2.26e-04] [mem: 1.60e+03] (52 ms; 10 ms)
+INFO:root:[1,   320] grad_stats: [0.00e+00 0.00e+00] (1.84e+00, 6.08e+00)
+INFO:root:[1,   330] loss: 4.071 (4.042 0.029 4.222) (np: 36.2, max-t: 0.058) [wd: 4.00e-02] [lr: 2.27e-04] [mem: 1.60e+03] (52 ms; 10 ms)
+INFO:root:[1,   330] grad_stats: [0.00e+00 0.00e+00] (1.62e+00, 5.37e+00)
+INFO:root:[1,   340] loss: 4.058 (4.028 0.030 4.210) (np: 36.4, max-t: 0.059) [wd: 4.00e-02] [lr: 2.27e-04] [mem: 1.60e+03] (52 ms; 10 ms)
+INFO:root:[1,   340] grad_stats: [0.00e+00 0.00e+00] (1.37e+00, 4.76e+00)
+INFO:root:[1,   350] loss: 4.043 (4.013 0.031 4.198) (np: 36.5, max-t: 0.060) [wd: 4.00e-02] [lr: 2.28e-04] [mem: 1.60e+03] (52 ms; 10 ms)
+INFO:root:[1,   350] grad_stats: [0.00e+00 0.00e+00] (1.90e+00, 6.19e+00)
+INFO:root:[1,   360] loss: 4.031 (4.000 0.031 4.186) (np: 36.7, max-t: 0.061) [wd: 4.00e-02] [lr: 2.29e-04] [mem: 1.60e+03] (52 ms; 10 ms)
+INFO:root:[1,   360] grad_stats: [0.00e+00 0.00e+00] (2.11e+00, 6.84e+00)
+INFO:root:[1,   370] loss: 4.017 (3.985 0.032 4.174) (np: 36.9, max-t: 0.062) [wd: 4.00e-02] [lr: 2.30e-04] [mem: 1.60e+03] (52 ms; 10 ms)
+INFO:root:[1,   370] grad_stats: [0.00e+00 0.00e+00] (1.64e+00, 5.40e+00)
+INFO:root:[1,   380] loss: 4.004 (3.972 0.032 4.163) (np: 37.1, max-t: 0.063) [wd: 4.00e-02] [lr: 2.31e-04] [mem: 1.60e+03] (52 ms; 10 ms)
+INFO:root:[1,   380] grad_stats: [0.00e+00 0.00e+00] (1.22e+00, 4.00e+00)
+INFO:root:[1,   390] loss: 3.990 (3.958 0.032 4.151) (np: 37.3, max-t: 0.064) [wd: 4.00e-02] [lr: 2.31e-04] [mem: 1.60e+03] (52 ms; 10 ms)
+INFO:root:[1,   390] grad_stats: [0.00e+00 0.00e+00] (1.89e+00, 6.49e+00)
+INFO:root:[1,   400] loss: 3.978 (3.945 0.033 4.140) (np: 37.4, max-t: 0.066) [wd: 4.00e-02] [lr: 2.32e-04] [mem: 1.60e+03] (52 ms; 10 ms)
+INFO:root:[1,   400] grad_stats: [0.00e+00 0.00e+00] (2.86e+00, 9.93e+00)
+INFO:root:[1,   410] loss: 3.964 (3.931 0.033 4.129) (np: 37.6, max-t: 0.067) [wd: 4.00e-02] [lr: 2.33e-04] [mem: 1.60e+03] (52 ms; 10 ms)
+INFO:root:[1,   410] grad_stats: [0.00e+00 0.00e+00] (1.66e+00, 5.74e+00)
+INFO:root:[1,   420] loss: 3.952 (3.918 0.035 4.118) (np: 37.8, max-t: 0.069) [wd: 4.00e-02] [lr: 2.34e-04] [mem: 1.60e+03] (53 ms; 10 ms)
+INFO:root:[1,   420] grad_stats: [0.00e+00 0.00e+00] (2.20e+00, 7.65e+00)
+INFO:root:[1,   430] loss: 3.938 (3.904 0.035 4.106) (np: 37.9, max-t: 0.070) [wd: 4.00e-02] [lr: 2.35e-04] [mem: 1.60e+03] (53 ms; 10 ms)
+INFO:root:[1,   430] grad_stats: [0.00e+00 0.00e+00] (1.83e+00, 6.24e+00)
+INFO:root:[1,   440] loss: 3.927 (3.892 0.036 4.096) (np: 38.1, max-t: 0.071) [wd: 4.00e-02] [lr: 2.35e-04] [mem: 1.60e+03] (53 ms; 10 ms)
+INFO:root:[1,   440] grad_stats: [0.00e+00 0.00e+00] (2.87e+00, 9.76e+00)
+INFO:root:[1,   450] loss: 3.917 (3.880 0.037 4.087) (np: 38.2, max-t: 0.072) [wd: 4.00e-02] [lr: 2.36e-04] [mem: 1.60e+03] (53 ms; 10 ms)
+INFO:root:[1,   450] grad_stats: [0.00e+00 0.00e+00] (2.66e+00, 9.18e+00)
+INFO:root:[1,   460] loss: 3.906 (3.869 0.037 4.077) (np: 38.4, max-t: 0.074) [wd: 4.00e-02] [lr: 2.37e-04] [mem: 1.60e+03] (53 ms; 10 ms)
+INFO:root:[1,   460] grad_stats: [0.00e+00 0.00e+00] (2.71e+00, 9.58e+00)
+INFO:root:[1,   470] loss: 3.895 (3.857 0.038 4.067) (np: 38.5, max-t: 0.075) [wd: 4.00e-02] [lr: 2.38e-04] [mem: 1.60e+03] (53 ms; 10 ms)
+INFO:root:[1,   470] grad_stats: [0.00e+00 0.00e+00] (1.72e+00, 5.99e+00)
+INFO:root:[1,   480] loss: 3.885 (3.846 0.039 4.058) (np: 38.7, max-t: 0.076) [wd: 4.00e-02] [lr: 2.39e-04] [mem: 1.60e+03] (53 ms; 10 ms)
+INFO:root:[1,   480] grad_stats: [0.00e+00 0.00e+00] (1.83e+00, 6.34e+00)
+INFO:root:[1,   490] loss: 3.874 (3.834 0.040 4.049) (np: 38.8, max-t: 0.078) [wd: 4.00e-02] [lr: 2.39e-04] [mem: 1.60e+03] (53 ms; 10 ms)
+INFO:root:[1,   490] grad_stats: [0.00e+00 0.00e+00] (2.70e+00, 9.68e+00)
+INFO:root:[1,   500] loss: 3.863 (3.823 0.040 4.039) (np: 38.9, max-t: 0.079) [wd: 4.00e-02] [lr: 2.40e-04] [mem: 1.60e+03] (54 ms; 11 ms)
+INFO:root:[1,   500] grad_stats: [0.00e+00 0.00e+00] (4.77e+00, 1.69e+01)
+INFO:root:[1,   510] loss: 3.852 (3.811 0.041 4.030) (np: 39.1, max-t: 0.081) [wd: 4.00e-02] [lr: 2.41e-04] [mem: 1.60e+03] (54 ms; 10 ms)
+INFO:root:[1,   510] grad_stats: [0.00e+00 0.00e+00] (2.87e+00, 1.07e+01)
+INFO:root:[1,   520] loss: 3.842 (3.800 0.042 4.021) (np: 39.2, max-t: 0.082) [wd: 4.00e-02] [lr: 2.42e-04] [mem: 1.60e+03] (54 ms; 10 ms)
+INFO:root:[1,   520] grad_stats: [0.00e+00 0.00e+00] (3.63e+00, 1.33e+01)
+INFO:root:[1,   530] loss: 3.832 (3.790 0.042 4.012) (np: 39.4, max-t: 0.083) [wd: 4.00e-02] [lr: 2.43e-04] [mem: 1.60e+03] (54 ms; 11 ms)
+INFO:root:[1,   530] grad_stats: [0.00e+00 0.00e+00] (5.06e+00, 1.77e+01)
+INFO:root:[1,   540] loss: 3.821 (3.779 0.043 4.003) (np: 39.5, max-t: 0.084) [wd: 4.00e-02] [lr: 2.43e-04] [mem: 1.60e+03] (54 ms; 10 ms)
+INFO:root:[1,   540] grad_stats: [0.00e+00 0.00e+00] (4.18e+00, 1.53e+01)

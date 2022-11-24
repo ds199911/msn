@@ -12,13 +12,14 @@ criterion:
 data:
   modality: ehr
   pin_mem: true
-  num_workers: 10
+  num_workers: 16
+  distributed: false
   label_smoothing: 0.0
-  augmentation: drop_start
+  augmentation: vertical_horizontal
   views: 11
 logging:
   folder: checkpoint/msn_ehr_logs/
-  write_tag: msn-ehr-experiment-drop_start
+  write_tag: msn-ehr-experiment-vertical_horizontal
 meta:
   bottleneck: 1
   copy_data: false

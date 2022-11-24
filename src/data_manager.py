@@ -279,7 +279,7 @@ def init_ehr_data(
                 batch_size=batch_size,
                 drop_last=drop_last,
                 pin_memory=pin_mem,
-                num_workers=0,
+                num_workers=num_workers,
                 collate_fn=my_collate)
             dist_sampler=None
 
@@ -296,7 +296,6 @@ def pad_zeros(arr, min_length=None):
         ret = [torch.cat([x, np.zeros((min_length - x.shape[0],) + x.shape[1:])], axis=0)
             for x in ret]
     return torch.stack(ret), seq_length
-
 def pad_zeros_mask(arr, min_length=None):
     max_len = max([x[0].shape[0] for x in arr])
     seq_length = [x[0].shape[0] for x in arr]
@@ -315,6 +314,25 @@ def pad_zeros_mask(arr, min_length=None):
             batch.append(ret[j][i])
         res.append(torch.stack(batch))
     return res, seq_length
+
+# def pad_zeros_mask(arr, min_length=None):
+#     max_len = max([x[0].shape[0] for x in arr])
+#     seq_length = [x[0].shape[0] for x in arr]
+#     ret = []
+#     for xs in arr:
+#         ret.append([torch.cat([torch.tensor(x), torch.zeros((max_len - x.shape[0],) + x.shape[1:])], axis=0)
+#         for x in xs])  
+#     if (min_length is not None) and ret[0].shape[0] < min_length:
+#         for xs in arr:
+#             ret.append([torch.cat([torch.tensor(x), np.zeros((min_length - x.shape[0],) + x.shape[1:])], axis=0)
+#             for x in xs]) 
+#     res = []
+#     for i in range(len(ret[0])):
+#         batch = []
+#         for j in range(len(ret)):
+#             batch.append(ret[j][i])
+#         res.append(torch.stack(batch))
+#     return res, seq_length
 
 def make_transforms(
     rand_size=224,

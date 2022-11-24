@@ -62,10 +62,10 @@ class LinearClassifier(torch.nn.Module):
 
     def forward(self, x):
         x = x.view(x.size(0), -1)  # flatten
-        x = self.norm(x)
-        if self.normalize:
-            x = torch.nn.functional.normalize(x)
-        return self.linear(x)
+        # x = self.norm(x.float())
+        # if self.normalize:
+        #     x = torch.nn.functional.normalize(x)
+        return self.linear(x.float())
 
 def load_pretrained(
     r_path,
@@ -130,10 +130,10 @@ def init_model(
     if modality == 'img':
         encoder = deit.__dict__[model_name]()
         emb_dim = 192 if 'tiny' in model_name else 384 if 'small' in model_name else 768 if 'base' in model_name else 1024 if 'large' in model_name else 1280
+        emb_dim *= num_blocks
     elif modality == 'ehr':
         encoder = LSTM()
         emb_dim = 128
-    emb_dim *= num_blocks
     encoder.fc = None
     encoder.norm = None
 
@@ -313,22 +313,23 @@ def linear_eval(args, modality='img', medfuse_params=None):
             # dist_sampler.set_epoch(epoch)
             outGT = torch.FloatTensor().to(device)
             outPRED = torch.FloatTensor().to(device)
-            top1_correct, top5_correct, total = 0, 0, 0
             for i, data in enumerate(data_loader):
                 with torch.cuda.amp.autocast(enabled=True):
-                    inputs, labels = data[0].to(device), data[1].to(device)
+                    inputs, labels = torch.tensor(data[0]).to(device), torch.tensor(data[1]).to(device)
                     with torch.no_grad():
-                        outputs = encoder.forward_blocks(inputs, num_blocks)
+                        if modality == 'ehr':
+                            outputs = encoder(inputs.half(), data[2])
+                            ln = torch.nn.LayerNorm(128)
+                            outputs = ln(outputs)
+                        else:
+                            outputs = encoder.forward_blocks(inputs, num_blocks)
+
                 outputs = linear_classifier(outputs)
                 loss = criterion(outputs, labels) 
                 total += inputs.shape[0]
 
                 outPRED = torch.cat((outPRED, outputs), 0)
                 outGT = torch.cat((outGT, labels), 0)
-                # top5_correct += float(outputs.topk(5, dim=1).indices.eq(labels.unsqueeze(1)).sum())
-                # top1_correct += float(outputs.max(dim=1).indices.eq(labels).sum())
-                # top1_acc = 100. * top1_correct / total
-                # top5_acc = 100. * top5_correct / total
                 if training:
                     scaler.scale(loss).backward()
                     scaler.step(optimizer)
@@ -336,33 +337,24 @@ def linear_eval(args, modality='img', medfuse_params=None):
                     scheduler.step()
                     optimizer.zero_grad()
                 logger.info('epoch: {}'.format(i))
-                # if i % 10 == 0:
-                    # metrics = computeAUROC(outGT.data.cpu().numpy(), outPRED.data.cpu().numpy())
-                    # logger.info(metrics)
-                    # logger.info('[%d, %5d] %.3f%% %.3f%% (loss: %.3f)'
-                    #             % (epoch + 1, i, top1_acc, top5_acc, loss))
-            # return 100. * top1_correct / total
             metrics = computeAUROC(outGT.data.cpu().numpy(), outPRED.data.cpu().numpy())
             return metrics
 
         def val_step():
             outGT = torch.FloatTensor().to(device)
             outPRED = torch.FloatTensor().to(device)
-            top1_correct, total = 0, 0
             for i, data in enumerate(val_data_loader):
                 with torch.cuda.amp.autocast(enabled=True):
-                    inputs, labels = data[0].to(device), data[1].to(device)
-                    outputs = encoder.forward_blocks(inputs, num_blocks)
+                    inputs, labels = torch.tensor(data[0]).to(device), torch.tensor(data[1]).to(device)
+                    if modality == 'ehr':
+                        outputs = encoder(inputs.half(), data[2])
+                    else:
+                        outputs = encoder.forward_blocks(inputs, num_blocks)
+
                 outputs = linear_classifier(outputs)
                 outPRED = torch.cat((outPRED, outputs), 0)
                 outGT = torch.cat((outGT, labels), 0)
-                # total += inputs.shape[0]
-                # top1_correct += outputs.max(dim=1).indices.eq(labels).sum()
-                # top1_acc = 100. * top1_correct / total
-
-            # top1_acc = AllReduce.apply(top1_acc)
-            # logger.info('[%d, %5d] %.3f%%' % (epoch + 1, i, top1_acc))
-            # return top1_acc
+            
             metrics = computeAUROC(outGT.data.cpu().numpy(), outPRED.data.cpu().numpy())
             return metrics
 

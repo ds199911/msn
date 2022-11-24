@@ -422,3 +422,142 @@ INFO:root:[2,   450] loss: 2.854 (2.743 0.111 3.163) (np: 54.0, max-t: 0.262) [w
 INFO:root:[2,   450] grad_stats: [0.00e+00 0.00e+00] (4.94e+00, 2.28e+01)
 INFO:root:[2,   460] loss: 2.849 (2.738 0.111 3.159) (np: 54.0, max-t: 0.263) [wd: 4.02e-02] [lr: 2.90e-04] [mem: 1.60e+03] (42 ms; 22 ms)
 INFO:root:[2,   460] grad_stats: [0.00e+00 0.00e+00] (8.28e+00, 4.52e+01)
+INFO:root:[2,   470] loss: 2.845 (2.733 0.112 3.155) (np: 54.1, max-t: 0.264) [wd: 4.02e-02] [lr: 2.91e-04] [mem: 1.60e+03] (42 ms; 22 ms)
+INFO:root:[2,   470] grad_stats: [0.00e+00 0.00e+00] (5.37e+00, 2.69e+01)
+INFO:root:[2,   480] loss: 2.840 (2.728 0.112 3.150) (np: 54.1, max-t: 0.265) [wd: 4.02e-02] [lr: 2.92e-04] [mem: 1.60e+03] (42 ms; 22 ms)
+INFO:root:[2,   480] grad_stats: [0.00e+00 0.00e+00] (1.11e+01, 5.21e+01)
+INFO:root:[2,   490] loss: 2.835 (2.722 0.112 3.146) (np: 54.2, max-t: 0.266) [wd: 4.02e-02] [lr: 2.93e-04] [mem: 1.60e+03] (42 ms; 22 ms)
+INFO:root:[2,   490] grad_stats: [0.00e+00 0.00e+00] (5.00e+00, 2.24e+01)
+INFO:root:[2,   500] loss: 2.831 (2.718 0.113 3.142) (np: 54.2, max-t: 0.267) [wd: 4.02e-02] [lr: 2.93e-04] [mem: 1.60e+03] (43 ms; 22 ms)
+INFO:root:[2,   500] grad_stats: [0.00e+00 0.00e+00] (6.42e+00, 2.93e+01)
+INFO:root:[2,   510] loss: 2.826 (2.713 0.113 3.137) (np: 54.3, max-t: 0.269) [wd: 4.02e-02] [lr: 2.94e-04] [mem: 1.60e+03] (43 ms; 22 ms)
+INFO:root:[2,   510] grad_stats: [0.00e+00 0.00e+00] (6.20e+00, 3.57e+01)
+INFO:root:[2,   520] loss: 2.822 (2.709 0.114 3.134) (np: 54.3, max-t: 0.270) [wd: 4.02e-02] [lr: 2.95e-04] [mem: 1.60e+03] (43 ms; 22 ms)
+INFO:root:[2,   520] grad_stats: [0.00e+00 0.00e+00] (7.69e+00, 4.46e+01)
+INFO:root:[2,   530] loss: 2.819 (2.705 0.114 3.130) (np: 54.4, max-t: 0.271) [wd: 4.02e-02] [lr: 2.96e-04] [mem: 1.60e+03] (43 ms; 22 ms)
+INFO:root:[2,   530] grad_stats: [0.00e+00 0.00e+00] (7.23e+00, 5.28e+01)
+INFO:root:[2,   540] loss: 2.814 (2.700 0.114 3.126) (np: 54.5, max-t: 0.272) [wd: 4.02e-02] [lr: 2.97e-04] [mem: 1.60e+03] (43 ms; 22 ms)
+INFO:root:[2,   540] grad_stats: [0.00e+00 0.00e+00] (8.31e+00, 4.33e+01)
+INFO:root:[2,   550] loss: 2.810 (2.696 0.115 3.122) (np: 54.6, max-t: 0.273) [wd: 4.02e-02] [lr: 2.97e-04] [mem: 1.60e+03] (43 ms; 22 ms)
+INFO:root:[2,   550] grad_stats: [0.00e+00 0.00e+00] (8.44e+00, 4.63e+01)
+INFO:root:[2,   560] loss: 2.806 (2.691 0.115 3.118) (np: 54.6, max-t: 0.274) [wd: 4.02e-02] [lr: 2.98e-04] [mem: 1.60e+03] (43 ms; 22 ms)
+INFO:root:[2,   560] grad_stats: [0.00e+00 0.00e+00] (8.01e+00, 5.45e+01)
+INFO:root:[2,   570] loss: 2.802 (2.687 0.115 3.114) (np: 54.7, max-t: 0.275) [wd: 4.02e-02] [lr: 2.99e-04] [mem: 1.60e+03] (43 ms; 22 ms)
+INFO:root:[2,   570] grad_stats: [0.00e+00 0.00e+00] (4.04e+00, 1.83e+01)
+INFO:root:[2,   580] loss: 2.797 (2.681 0.116 3.109) (np: 54.7, max-t: 0.276) [wd: 4.02e-02] [lr: 3.00e-04] [mem: 1.60e+03] (43 ms; 22 ms)
+INFO:root:[2,   580] grad_stats: [0.00e+00 0.00e+00] (6.12e+00, 3.09e+01)
+INFO:root:[2,   590] loss: 2.793 (2.677 0.116 3.105) (np: 54.8, max-t: 0.277) [wd: 4.02e-02] [lr: 3.01e-04] [mem: 1.60e+03] (43 ms; 22 ms)
+INFO:root:[2,   590] grad_stats: [0.00e+00 0.00e+00] (7.21e+00, 4.88e+01)
+INFO:root:[2,   600] loss: 2.791 (2.674 0.117 3.102) (np: 54.8, max-t: 0.278) [wd: 4.02e-02] [lr: 3.01e-04] [mem: 1.60e+03] (43 ms; 22 ms)
+INFO:root:[2,   600] grad_stats: [0.00e+00 0.00e+00] (7.67e+00, 5.51e+01)
+INFO:root:[2,   610] loss: 2.785 (2.668 0.117 3.098) (np: 54.9, max-t: 0.280) [wd: 4.02e-02] [lr: 3.02e-04] [mem: 1.60e+03] (43 ms; 22 ms)
+INFO:root:[2,   610] grad_stats: [0.00e+00 0.00e+00] (4.92e+00, 2.39e+01)
+INFO:root:Glascow coma scale eye opening
+INFO:root:4 S
+INFO:root:Glascow coma scale motor response
+INFO:root:6 O
+INFO:root:Glascow coma scale eye opening
+INFO:root:4 S
+INFO:root:Glascow coma scale motor response
+INFO:root:6 O
+/ext3/medfuse/lib/python3.6/site-packages/torch/nn/modules/rnn.py:683: UserWarning: RNN module weights are not part of single contiguous chunk of memory. This means they need to be compacted at every call, possibly greatly increasing memory usage. To compact weights again call flatten_parameters(). (Triggered internally at  /opt/conda/conda-bld/pytorch_1623448272031/work/aten/src/ATen/native/cudnn/RNN.cpp:924.)
+  self.num_layers, self.dropout, self.training, self.bidirectional)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/scratch/projects/shamoutlab/ds5749/multi-modal-msn/src/medfuse/ehr_utils/preprocessing.py", line 82, in write
+    category_id = self._possible_values[channel].index(value)
+ValueError: '6 O' is not in list
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/scratch/projects/shamoutlab/ds5749/multi-modal-msn/src/medfuse/ehr_utils/preprocessing.py", line 117, in transform
+    write(data, bin_id, channel, row[j], begin_pos)
+  File "/scratch/projects/shamoutlab/ds5749/multi-modal-msn/src/medfuse/ehr_utils/preprocessing.py", line 88, in write
+    category_id = self._possible_values[channel].index(value)
+ValueError: '6 O' is not in list
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 994, in emit
+    msg = self.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 840, in format
+    return fmt.format(record)
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 577, in format
+    record.message = record.getMessage()
+  File "/ext3/medfuse/lib/python3.6/logging/__init__.py", line 338, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "<string>", line 1, in <module>
+  File "/ext3/medfuse/lib/python3.6/multiprocessing/spawn.py", line 105, in spawn_main
+    exitcode = _main(fd)
+  File "/ext3/medfuse/lib/python3.6/multiprocessing/spawn.py", line 118, in _main
+    return self._bootstrap()
+  File "/ext3/medfuse/lib/python3.6/multiprocessing/process.py", line 258, in _bootstrap
+    self.run()
+  File "/ext3/medfuse/lib/python3.6/multiprocessing/process.py", line 93, in run
+    self._target(*self._args, **self._kwargs)
+  File "/ext3/medfuse/lib/python3.6/site-packages/torch/multiprocessing/spawn.py", line 59, in _wrap
+    fn(i, *args)
+  File "/scratch/projects/shamoutlab/ds5749/multi-modal-msn/main.py", line 69, in process_main
+    return msn(params, medfuse_args)
+  File "/scratch/projects/shamoutlab/ds5749/multi-modal-msn/src/msn_train.py", line 336, in main
+    # logger.info(itr)
+  File "/ext3/medfuse/lib/python3.6/site-packages/torch/utils/data/dataloader.py", line 521, in __next__
+    data = self._next_data()
+  File "/ext3/medfuse/lib/python3.6/site-packages/torch/utils/data/dataloader.py", line 561, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+  File "/ext3/medfuse/lib/python3.6/site-packages/torch/utils/data/_utils/fetch.py", line 44, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/ext3/medfuse/lib/python3.6/site-packages/torch/utils/data/_utils/fetch.py", line 44, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/scratch/projects/shamoutlab/ds5749/multi-modal-msn/src/medfuse/ehr_dataset.py", line 98, in __getitem__
+    data[i] = self.discretizer.transform(data[i], end=ts)[0]
+  File "/scratch/projects/shamoutlab/ds5749/multi-modal-msn/src/medfuse/ehr_utils/preprocessing.py", line 119, in transform
+    logger.info(channel, row[j])
+Message: 'Glascow coma scale motor response'
+Arguments: ('6 O',)
+Traceback (most recent call last):
+  File "main.py", line 84, in <module>
+    args=(args.fname, num_gpus, args.devices, args.modality, args))
+  File "/ext3/medfuse/lib/python3.6/site-packages/torch/multiprocessing/spawn.py", line 230, in spawn
+    return start_processes(fn, args, nprocs, join, daemon, start_method='spawn')
+  File "/ext3/medfuse/lib/python3.6/site-packages/torch/multiprocessing/spawn.py", line 188, in start_processes
+    while not context.join():
+  File "/ext3/medfuse/lib/python3.6/site-packages/torch/multiprocessing/spawn.py", line 150, in join
+    raise ProcessRaisedException(msg, error_index, failed_process.pid)
+torch.multiprocessing.spawn.ProcessRaisedException: 
+
+-- Process 0 terminated with the following error:
+Traceback (most recent call last):
+  File "/scratch/projects/shamoutlab/ds5749/multi-modal-msn/src/medfuse/ehr_utils/preprocessing.py", line 82, in write
+    category_id = self._possible_values[channel].index(value)
+ValueError: '6 O' is not in list
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/ext3/medfuse/lib/python3.6/site-packages/torch/multiprocessing/spawn.py", line 59, in _wrap
+    fn(i, *args)
+  File "/scratch/projects/shamoutlab/ds5749/multi-modal-msn/main.py", line 69, in process_main
+    return msn(params, medfuse_args)
+  File "/scratch/projects/shamoutlab/ds5749/multi-modal-msn/src/msn_train.py", line 336, in main
+    # logger.info(itr)
+  File "/ext3/medfuse/lib/python3.6/site-packages/torch/utils/data/dataloader.py", line 521, in __next__
+    data = self._next_data()
+  File "/ext3/medfuse/lib/python3.6/site-packages/torch/utils/data/dataloader.py", line 561, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+  File "/ext3/medfuse/lib/python3.6/site-packages/torch/utils/data/_utils/fetch.py", line 44, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/ext3/medfuse/lib/python3.6/site-packages/torch/utils/data/_utils/fetch.py", line 44, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/scratch/projects/shamoutlab/ds5749/multi-modal-msn/src/medfuse/ehr_dataset.py", line 98, in __getitem__
+    data[i] = self.discretizer.transform(data[i], end=ts)[0]
+  File "/scratch/projects/shamoutlab/ds5749/multi-modal-msn/src/medfuse/ehr_utils/preprocessing.py", line 142, in transform
+    write(data, bin_id, channel, imputed_value, begin_pos)
+  File "/scratch/projects/shamoutlab/ds5749/multi-modal-msn/src/medfuse/ehr_utils/preprocessing.py", line 88, in write
+    category_id = self._possible_values[channel].index(value)
+ValueError: '6 O' is not in list
+

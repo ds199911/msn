@@ -103,7 +103,7 @@ class EHRdataset(Dataset):
             if (self.normalizer is not None):
                 data = self.normalizer.transform(data)
         ys = ret["y"]
-        names = ret["name"]
+        # names = ret["name"]
         ys = np.array(ys, dtype=np.int32) if len(ys) > 1 else np.array(ys, dtype=np.int32)[0]
         return data, ys
     
@@ -159,15 +159,15 @@ def pad_zeros(arr, min_length=None):
     return np.array(ret), seq_length
 
 def pad_zeros_mask(arr, min_length=None):
-    max_len = max([x[0].shape[0] for x in arr])
     seq_length = [x[0].shape[0] for x in arr]
+    max_len = max(seq_length)
     ret = []
     for xs in arr:
-        ret.append([torch.cat([torch.tensor(x), torch.zeros((max_len - x.shape[0],) + x.shape[1:])], axis=0)
+        ret.append([torch.cat([torch.from_numpy(x), torch.zeros((max_len - x.shape[0],) + x.shape[1:])], axis=0)
         for x in xs])  
     if (min_length is not None) and ret[0].shape[0] < min_length:
         for xs in arr:
-            ret.append([torch.cat([torch.tensor(x), np.zeros((min_length - x.shape[0],) + x.shape[1:])], axis=0)
+            ret.append([torch.cat([torch.from_numpy(x), np.zeros((min_length - x.shape[0],) + x.shape[1:])], axis=0)
             for x in xs]) 
     res = []
     for i in range(len(ret[0])):
@@ -210,7 +210,8 @@ class MultiTransform(object):
     
     def drop_start(self, data, max_percent=0.4):
         length = data.shape[0]
-        start = int(np.random.randint(low=1, high=int(max_percent*length), size=1))
+        assert int(max_percent*length) > 0
+        start = int(np.random.randint(low=0, high=int(max_percent*length), size=1))
         return data[start:,:]
 
     def __call__(self, img):

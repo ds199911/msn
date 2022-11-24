@@ -100,6 +100,7 @@ def main(args, medfuse_params=None):
     label_smoothing = args['data']['label_smoothing']
     pin_mem = False if 'pin_mem' not in args['data'] else args['data']['pin_mem']
     num_workers = 1 if 'num_workers' not in args['data'] else args['data']['num_workers']
+    distributed = args['data']['distributed']
     try:
         #img augmentations
         color_jitter = args['data']['color_jitter_strength']
@@ -132,10 +133,10 @@ def main(args, medfuse_params=None):
     tag = args['logging']['write_tag']
     # ----------------------------------------------------------------------- #
 
-    try:
-        mp.set_start_method('spawn')
-    except Exception:
-        pass
+    # try:
+    #     mp.set_start_method('spawn')
+    # except Exception:
+    #     pass
 
     # -- init torch distributed backend
     # world_size, rank = init_distributed()
@@ -225,7 +226,8 @@ def main(args, medfuse_params=None):
             rank=rank,
             training=True,
             args=medfuse_params,
-            augmentation=augmentation)
+            augmentation=augmentation,
+            distributed=distributed)
     ipe = len(unsupervised_loader)
     logger.info(f'iterations per epoch: {ipe}')
 
@@ -321,7 +323,7 @@ def main(args, medfuse_params=None):
         logger.info('Epoch %d' % (epoch + 1))
 
         # -- update distributed-data-loader epoch
-        # unsupervised_sampler.set_epoch(epoch)
+        if distributed: unsupervised_sampler.set_epoch(epoch)
 
         loss_meter = AverageMeter()
         ploss_meter = AverageMeter()
@@ -331,9 +333,12 @@ def main(args, medfuse_params=None):
         maxp_meter = AverageMeter()
         time_meter = AverageMeter()
         data_meter = AverageMeter()
-
+        # # ## TODO: Delete the timer
+        # import time
+        # start_time = time.time()
         for itr, data in enumerate(unsupervised_loader):
-            # logger.info(itr)
+            # logger.info("--- %s seconds ---" % (time.time() - start_time))
+            # start_time = time.time()
             # continue
             def load_imgs():
                 # -- unsupervised imgs

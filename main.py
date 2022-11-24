@@ -34,8 +34,7 @@ parser.add_argument(
 
 def process_main(rank, fname, world_size, devices, modality='img', medfuse_args=None):
     import os
-    os.environ['CUDA_VISIBLE_DEVICES'] = str(devices[rank].split(':')[-1])
-
+    os.environ['CUDA_VISIBLE_DEVICES'] = str(devices[0].split(':')[-1])
     import logging
     logging.basicConfig()
     logger = logging.getLogger()
@@ -58,8 +57,8 @@ def process_main(rank, fname, world_size, devices, modality='img', medfuse_args=
     with open(dump, 'w') as f:
         yaml.dump(params, f)
 
-    world_size, rank = init_distributed(rank_and_world_size=(rank, world_size))
-    logger.info(f'Running... (rank: {rank}/{world_size})')
+    # world_size, rank = init_distributed(rank_and_world_size=(rank, world_size))
+    # logger.info(f'Running... (rank: {rank}/{world_size})')
 
     if modality == 'fusion':
         logger.info(f'Running fusion')
@@ -76,12 +75,13 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     num_gpus = len(args.devices)
-    assert args.modality == 'ehr'
-    if args.modality == 'fusion' or args.modality == 'ehr':
+    if args.modality == 'fusion':
         mp.spawn(
         process_main,
         nprocs=num_gpus,
         args=(args.fname, num_gpus, args.devices, args.modality, args))
+    elif args.modality == 'ehr':
+        process_main(0, args.fname, num_gpus, args.devices, args.modality, args)
     else:
         mp.spawn(
         process_main,

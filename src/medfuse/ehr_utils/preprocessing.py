@@ -85,6 +85,7 @@ class Discretizer:
                     logger.info(value)
                     if value == '5 O': value = '5 Oriented'
                     elif value == '4 S': value = '4 Spontaneously'
+                    elif value == '6 O': value = '6 Obeys Commands'
                     category_id = self._possible_values[channel].index(value)
 
                 N_values = len(self._possible_values[channel])

@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 from __future__ import print_function
-
+import sys 
+sys.path.append('..')
 import numpy as np
 import argparse
 import os
@@ -24,76 +25,62 @@ parser = args_parser()
 args = parser.parse_args()
 # print(args)
 
-# if args.missing_token is not None:
-#     from trainers.fusion_tokens_trainer import FusionTokensTrainer as FusionTrainer
-    
-# path = Path(args.save_dir)
-# path.mkdir(parents=True, exist_ok=True)
+# seed = 1002
+# torch.manual_seed(seed)
+# np.random.seed(seed)
 
-seed = 1002
-torch.manual_seed(seed)
-np.random.seed(seed)
+# def read_timeseries(args):
+#     path = f'{args.ehr_data_dir}/{args.task}/train/14991576_episode3_timeseries.csv'
+#     ret = []
+#     with open(path, "r") as tsfile:
+#         header = tsfile.readline().strip().split(',')
+#         assert header[0] == "Hours"
+#         for line in tsfile:
+#             mas = line.strip().split(',')
+#             ret.append(np.array(mas))
+#     return np.stack(ret)
 
-def read_timeseries(args):
-    path = f'{args.ehr_data_dir}/{args.task}/train/14991576_episode3_timeseries.csv'
-    ret = []
-    with open(path, "r") as tsfile:
-        header = tsfile.readline().strip().split(',')
-        assert header[0] == "Hours"
-        for line in tsfile:
-            mas = line.strip().split(',')
-            ret.append(np.array(mas))
-    return np.stack(ret)
+# discretizer = Discretizer(timestep=float(args.timestep),
+#                           store_masks=True,
+#                           impute_strategy='previous',
+#                           start_time='zero')
 
-discretizer = Discretizer(timestep=float(args.timestep),
-                          store_masks=True,
-                          impute_strategy='previous',
-                          start_time='zero')
-
-discretizer_header = discretizer.transform(read_timeseries(args))[1].split(',')
-# print('discretizer_header',discretizer_header)
-# print([(i, x) for (i, x) in enumerate(discretizer_header)])
-cont_channels = [i for (i, x) in enumerate(discretizer_header) if x.find("->") == -1]
-# print(cont_channels)
-normalizer = Normalizer(fields=cont_channels)  # choose here which columns to standardize
-normalizer_state = args.normalizer_state
-if normalizer_state is None:
-    normalizer_state = 'normalizers/ph_ts{}.input_str:previous.start_time:zero.normalizer'.format(args.timestep)
-    normalizer_state = os.path.join(os.path.dirname(__file__), normalizer_state)
-normalizer.load_params(normalizer_state)
+# discretizer_header = discretizer.transform(read_timeseries(args))[1].split(',')
+# cont_channels = [i for (i, x) in enumerate(discretizer_header) if x.find("->") == -1]
+# normalizer = Normalizer(fields=cont_channels)  # choose here which columns to standardize
+# normalizer_state = args.normalizer_state
+# if normalizer_state is None:
+#     normalizer_state = 'normalizers/ph_ts{}.input_str:previous.start_time:zero.normalizer'.format(args.timestep)
+#     normalizer_state = os.path.join(os.path.dirname(__file__), normalizer_state)
+# normalizer.load_params(normalizer_state)
 
 # ehr_train_ds, ehr_val_ds, ehr_test_ds = get_datasets(discretizer, normalizer, args)
-train_dl, val_dl, test_dl = get_data_loader(discretizer, normalizer, args, args.batch_size)
-
+# train_dl, val_dl, test_dl = get_data_loader(discretizer, normalizer, args, args.batch_size)
 # cxr_train_ds, cxr_val_ds, cxr_test_ds = get_cxr_datasets(args)
 
-# print(len(ehr_train_ds[0]))
-# print(len(cxr_train_ds[0]))
+from src.data_manager import (
+    init_data,
+    init_ehr_data,
+    make_transforms
+)
+import time
+start_time = time.time()
+main()
+print("--- %s seconds ---" % (time.time() - start_time))
+(unsupervised_loader, unsupervised_sampler) = init_ehr_data(
+            batch_size=64,
+            pin_mem=True,
+            num_workers=0,
+            world_size=1,
+            rank=0,
+            training=True,
+            args=args,
+            augmentation='vertical_horizontal',
+            distributed=False)
 
-# train_dl = DataLoader(ehr_train_ds, args.batch_size, shuffle=True, pin_memory=True, num_workers=2, drop_last=True)
-# print(train_dl)
-# load = iter(train_dl)
-# print(load.next())
-# for itr, (data, label) in enumerate(train_dl):
-#     print(itr)
-#     print(data.shape)
-#     print(label)
-#     break
-for itr, batch in enumerate(train_dl):
-    # data, label = batch
-    a, b, c = batch
-    # x, targets, seq_length
-    # print(batch)
-    # print(len(batch))
-    # print(a)
-    print(len(a))
-    print(a[0].shape)
-    print(b)
-    print(c)
-    # print(b.shape)
-    # print(len(c))
-    break
-    # print(data.shape)
-    # print(label)
-
-print(args)
+start_time = time.time()
+for itr, data in enumerate(unsupervised_loader):
+    print("--- %s seconds ---" % (time.time() - start_time))
+    start_time = time.time()
+    if itr == 10:
+        break

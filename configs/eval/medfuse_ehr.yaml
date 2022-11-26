@@ -18,4 +18,6 @@ optimization:
 logging:
   folder: ./checkpoint/msn_ehr_logs/
   write_tag: msn-lineval-experiment-ehr
-  pretrain_path: /scratch/projects/shamoutlab/ds5749/multi-modal-msn/checkpoint/msn_ehr_logs/msn-ehr-experiment-vertical_horizontal-ep100.pth.tar
+  pretrain_path: /scratch/projects/shamoutlab/ds5749/multi-modal-msn/checkpoint/msn_ehr_logs/msn-ehr-experiment-vertical_and_horizontal-ep100.pth.tar
+  # /scratch/projects/shamoutlab/ds5749/multi-modal-msn/checkpoint/msn_ehr_logs/msn-ehr-experiment-drop_start-ep100.pth.tar
+  # /scratch/projects/shamoutlab/ds5749/multi-modal-msn/checkpoint/msn_ehr_logs/msn-ehr-experiment-vertical_horizontal-ep100.pth.tar

@@ -315,9 +315,6 @@ def linear_eval(args, modality='img', medfuse_params=None):
             outPRED = torch.FloatTensor().to(device)
             for i, data in enumerate(data_loader):
                 with torch.cuda.amp.autocast(enabled=True):
-                    print(data[0].shape)
-                    print(data[1].shape)
-                    print(data[1])
                     if modality == 'ehr':
                         inputs, labels = data[0].to(device), torch.from_numpy(data[1]).to(device).float()
                     else:
@@ -357,17 +354,17 @@ def linear_eval(args, modality='img', medfuse_params=None):
                 outputs = linear_classifier(outputs)
                 outPRED = torch.cat((outPRED, outputs), 0)
                 outGT = torch.cat((outGT, labels), 0)
-            
+                logger.info('val epoch: {}'.format(i))
             metrics = computeAUROC(outGT.data.cpu().numpy(), outPRED.data.cpu().numpy())
             return metrics
 
         train_metrics = train_step()
-        with torch.no_grad():
-            val_metrics = val_step()
         logger.info('train metrics')
         for key in train_metrics:
             logger.info(key)
             logger.info(train_metrics[key])
+        with torch.no_grad():
+            val_metrics = val_step()
         logger.info('val metrics')
         for key in val_metrics:
             logger.info(key)

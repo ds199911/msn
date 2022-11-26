@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH -n 1
 #SBATCH -t 12:00:00
-#SBATCH --cpus-per-task=16
+#SBATCH --cpus-per-task=24
 #SBATCH --gres=gpu:1
 #SBATCH --mem=32GB
 module purge

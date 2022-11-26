@@ -315,18 +315,21 @@ def linear_eval(args, modality='img', medfuse_params=None):
             outPRED = torch.FloatTensor().to(device)
             for i, data in enumerate(data_loader):
                 with torch.cuda.amp.autocast(enabled=True):
-                    inputs, labels = torch.tensor(data[0]).to(device), torch.tensor(data[1]).to(device)
+                    print(data[0].shape)
+                    print(data[1].shape)
+                    print(data[1])
+                    if modality == 'ehr':
+                        inputs, labels = data[0].to(device), torch.from_numpy(data[1]).to(device).float()
+                    else:
+                        inputs, labels = data[0].to(device), data[1].to(device)
                     with torch.no_grad():
                         if modality == 'ehr':
-                            outputs = encoder(inputs.half(), data[2])
-                            ln = torch.nn.LayerNorm(128)
-                            outputs = ln(outputs)
+                            outputs = encoder.forward_features_ehr(inputs.half(), data[2])
                         else:
                             outputs = encoder.forward_blocks(inputs, num_blocks)
 
                 outputs = linear_classifier(outputs)
-                loss = criterion(outputs, labels) 
-                total += inputs.shape[0]
+                loss = criterion(outputs, labels)
 
                 outPRED = torch.cat((outPRED, outputs), 0)
                 outGT = torch.cat((outGT, labels), 0)
@@ -347,7 +350,7 @@ def linear_eval(args, modality='img', medfuse_params=None):
                 with torch.cuda.amp.autocast(enabled=True):
                     inputs, labels = torch.tensor(data[0]).to(device), torch.tensor(data[1]).to(device)
                     if modality == 'ehr':
-                        outputs = encoder(inputs.half(), data[2])
+                        outputs = encoder.forward_features_ehr(inputs.half(), data[2])
                     else:
                         outputs = encoder.forward_blocks(inputs, num_blocks)
 
@@ -358,26 +361,25 @@ def linear_eval(args, modality='img', medfuse_params=None):
             metrics = computeAUROC(outGT.data.cpu().numpy(), outPRED.data.cpu().numpy())
             return metrics
 
-        train_top1 = 0.
-        train_top1 = train_step()
+        train_metrics = train_step()
         with torch.no_grad():
-            val_top1 = val_step()
+            val_metrics = val_step()
         logger.info('train metrics')
-        for key in train_top1:
+        for key in train_metrics:
             logger.info(key)
-            logger.info(train_top1[key])
+            logger.info(train_metrics[key])
         logger.info('val metrics')
-        for key in val_top1:
+        for key in val_metrics:
             logger.info(key)
-            logger.info(val_top1[key])
+            logger.info(val_metrics[key])
         # log_str = 'train:' if training else 'test:'
         # logger.info('[%d] (%s %.3f%%) (val: %.3f%%)'
-        #             % (epoch + 1, log_str, train_top1, val_top1))
+        #             % (epoch + 1, log_str, train_metrics, val_metrics))
 
         # -- logging/checkpointing
         # rank = 0
-        # if training and (rank == 0) and ((best_acc is None) or (best_acc < val_top1)):
-        #     best_acc = val_top1
+        # if training and (rank == 0) and ((best_acc is None) or (best_acc < val_metrics)):
+        #     best_acc = val_metrics
         #     save_dict = {
         #         'target_encoder': encoder.state_dict(),
         #         'classifier': linear_classifier.state_dict(),
@@ -390,7 +392,7 @@ def linear_eval(args, modality='img', medfuse_params=None):
         #     }
         #     torch.save(save_dict, w_enc_path)
 
-    return train_top1, val_top1
+    return train_metrics, val_metrics
             
 if __name__ == '__main__':
     args = parser.parse_args()

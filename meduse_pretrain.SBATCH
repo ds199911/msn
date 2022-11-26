@@ -1,11 +1,10 @@
 #!/bin/bash
 #SBATCH -n 1
 #SBATCH --cpus-per-task=28
-#SBATCH -t 50:00:00
+#SBATCH -t 40:00:00
 #SBATCH --gres=gpu
 #SBATCH --mem=32GB
-#SBATCH --job-name=ehr_pretrain-128-vertical_horizontal
-
+#SBATCH --job-name=ehr_pretrain-128-vertical_and_horizontal
 module purge
 
 singularity exec --nv \

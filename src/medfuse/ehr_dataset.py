@@ -8,6 +8,8 @@ from torch.utils.data import Dataset
 import glob
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
+from logging import getLogger
+logger = getLogger()
 class EHRdataset(Dataset):
     def __init__(self, discretizer, normalizer, listfile, dataset_dir, return_names=True,  transforms=None, period_length=48.0,):
         self.return_names = return_names
@@ -144,6 +146,7 @@ def my_collate(batch):
         x, seq_length = pad_zeros_mask(x)
     else:
         x, seq_length = pad_zeros(x)
+        x = torch.from_numpy(x)
     return [x, targets, seq_length]
 
 
@@ -193,6 +196,8 @@ class MultiTransform(object):
     def vertical_mask(self, data, ratio=0.25):
         # mask over each timestep (t, features)
         length = data.shape[0]
+        if length < 4:
+            return data
         a = np.zeros(length , dtype=int)
         a[:int(length*ratio)] = 1
         np.random.shuffle(a)
@@ -203,15 +208,16 @@ class MultiTransform(object):
     def horizontal_mask(self, data, ratio=0.25):
         # mask over each feature (t, features)
         length = data.shape[1] - 1
-        features = np.unique(np.random.randint(low=0, high=length, size=int(length*ratio)))
+        features = np.unique(np.random.randint(low=1, high=length, size=int(length*ratio)))
         for i in features:
             data[:,i+1] = self.normal_values[i]
         return data
     
     def drop_start(self, data, max_percent=0.4):
         length = data.shape[0]
-        assert int(max_percent*length) > 0
-        start = int(np.random.randint(low=0, high=int(max_percent*length), size=1))
+        # if int(max_percent*length) == 0:
+        #     logger.info(data.shape)
+        start = int(np.random.randint(low=0, high=max(int(max_percent*length),1), size=1))
         return data[start:,:]
 
     def __call__(self, img):

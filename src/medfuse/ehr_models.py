@@ -22,6 +22,7 @@ class LSTM(nn.Module):
         self.feats_dim = hidden_dim
         self.dense_layer = nn.Linear(hidden_dim, self.feats_dim)
         self.initialize_weights()
+        self.LayerNorm = torch.nn.LayerNorm(128)
         # self.activation = torch.sigmoid
     def initialize_weights(self):
         for model in self.modules():
@@ -44,6 +45,17 @@ class LSTM(nn.Module):
             feats = self.do(feats)
         out = self.dense_layer(feats)
         return out, feats
+
+    def forward_features_ehr(self, x, seq_lengths):
+        x = torch.nn.utils.rnn.pack_padded_sequence(x, seq_lengths, batch_first=True, enforce_sorted=False)
+        for layer in range(self.layers):
+            x, (ht, _) = getattr(self, f'layer{layer}')(x)
+        feats = ht.squeeze()
+        if self.do is not None:
+            feats = self.do(feats)
+        if self.LayerNorm is not None:
+            feats = self.LayerNorm(feats)
+        return feats
 
     def forward(self, x, seq_lengths):
         if not isinstance(x, list):

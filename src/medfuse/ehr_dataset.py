@@ -115,6 +115,7 @@ class EHRdataset(Dataset):
 
 def get_datasets(discretizer, normalizer, args, augmentation=True):
     if augmentation:
+        augmentation = 'dropstart'
         transform = MultiTransform(views=11, normal_values=discretizer._id_normal_values, augmentation=augmentation)
         train_ds = EHRdataset(discretizer, normalizer, f'{args.ehr_data_dir}/{args.task}/train_listfile.csv', os.path.join(args.ehr_data_dir, f'{args.task}/train'), transforms=transform)
     else: 
@@ -235,5 +236,10 @@ class MultiTransform(object):
                     img_views.append(self.horizontal_mask(self.vertical_mask(img)))
             elif self.augmentation == 'drop_start':
                 for _ in range(self.views):
+                    img_views.append((self.drop_start(img)))
+            elif self.augmentation == 'vertical_and_horizontal_dropstart':
+                for _ in range(self.views//2):
+                    img_views.append(self.horizontal_mask(self.vertical_mask(img)))
+                for _ in range(self.views - (self.views//2)):
                     img_views.append((self.drop_start(img)))
         return img_views

@@ -76,10 +76,11 @@ if __name__ == '__main__':
 
     num_gpus = len(args.devices)
     if args.modality == 'fusion':
-        mp.spawn(
-        process_main,
-        nprocs=num_gpus,
-        args=(args.fname, num_gpus, args.devices, args.modality, args))
+        process_main(0, args.fname, num_gpus, args.devices, args.modality, args)
+        # mp.spawn(
+        # process_main,
+        # nprocs=num_gpus,
+        # args=(args.fname, num_gpus, args.devices, args.modality, args))
     elif args.modality == 'ehr':
         process_main(0, args.fname, num_gpus, args.devices, args.modality, args)
     else:

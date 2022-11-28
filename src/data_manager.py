@@ -191,7 +191,7 @@ def init_fusion_data(
             batch_size=batch_size,
             drop_last=drop_last,
             pin_memory=pin_mem,
-            num_workers=0,
+            num_workers=num_workers,
             collate_fn=my_collate)
         dist_sampler=None
 

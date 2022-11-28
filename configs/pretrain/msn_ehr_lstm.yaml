@@ -3,7 +3,7 @@ criterion:
   final_sharpen: 0.25
   me_max: true
   memax_weight: 1.0
-  num_proto: 128
+  num_proto: 64
   start_sharpen: 0.25
   temperature: 0.1
   batch_size: 64
@@ -15,11 +15,11 @@ data:
   num_workers: 16
   distributed: false
   label_smoothing: 0.0
-  augmentation: vertical_and_horizontal
+  augmentation: vertical_and_horizontal_dropstart
   views: 11
 logging:
   folder: checkpoint/msn_ehr_logs/
-  write_tag: msn-ehr-experiment-vertical_and_horizontal
+  write_tag: msn-ehr-experiment-vertical_and_horizontal_dropstart-64
 meta:
   bottleneck: 1
   copy_data: false

@@ -12,7 +12,7 @@ criterion:
 data:
   color_jitter_strength: 0.5
   pin_mem: true
-  num_workers: 10 
+  num_workers: 18
   image_folder: /imagenet/
   label_smoothing: 0.0
   patch_drop: 0.15

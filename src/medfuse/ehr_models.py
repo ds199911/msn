@@ -64,7 +64,6 @@ class LSTM(nn.Module):
             torch.tensor([inp.shape[-1] for inp in x]),
             return_counts=True,
         )[1], 0)
-        
         start_idx = 0
         for end_idx in idx_crops:
             _z, _ = self.forward_features(torch.cat(x[start_idx:end_idx]), seq_lengths * (end_idx - start_idx))

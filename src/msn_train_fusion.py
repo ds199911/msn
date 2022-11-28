@@ -141,7 +141,8 @@ def main(args, medfuse_params=None):
 
     # -- init torch distributed backend
     world_size, rank = init_distributed()
-    logger.info(f'Initialized (rank/world-size) {rank}/{world_size}')
+    world_size, rank = 1, 0
+    # logger.info(f'Initialized (rank/world-size) {rank}/{world_size}')
     # if rank > 0:
     #     logger.setLevel(logging.ERROR)
 
@@ -347,8 +348,8 @@ def main(args, medfuse_params=None):
 
                 # print(len(imgs[1:]))
                 # print('imgs',len(imgs))
-                print(len(ehr), ehr[0].shape, ehr[10].shape)
-                print('imgs',len(imgs), imgs[0].shape)
+                # print(len(ehr), ehr[0].shape, ehr[10].shape)
+                # print('imgs',len(imgs), imgs[0].shape)
                 z = encoder(ehr[1:], seq_length, imgs[1:], return_before_head=True, patch_drop=patch_drop)
                 with torch.no_grad():
                     h = target_encoder(ehr[0], seq_length, imgs[0], return_before_head=True)

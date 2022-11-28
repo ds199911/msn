@@ -1,0 +1,462 @@
+INFO:root:loaded params...
+{   'data': {'image_folder': '/imagenet/', 'num_classes': 25, 'root_path': '.'},
+    'logging': {   'folder': './checkpoint/msn_ehr_logs/',
+                   'pretrain_path': '/scratch/projects/shamoutlab/ds5749/multi-modal-msn/checkpoint/msn_ehr_logs/msn-ehr-experiment-drop_start-ep100.pth.tar',
+                   'write_tag': 'msn-lineval-experiment-ehr'},
+    'meta': {   'copy_data': False,
+                'device': 'cuda:0',
+                'load_checkpoint': True,
+                'master_port': 8888,
+                'model_name': 'LSTM',
+                'training': True},
+    'optimization': {   'epochs': 100,
+                        'lr': 6.4,
+                        'normalize': True,
+                        'num_blocks': 1,
+                        'weight_decay': 0.0}}
+INFO:root:Running linear-evaluation
+INFO:root:MIMICCXR ehr fusion dataset
+INFO:root:Namespace(align=0.0, batch_size=64, beta_1=0.9, crop=224, cxr_data_dir='/data/MedFuse/2.0.0', daft_activation='linear', data_pairs='partial_ehr_cxr', data_ratio=1.0, depth=1, dim=256, dropout=0.0, ehr_data_dir='/data/MedFuse/mimic-iv-extracted', epochs=100, eval=False, fname='configs/eval/medfuse_ehr.yaml', fusion='joint', fusion_type='lstm', imputation='previous', labels_set='pheno', layer_after=4, layers=1, load_state=None, load_state_cxr=None, load_state_ehr=None, lr=0.0001, missing_token=None, mmtm_ratio=4, modality='ehr', mode='train', network=None, normalizer_state='/scratch/projects/shamoutlab/ds5749/multi-modal-msn/src/medfuse/normalizers/ph_ts1.0.input_str:previous.start_time:zero.normalizer', num_classes=25, patience=15, pretrained=False, rec_dropout=0.0, resize=256, resume=False, save_dir='checkpoints', task='phenotyping', timestep=1.0, vision_backbone='densenet121', vision_num_classes=14)
+INFO:root:partial_ehr_cxrlstm
+INFO:root:MIMICCXR dataset created
+INFO:root:unsupervised data loader created
+INFO:root:MIMICCXR ehr fusion dataset
+INFO:root:Namespace(align=0.0, batch_size=64, beta_1=0.9, crop=224, cxr_data_dir='/data/MedFuse/2.0.0', daft_activation='linear', data_pairs='partial_ehr_cxr', data_ratio=1.0, depth=1, dim=256, dropout=0.0, ehr_data_dir='/data/MedFuse/mimic-iv-extracted', epochs=100, eval=False, fname='configs/eval/medfuse_ehr.yaml', fusion='joint', fusion_type='lstm', imputation='previous', labels_set='pheno', layer_after=4, layers=1, load_state=None, load_state_cxr=None, load_state_ehr=None, lr=0.0001, missing_token=None, mmtm_ratio=4, modality='ehr', mode='train', network=None, normalizer_state='/scratch/projects/shamoutlab/ds5749/multi-modal-msn/src/medfuse/normalizers/ph_ts1.0.input_str:previous.start_time:zero.normalizer', num_classes=25, patience=15, pretrained=False, rec_dropout=0.0, resize=256, resume=False, save_dir='checkpoints', task='phenotyping', timestep=1.0, vision_backbone='densenet121', vision_num_classes=14)
+INFO:root:partial_ehr_cxrlstm
+INFO:root:MIMICCXR dataset created
+INFO:root:unsupervised data loader created
+INFO:root:initialized data-loader (ipe 333)
+INFO:root:initialized val data-loader (ipe 37)
+INFO:root:key "LayerNorm.weight" could not be found in loaded state dict
+INFO:root:key "LayerNorm.bias" could not be found in loaded state dict
+INFO:root:loaded pretrained model with msg: _IncompatibleKeys(missing_keys=['LayerNorm.weight', 'LayerNorm.bias'], unexpected_keys=['fc.fc1.weight', 'fc.fc1.bias', 'fc.bn1.weight', 'fc.bn1.bias', 'fc.bn1.running_mean', 'fc.bn1.running_var', 'fc.bn1.num_batches_tracked', 'fc.fc2.weight', 'fc.fc2.bias', 'fc.bn2.weight', 'fc.bn2.bias', 'fc.bn2.running_mean', 'fc.bn2.running_var', 'fc.bn2.num_batches_tracked', 'fc.fc3.weight', 'fc.fc3.bias'])
+INFO:root:loaded pretrained encoder from epoch: 99 path: /scratch/projects/shamoutlab/ds5749/multi-modal-msn/checkpoint/msn_ehr_logs/msn-ehr-experiment-drop_start-ep100.pth.tar
+INFO:root:LSTM(
+  (layer0): LSTM(76, 128, batch_first=True)
+  (dense_layer): Linear(in_features=128, out_features=128, bias=True)
+  (LayerNorm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+)
+INFO:root:putting model in eval mode
+INFO:root:122240
+INFO:root:epoch: 0
+INFO:root:epoch: 1
+INFO:root:epoch: 2
+INFO:root:epoch: 3
+INFO:root:epoch: 4
+INFO:root:epoch: 5
+INFO:root:epoch: 6
+INFO:root:epoch: 7
+INFO:root:epoch: 8
+INFO:root:epoch: 9
+INFO:root:epoch: 10
+INFO:root:epoch: 11
+INFO:root:epoch: 12
+INFO:root:epoch: 13
+INFO:root:epoch: 14
+INFO:root:epoch: 15
+INFO:root:epoch: 16
+INFO:root:epoch: 17
+INFO:root:epoch: 18
+INFO:root:epoch: 19
+INFO:root:epoch: 20
+INFO:root:epoch: 21
+INFO:root:epoch: 22
+INFO:root:epoch: 23
+INFO:root:epoch: 24
+INFO:root:epoch: 25
+INFO:root:epoch: 26
+INFO:root:epoch: 27
+INFO:root:epoch: 28
+INFO:root:epoch: 29
+INFO:root:epoch: 30
+INFO:root:epoch: 31
+INFO:root:epoch: 32
+INFO:root:epoch: 33
+INFO:root:epoch: 34
+INFO:root:epoch: 35
+INFO:root:epoch: 36
+INFO:root:epoch: 37
+INFO:root:epoch: 38
+INFO:root:epoch: 39
+INFO:root:epoch: 40
+INFO:root:epoch: 41
+INFO:root:epoch: 42
+INFO:root:epoch: 43
+INFO:root:epoch: 44
+INFO:root:epoch: 45
+INFO:root:epoch: 46
+INFO:root:epoch: 47
+INFO:root:epoch: 48
+INFO:root:epoch: 49
+INFO:root:epoch: 50
+INFO:root:epoch: 51
+INFO:root:epoch: 52
+INFO:root:epoch: 53
+INFO:root:epoch: 54
+INFO:root:epoch: 55
+INFO:root:epoch: 56
+INFO:root:epoch: 57
+INFO:root:epoch: 58
+INFO:root:epoch: 59
+INFO:root:epoch: 60
+INFO:root:epoch: 61
+INFO:root:epoch: 62
+INFO:root:epoch: 63
+INFO:root:epoch: 64
+INFO:root:epoch: 65
+INFO:root:epoch: 66
+INFO:root:epoch: 67
+INFO:root:epoch: 68
+INFO:root:epoch: 69
+INFO:root:epoch: 70
+INFO:root:epoch: 71
+INFO:root:epoch: 72
+INFO:root:epoch: 73
+INFO:root:epoch: 74
+INFO:root:epoch: 75
+INFO:root:epoch: 76
+INFO:root:epoch: 77
+INFO:root:epoch: 78
+INFO:root:epoch: 79
+INFO:root:epoch: 80
+INFO:root:epoch: 81
+INFO:root:epoch: 82
+INFO:root:epoch: 83
+INFO:root:epoch: 84
+INFO:root:epoch: 85
+INFO:root:epoch: 86
+INFO:root:epoch: 87
+INFO:root:epoch: 88
+INFO:root:epoch: 89
+INFO:root:epoch: 90
+INFO:root:epoch: 91
+INFO:root:epoch: 92
+INFO:root:epoch: 93
+INFO:root:epoch: 94
+INFO:root:epoch: 95
+INFO:root:epoch: 96
+INFO:root:epoch: 97
+INFO:root:epoch: 98
+INFO:root:epoch: 99
+INFO:root:epoch: 100
+INFO:root:epoch: 101
+INFO:root:epoch: 102
+INFO:root:epoch: 103
+INFO:root:epoch: 104
+INFO:root:epoch: 105
+INFO:root:epoch: 106
+INFO:root:epoch: 107
+INFO:root:epoch: 108
+INFO:root:epoch: 109
+INFO:root:epoch: 110
+INFO:root:epoch: 111
+INFO:root:epoch: 112
+INFO:root:epoch: 113
+INFO:root:epoch: 114
+INFO:root:epoch: 115
+INFO:root:epoch: 116
+INFO:root:epoch: 117
+INFO:root:epoch: 118
+INFO:root:epoch: 119
+INFO:root:epoch: 120
+INFO:root:epoch: 121
+INFO:root:epoch: 122
+INFO:root:epoch: 123
+INFO:root:epoch: 124
+INFO:root:epoch: 125
+INFO:root:epoch: 126
+INFO:root:epoch: 127
+INFO:root:epoch: 128
+INFO:root:epoch: 129
+INFO:root:epoch: 130
+INFO:root:epoch: 131
+INFO:root:epoch: 132
+INFO:root:epoch: 133
+INFO:root:epoch: 134
+INFO:root:epoch: 135
+INFO:root:epoch: 136
+INFO:root:epoch: 137
+INFO:root:epoch: 138
+INFO:root:epoch: 139
+INFO:root:epoch: 140
+INFO:root:epoch: 141
+INFO:root:epoch: 142
+INFO:root:epoch: 143
+INFO:root:epoch: 144
+INFO:root:epoch: 145
+INFO:root:epoch: 146
+INFO:root:epoch: 147
+INFO:root:epoch: 148
+INFO:root:epoch: 149
+INFO:root:epoch: 150
+INFO:root:epoch: 151
+INFO:root:epoch: 152
+INFO:root:epoch: 153
+INFO:root:epoch: 154
+INFO:root:epoch: 155
+INFO:root:epoch: 156
+INFO:root:epoch: 157
+INFO:root:epoch: 158
+INFO:root:epoch: 159
+INFO:root:epoch: 160
+INFO:root:epoch: 161
+INFO:root:epoch: 162
+INFO:root:epoch: 163
+INFO:root:epoch: 164
+INFO:root:epoch: 165
+INFO:root:epoch: 166
+INFO:root:epoch: 167
+INFO:root:epoch: 168
+INFO:root:epoch: 169
+INFO:root:epoch: 170
+INFO:root:epoch: 171
+INFO:root:epoch: 172
+INFO:root:epoch: 173
+INFO:root:epoch: 174
+INFO:root:epoch: 175
+INFO:root:epoch: 176
+INFO:root:epoch: 177
+INFO:root:epoch: 178
+INFO:root:epoch: 179
+INFO:root:epoch: 180
+INFO:root:epoch: 181
+INFO:root:epoch: 182
+INFO:root:epoch: 183
+INFO:root:epoch: 184
+INFO:root:epoch: 185
+INFO:root:epoch: 186
+INFO:root:epoch: 187
+INFO:root:epoch: 188
+INFO:root:epoch: 189
+INFO:root:epoch: 190
+INFO:root:epoch: 191
+INFO:root:epoch: 192
+INFO:root:epoch: 193
+INFO:root:epoch: 194
+INFO:root:epoch: 195
+INFO:root:epoch: 196
+INFO:root:epoch: 197
+INFO:root:epoch: 198
+INFO:root:epoch: 199
+INFO:root:epoch: 200
+INFO:root:epoch: 201
+INFO:root:epoch: 202
+INFO:root:epoch: 203
+INFO:root:epoch: 204
+INFO:root:epoch: 205
+INFO:root:epoch: 206
+INFO:root:epoch: 207
+INFO:root:epoch: 208
+INFO:root:epoch: 209
+INFO:root:epoch: 210
+INFO:root:epoch: 211
+INFO:root:epoch: 212
+INFO:root:epoch: 213
+INFO:root:epoch: 214
+INFO:root:epoch: 215
+INFO:root:epoch: 216
+INFO:root:epoch: 217
+INFO:root:epoch: 218
+INFO:root:epoch: 219
+INFO:root:epoch: 220
+INFO:root:epoch: 221
+INFO:root:epoch: 222
+INFO:root:epoch: 223
+INFO:root:epoch: 224
+INFO:root:epoch: 225
+INFO:root:epoch: 226
+INFO:root:epoch: 227
+INFO:root:epoch: 228
+INFO:root:epoch: 229
+INFO:root:epoch: 230
+INFO:root:epoch: 231
+INFO:root:epoch: 232
+INFO:root:epoch: 233
+INFO:root:epoch: 234
+INFO:root:epoch: 235
+INFO:root:epoch: 236
+INFO:root:epoch: 237
+INFO:root:epoch: 238
+INFO:root:epoch: 239
+INFO:root:epoch: 240
+INFO:root:epoch: 241
+INFO:root:epoch: 242
+INFO:root:epoch: 243
+INFO:root:epoch: 244
+INFO:root:epoch: 245
+INFO:root:epoch: 246
+INFO:root:epoch: 247
+INFO:root:epoch: 248
+INFO:root:epoch: 249
+INFO:root:epoch: 250
+INFO:root:epoch: 251
+INFO:root:epoch: 252
+INFO:root:epoch: 253
+INFO:root:epoch: 254
+INFO:root:epoch: 255
+INFO:root:epoch: 256
+INFO:root:epoch: 257
+INFO:root:epoch: 258
+INFO:root:epoch: 259
+INFO:root:epoch: 260
+INFO:root:epoch: 261
+INFO:root:epoch: 262
+INFO:root:epoch: 263
+INFO:root:epoch: 264
+INFO:root:epoch: 265
+INFO:root:epoch: 266
+INFO:root:epoch: 267
+INFO:root:epoch: 268
+INFO:root:epoch: 269
+INFO:root:epoch: 270
+INFO:root:epoch: 271
+INFO:root:epoch: 272
+INFO:root:epoch: 273
+INFO:root:epoch: 274
+INFO:root:epoch: 275
+INFO:root:epoch: 276
+INFO:root:epoch: 277
+INFO:root:epoch: 278
+INFO:root:epoch: 279
+INFO:root:epoch: 280
+INFO:root:epoch: 281
+INFO:root:epoch: 282
+INFO:root:epoch: 283
+INFO:root:epoch: 284
+INFO:root:epoch: 285
+INFO:root:epoch: 286
+INFO:root:epoch: 287
+INFO:root:epoch: 288
+INFO:root:epoch: 289
+INFO:root:epoch: 290
+INFO:root:epoch: 291
+INFO:root:epoch: 292
+INFO:root:epoch: 293
+INFO:root:epoch: 294
+INFO:root:epoch: 295
+INFO:root:epoch: 296
+INFO:root:epoch: 297
+INFO:root:epoch: 298
+INFO:root:epoch: 299
+INFO:root:epoch: 300
+INFO:root:epoch: 301
+INFO:root:epoch: 302
+INFO:root:epoch: 303
+INFO:root:epoch: 304
+INFO:root:epoch: 305
+INFO:root:epoch: 306
+INFO:root:epoch: 307
+INFO:root:epoch: 308
+INFO:root:epoch: 309
+INFO:root:epoch: 310
+INFO:root:epoch: 311
+INFO:root:epoch: 312
+INFO:root:epoch: 313
+INFO:root:epoch: 314
+INFO:root:epoch: 315
+INFO:root:epoch: 316
+INFO:root:epoch: 317
+INFO:root:epoch: 318
+INFO:root:epoch: 319
+INFO:root:epoch: 320
+INFO:root:epoch: 321
+INFO:root:epoch: 322
+INFO:root:epoch: 323
+INFO:root:epoch: 324
+INFO:root:epoch: 325
+INFO:root:epoch: 326
+INFO:root:epoch: 327
+INFO:root:epoch: 328
+INFO:root:epoch: 329
+INFO:root:epoch: 330
+INFO:root:epoch: 331
+INFO:root:epoch: 332
+INFO:root:train metrics
+INFO:root:auc_scores
+INFO:root:[0.64328744 0.78076253 0.62448274 0.56790932 0.59340611 0.5650473
+ 0.60077335 0.58780094 0.62144088 0.64251987 0.73336598 0.60380915
+ 0.59232709 0.55269226 0.62349024 0.58712322 0.5892517  0.57989508
+ 0.54798844 0.63134006 0.60893741 0.67243939 0.74660764 0.67069108
+ 0.71058198]
+INFO:root:auroc_mean
+INFO:root:0.6271188474083654
+INFO:root:auprc_mean
+INFO:root:0.2633471664839924
+INFO:root:auprc_scores
+INFO:root:[0.38393578 0.18481675 0.107745   0.37456434 0.26775418 0.17131314
+ 0.24713041 0.12946132 0.34099394 0.43860715 0.31235352 0.22457371
+ 0.48849739 0.45811777 0.47310808 0.09107357 0.27422723 0.16112269
+ 0.11014279 0.10364478 0.09334907 0.21780476 0.36168142 0.27527326
+ 0.2923871 ]
+INFO:root:ci_auroc
+INFO:root:[(0.6376326661474472, 0.648902355840768), (0.7711736838663568, 0.7907818935031873), (0.6141013202587046, 0.6341806034226993), (0.5622401903954236, 0.5736392883845466), (0.5864131553212224, 0.6002148137804031), (0.5569459610496765, 0.5727355307066081), (0.594670625546405, 0.6078598038408888), (0.5788618862124131, 0.5969685485707625), (0.6157966659332981, 0.627471796504332), (0.637102470308952, 0.648064662537381), (0.725979408541497, 0.740902377498036), (0.597079461305934, 0.6103998005003057), (0.5867992197501695, 0.5977298615639816), (0.5471459239865326, 0.5580247752725283), (0.6179538313450414, 0.6293866247341954), (0.5771342196981095, 0.597877517115997), (0.5825703297806054, 0.5953978225435776), (0.5716622552921327, 0.5877633844387286), (0.5390400180680885, 0.5569125226093964), (0.6181306358799677, 0.6438782631847779), (0.5990496526730249, 0.6189064047746774), (0.6640413498282772, 0.6793997389630531), (0.7405233222514798, 0.7530888210779317), (0.663462782992329, 0.677279404861339), (0.7030084734121457, 0.7178278297405772)]
+INFO:root:ci_auprc
+INFO:root:[(0.3758552240710497, 0.3924411600743619), (0.17240969480223517, 0.1987483717902298), (0.10230574196910454, 0.11377987330366834), (0.36766950662609915, 0.381559663059791), (0.2606154246995123, 0.2762226357963931), (0.16555531866928644, 0.17798670940343495), (0.23976415961831782, 0.2547786401066692), (0.12444313014000935, 0.13562455693891073), (0.33362651850728614, 0.35021702339208544), (0.42998836858425393, 0.4476956035304998), (0.29982966165349184, 0.32513906265770837), (0.2174649700766185, 0.23187456576097507), (0.481007039557445, 0.49614912381216686), (0.4517345496380778, 0.46546161193372504), (0.465533686169919, 0.48118080616209313), (0.08622852527864187, 0.09655588715614151), (0.26733467843722386, 0.28136187012070896), (0.15515881782943583, 0.16781664977175964), (0.10571848708661218, 0.1154963001798478), (0.09443310271965888, 0.1140315762488391), (0.08869572236898558, 0.09910306296183101), (0.20961819123329178, 0.22746669887860385), (0.3504702895817702, 0.373125699067991), (0.2654991915278919, 0.2851096454043132), (0.2802948041932049, 0.3046536098469936)]
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+[W pthreadpool-cpp.cc:90] Warning: Leaking Caffe2 thread-pool after fork. (function pthreadpool)
+INFO:root:val epoch: 0
+INFO:root:val epoch: 1
+INFO:root:val epoch: 2
+INFO:root:val epoch: 3
+INFO:root:val epoch: 4
+INFO:root:val epoch: 5
+INFO:root:val epoch: 6
+INFO:root:val epoch: 7
+INFO:root:val epoch: 8
+INFO:root:val epoch: 9
+INFO:root:val epoch: 10
+INFO:root:val epoch: 11
+INFO:root:val epoch: 12
+INFO:root:val epoch: 13
+INFO:root:val epoch: 14
+INFO:root:val epoch: 15
+INFO:root:val epoch: 16
+INFO:root:val epoch: 17
+INFO:root:val epoch: 18
+INFO:root:val epoch: 19
+INFO:root:val epoch: 20
+INFO:root:val epoch: 21
+INFO:root:val epoch: 22
+INFO:root:val epoch: 23
+INFO:root:val epoch: 24
+INFO:root:val epoch: 25
+INFO:root:val epoch: 26
+INFO:root:val epoch: 27
+INFO:root:val epoch: 28
+INFO:root:val epoch: 29
+INFO:root:val epoch: 30
+INFO:root:val epoch: 31
+INFO:root:val epoch: 32
+INFO:root:val epoch: 33
+INFO:root:val epoch: 34
+INFO:root:val epoch: 35
+INFO:root:val epoch: 36
+INFO:root:val metrics
+INFO:root:auc_scores
+INFO:root:[0.67737327 0.81058982 0.69359121 0.59583548 0.633334   0.62524769
+ 0.62076782 0.63701405 0.67420472 0.67719678 0.79349383 0.61963262
+ 0.62401781 0.57100089 0.65277488 0.62278387 0.63695731 0.6183162
+ 0.5868286  0.67800998 0.66320142 0.72468701 0.77806404 0.70794049
+ 0.74539866]
+INFO:root:auroc_mean
+INFO:root:0.666730498475025
+INFO:root:auprc_mean
+INFO:root:0.3035123925244781
+INFO:root:auprc_scores
+INFO:root:[0.41047476 0.22666505 0.13972567 0.38281556 0.31944321 0.21601587
+ 0.27200682 0.17820426 0.39479238 0.48870884 0.39912998 0.24194367
+ 0.54034803 0.46960841 0.50063422 0.10479338 0.32565331 0.19865854
+ 0.13151682 0.16200656 0.12002926 0.25061519 0.42798541 0.31535854
+ 0.37067608]
+INFO:root:ci_auroc
+INFO:root:[(0.6595048507152583, 0.6937394354926856), (0.7809575399556581, 0.840996776514887), (0.6671817804305193, 0.718409911372466), (0.578612638900191, 0.6124612448183895), (0.6133744280339711, 0.651150928139613), (0.6028235488839434, 0.6470724747305495), (0.6005259033307183, 0.6393548225919021), (0.6115809621105693, 0.6600640075773514), (0.6574645250565978, 0.6917665217663035), (0.6603870129008421, 0.6918933502257588), (0.7744375736215658, 0.8112656518899501), (0.5985381634658398, 0.6390317604967702), (0.6066242408178212, 0.6407821800645429), (0.553490196658785, 0.586842784128503), (0.6377464793730392, 0.668413400181013), (0.5918072015655508, 0.650429594767721), (0.618921487939914, 0.6553822739827664), (0.5931271106775308, 0.643182782808189), (0.5604379479114281, 0.6118038483994545), (0.6430035053827818, 0.7120119737967039), (0.6319718123452879, 0.69238946758576), (0.7030026750505287, 0.7440102450579432), (0.7604983426777828, 0.7964062269615987), (0.6870906896349898, 0.7274628920406528), (0.7229530196056381, 0.7662344137595394)]
+INFO:root:ci_auprc
+INFO:root:[(0.38387979092452706, 0.44046491264612775), (0.18192374507931253, 0.2801518886578673), (0.12111010588917674, 0.163292764419217), (0.3609667893202487, 0.4069942032839759), (0.293289954240981, 0.34694412859983875), (0.1941794713434241, 0.24353560173978864), (0.2510613785387138, 0.2968602264919217), (0.15534819018831003, 0.20731706551701926), (0.36990950949841095, 0.4226914793440189), (0.46151261364338403, 0.5165595453458464), (0.3581185926604527, 0.4432839149136455), (0.2217539873931275, 0.26561254778468846), (0.5181737388382537, 0.5642253051559463), (0.4485479722606313, 0.4930866291474498), (0.4769290307243652, 0.5269473022533169), (0.08690189816117802, 0.12703041072762708), (0.3014026001337127, 0.353830574998271), (0.173713992080254, 0.2291706764418184), (0.11572735164376625, 0.15209744657867416), (0.12468619627443653, 0.21193177828847534), (0.10082740943829428, 0.14735774782653302), (0.22401610611538603, 0.28109105467389306), (0.3941199242050626, 0.4654148940863684), (0.28327285898496063, 0.35025036070240856), (0.33163472120856385, 0.41065818275207194)]
+mefuse_linear_eval.py:348: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inputs, labels = torch.tensor(data[0]).to(device), torch.tensor(data[1]).to(device)

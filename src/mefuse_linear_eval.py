@@ -42,9 +42,6 @@ def main():
         pp = pprint.PrettyPrinter(indent=4)
         pp.pprint(params)
 
-    # dump = params['logging']['folder'] +  f'params-train.yaml'
-    # with open(dump, 'w') as f:
-    #     yaml.dump(params, f)
     logger.info('Running linear-evaluation')
     if args.modality == 'ehr':
         return linear_eval(params, modality=args.modality, medfuse_params=args)
@@ -211,10 +208,9 @@ def linear_eval(args, modality='img', medfuse_params=None):
     num_epochs = 1
 
     # -- init loss
-    criterion = torch.nn.BCEWithLogitsLoss() #multi-label loss
-    # criterion = torch.nn.CrossEntropyLoss()
+    criterion = torch.nn.BCEWithLogitsLoss()
 
-    if medfuse_params is None:
+    if modality == 'img':
         # -- make train data transforms and data loaders/samples
         transform = transforms.Compose([
             transforms.RandomResizedCrop(size=224, scale=(0.08, 1.0)),
@@ -231,7 +227,8 @@ def linear_eval(args, modality='img', medfuse_params=None):
             root_path=root_path,
             image_folder=image_folder,
             training=training,
-            copy_data=copy_data)
+            copy_data=copy_data,
+            distributed=False)
         
         # -- make val data transforms and data loaders/samples
         val_transform = transforms.Compose([
@@ -250,7 +247,8 @@ def linear_eval(args, modality='img', medfuse_params=None):
             image_folder=image_folder,
             training=False,
             drop_last=False,
-            copy_data=copy_data)
+            copy_data=copy_data,
+            distributed=False)
     elif modality == 'ehr':
         data_loader, dist_sampler = init_ehr_data(
             batch_size=batch_size,
@@ -288,7 +286,7 @@ def linear_eval(args, modality='img', medfuse_params=None):
         num_epochs=num_epochs,
         model_name=model_name,
         modality=modality)
-    logger.info(encoder)
+    # logger.info(encoder)
 
     best_acc = None
     start_epoch = 0
@@ -300,10 +298,10 @@ def linear_eval(args, modality='img', medfuse_params=None):
     #     opt=optimizer,
     #     sched=scheduler,
     #     device_str=args['meta']['device'])
-    logger.info('putting model in eval mode')
+    # logger.info('putting model in eval mode')
     encoder.eval()
-    logger.info(sum(p.numel() for n, p in encoder.named_parameters()
-                    if p.requires_grad and ('fc' not in n)))
+    # logger.info(sum(p.numel() for n, p in encoder.named_parameters()
+    #                 if p.requires_grad and ('fc' not in n)))
     start_epoch = 0
 
     for epoch in range(start_epoch, num_epochs):
@@ -336,7 +334,7 @@ def linear_eval(args, modality='img', medfuse_params=None):
                     scaler.update()
                     scheduler.step()
                     optimizer.zero_grad()
-                logger.info('epoch: {}'.format(i))
+                # logger.info('epoch: {}'.format(i))
             metrics = computeAUROC(outGT.data.cpu().numpy(), outPRED.data.cpu().numpy())
             return metrics
 

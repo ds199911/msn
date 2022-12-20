@@ -9,6 +9,7 @@ import glob
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
 from logging import getLogger
+from random import choice
 logger = getLogger()
 class EHRdataset(Dataset):
     def __init__(self, discretizer, normalizer, listfile, dataset_dir, return_names=True,  transforms=None, period_length=48.0,):
@@ -35,12 +36,6 @@ class EHRdataset(Dataset):
                 }
                 for mas in self._data
         }
-
-        # import pdb; pdb.set_trace()
-
-        # self._data = [(line_[0], float(line_[1]), line_[2], float(line_[3])  ) for line_ in self._data]
-
-
 
         self.names = list(self.data_map.keys())
     
@@ -73,18 +68,6 @@ class EHRdataset(Dataset):
                 "name": index}
 
     def get_decomp_los(self, index, time_bound=None):
-        # name = self._data[index][0]
-        # time_bound = self._data[index][1]
-        # ys = self._data[index][3]
-
-        # (data, header) = self._read_timeseries(index, time_bound=time_bound)
-        # data = self.discretizer.transform(data, end=time_bound)[0] 
-        # if (self.normalizer is not None):
-        #     data = self.normalizer.transform(data)
-        # ys = np.array(ys, dtype=np.int32) if len(ys) > 1 else np.array(ys, dtype=np.int32)[0]
-        # return data, ys
-
-        # data, ys = 
         return self.__getitem__(index, time_bound)
 
 
@@ -94,10 +77,17 @@ class EHRdataset(Dataset):
         ret = self.read_by_file_name(index, time_bound)
         data = ret["X"]
         ts = ret["t"] if ret['t'] > 0.0 else self._period_length
+
         if self.transforms is not None:
             data = self.transforms(data)
             for i in range(len(data)):
                 data[i] = self.discretizer.transform(data[i], end=ts)[0] 
+                if 'gaussian' in self.transforms.augmentation and i != 0:
+                    data[i] = self.transforms.gaussian_blur(data[i])
+                if 'rotation' in self.transforms.augmentation and i != 0:
+                    data[i] = self.transforms.rotation(data[i])
+                if 'sampling' in self.transforms.augmentation and i != 0:
+                    data[i] = self.transforms.downsample(data[i])
                 if (self.normalizer is not None):
                     data[i] = self.normalizer.transform(data[i])
         else:
@@ -113,10 +103,17 @@ class EHRdataset(Dataset):
         return len(self.names)
 
 
-def get_datasets(discretizer, normalizer, args, augmentation=True):
+def get_datasets(discretizer, normalizer, args, augmentation=None):
     if augmentation:
-        augmentation = 'dropstart'
-        transform = MultiTransform(views=11, normal_values=discretizer._id_normal_values, augmentation=augmentation)
+        cur_len = 0
+        begin_pos, categorical = [0]*len(discretizer._id_to_channel), []
+        for i in range(len(discretizer._id_to_channel)-1):
+            begin_pos[i+1] = begin_pos[i] + max(len(discretizer._possible_values[discretizer._id_to_channel[i]]), 1)
+            if discretizer._is_categorical_channel[discretizer._id_to_channel[i]]:
+                categorical.append(i)
+        [begin_pos.pop(categorical[i]-i) for i in range(len(categorical))]
+
+        transform = MultiTransform(views=11, normal_values=discretizer._id_normal_values, _is_categorical_channel=discretizer._is_categorical_channel, augmentation=augmentation, begin_pos=begin_pos)
         train_ds = EHRdataset(discretizer, normalizer, f'{args.ehr_data_dir}/{args.task}/train_listfile.csv', os.path.join(args.ehr_data_dir, f'{args.task}/train'), transforms=transform)
     else: 
         train_ds = EHRdataset(discretizer, normalizer, f'{args.ehr_data_dir}/{args.task}/train_listfile.csv', os.path.join(args.ehr_data_dir, f'{args.task}/train'))
@@ -188,38 +185,58 @@ class MultiTransform(object):
         self,
         views,
         normal_values,
-        augmentation
+        _is_categorical_channel,
+        augmentation,
+        begin_pos
     ):
         self.views = views
         self.normal_values = normal_values
         self.rows = np.array([value for value in self.normal_values.values()])
         self.augmentation = augmentation
-    def vertical_mask(self, data, ratio=0.25):
+        self.continuous_variable = [0 if _is_categorical_channel[key] == True else 1 for key in _is_categorical_channel]
+        self.begin_pos = begin_pos
+    def vertical_mask(self, data, max_percent=0.4):
         # mask over each timestep (t, features)
         length = data.shape[0]
         if length < 4:
             return data
+        size = int(np.random.randint(low=0, high=max(int(max_percent*length),1), size=1))
         a = np.zeros(length , dtype=int)
-        a[:int(length*ratio)] = 1
+        a[:size] = 1
         np.random.shuffle(a)
         a = a.astype(bool)
         data[a,1:] = self.rows
         return data
 
-    def horizontal_mask(self, data, ratio=0.25):
+    def horizontal_mask(self, data, max_percent=0.4):
         # mask over each feature (t, features)
         length = data.shape[1] - 1
-        features = np.unique(np.random.randint(low=1, high=length, size=int(length*ratio)))
+        size = int(np.random.randint(low=0, high=max(int(max_percent*length),1), size=1))
+        features = np.unique(np.random.randint(low=1, high=length, size=size))
         for i in features:
             data[:,i+1] = self.normal_values[i]
         return data
     
     def drop_start(self, data, max_percent=0.4):
         length = data.shape[0]
-        # if int(max_percent*length) == 0:
-        #     logger.info(data.shape)
         start = int(np.random.randint(low=0, high=max(int(max_percent*length),1), size=1))
         return data[start:,:]
+
+    def gaussian_blur(self, data):
+        mean, std = 1,0 
+        data[:, self.begin_pos] = data[:, self.begin_pos]  + np.random.normal(mean, std, (data.shape[0], len(self.begin_pos)))
+        return data
+
+    def rotation(self, data):
+        if choice([0,1]):
+            return np.flip(data, axis=0)
+        return data
+
+    def downsample(self, data):
+        if data.shape[0] < 20:
+            return data
+        step = choice([1, 2, 3])
+        return data[::step]
 
     def __call__(self, img):
         img_views = [img]
@@ -237,9 +254,8 @@ class MultiTransform(object):
             elif self.augmentation == 'drop_start':
                 for _ in range(self.views):
                     img_views.append((self.drop_start(img)))
-            elif self.augmentation == 'vertical_and_horizontal_dropstart':
-                for _ in range(self.views//2):
-                    img_views.append(self.horizontal_mask(self.vertical_mask(img)))
-                for _ in range(self.views - (self.views//2)):
-                    img_views.append((self.drop_start(img)))
+            else:
+                for _ in range(self.views):
+                    img_views.append(img)
+
         return img_views

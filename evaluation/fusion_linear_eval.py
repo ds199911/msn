@@ -202,7 +202,9 @@ def linear_eval(args, medfuse_args):
         training=training,
         copy_data=copy_data,
         dataset_name='MIMICCXR',
-        args=medfuse_args)
+        args=medfuse_args,
+        ehr_augmentation=None,
+        distributed=False)
 
     ipe = len(data_loader)
     logger.info(f'initialized data-loader (ipe {ipe})')
@@ -218,13 +220,13 @@ def linear_eval(args, medfuse_args):
     val_data_loader, val_dist_sampler = init_fusion_data(
         transform=val_transform,
         batch_size=batch_size,
-        root_path=root_path,
-        image_folder=image_folder,
         training=False,
         drop_last=False,
         copy_data=copy_data,
         dataset_name='MIMICCXR',
-        args=medfuse_args)
+        args=medfuse_args,
+        ehr_augmentation=None,
+        distributed=False)
     logger.info(f'initialized val data-loader (ipe {len(val_data_loader)})')
 
      # -- init model and optimizer
@@ -256,7 +258,6 @@ def linear_eval(args, medfuse_args):
 
         def train_step():
             # -- update distributed-data-loader epoch
-            # dist_sampler.set_epoch(epoch)
             outGT = torch.FloatTensor().to(device)
             outPRED = torch.FloatTensor().to(device)
             top1_correct, top5_correct, total = 0, 0, 0

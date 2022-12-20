@@ -102,12 +102,13 @@ def init_fusion_data(
     dataset_name='MIMICCXR',
     args=None,
     rand_views=2,
-    distributed=True
+    distributed=True,
+    ehr_augmentation='drop_start'
 ):
     if dataset_name == 'MIMICCXR':
         logger.info('MIMICCXR cxr_ehr fusion dataset')
 
-        args.data_pairs = 'partial_ehr_cxr'
+        args.data_pairs = 'paired_ehr_cxr'  #'partial_ehr_cxr'
         args.fusion_type = 'lstm'
         logger.info(args)
         def read_timeseries(args):
@@ -137,7 +138,7 @@ def init_fusion_data(
 
         logger.info(args.data_pairs + args.fusion_type)
 
-        ehr_train_ds, ehr_val_ds, cxr_test_ds = get_datasets(discretizer, normalizer, args, augmentation=True)
+        ehr_train_ds, ehr_val_ds, cxr_test_ds = get_datasets(discretizer, normalizer, args, augmentation=ehr_augmentation)
         cxr_train_ds, cxr_val_ds, ehr_test_ds = get_cxr_datasets(transform)
         train_ds, val_ds, _ = load_cxr_ehr(args, ehr_train_ds, ehr_val_ds, cxr_train_ds, cxr_val_ds, ehr_test_ds, cxr_test_ds)
         logger.info('MIMICCXR dataset created')
@@ -146,7 +147,8 @@ def init_fusion_data(
         else: dataset = val_ds
         
         def my_collate(batch):
-            if isinstance(batch[0][1], list):
+            # print([(type(batch[i][1]), len(batch[i][1])) for i in range(len(batch))])
+            if True in set([isinstance(batch[i][1], list) for i in range(len(batch))]):
                 img = []
                 for i in range(len(batch[0][0])):
                     imgs = []
@@ -160,12 +162,14 @@ def init_fusion_data(
                                 imgs.append(torch.zeros(3, 96, 96)) # focal_size: 96
                     img.append(torch.stack(imgs))
             else:
+                # if training:
+                #     img = [torch.zeros(64, 3, 224, 224) if i < rand_views else torch.zeros(64, 3, 96, 96) for i in range(12)]
+                # else:
                 img = torch.stack([torch.zeros(3, 224, 224) if item[1] is None else item[1] for item in batch])
 
             x = [item[0] for item in batch]
             if isinstance(x[0], list):
-                x, _ = pad_zeros_mask(x)
-                seq_length = [item[0][0].shape[0] for item in batch]
+                x, seq_length = pad_zeros_mask(x)
             else:
                 x, seq_length = pad_zeros(x)
             targets_ehr = np.array([item[2] for item in batch])

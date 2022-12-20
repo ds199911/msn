@@ -32,4 +32,4 @@ singularity exec --nv \
         --overlay /scratch/projects/shamoutlab/data/data.sqf:ro \
         /scratch/work/public/singularity/ubuntu-20.04.4.sif /bin/bash -c \
         "source /ext3/env.sh; conda activate /ext3/medfuse;
-        python mefuse_linear_eval.py --fname configs/eval/medfuse_ehr.yaml --modality ehr"
+        python src/mefuse_linear_eval.py --fname configs/eval/medfuse_ehr.yaml --modality ehr"

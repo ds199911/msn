@@ -12,14 +12,14 @@ criterion:
 data:
   modality: ehr
   pin_mem: true
-  num_workers: 16
+  num_workers: 18
   distributed: false
   label_smoothing: 0.0
-  augmentation: vertical_and_horizontal_dropstart
+  augmentation: sampling_rotation_gaussian
   views: 11
 logging:
   folder: checkpoint/msn_ehr_logs/
-  write_tag: msn-ehr-experiment-vertical_and_horizontal_dropstart-64
+  write_tag: msn-ehr-experiment-rotation-sampling-64
 meta:
   bottleneck: 1
   copy_data: false
@@ -41,3 +41,6 @@ optimization:
   start_lr: 0.0002
   warmup: 15
   weight_decay: 0.04
+evaluation:
+  eval: True
+  fname: /scratch/projects/shamoutlab/ds5749/multi-modal-msn/configs/eval/medfuse_ehr.yaml

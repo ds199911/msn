@@ -4,8 +4,6 @@
 *__pycache__*
 *.tar
 *.csv
-/imagenet_subsets1
-/imagenet_subsets2
-/imagenet_subsets3 
+*.out
 /checkpoint
 /sbatch_logs

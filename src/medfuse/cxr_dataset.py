@@ -161,7 +161,9 @@ class MultiViewTransform(object):
         # -- generate focal views
         if self.focal_views > 0:
             img_views += [self.focal_transform(img) for i in range(self.focal_views)]
-
+        print('image_views')
+        print(type(img_views), len(img_views))
+        assert isinstance(img_views, list)
         return img_views
 
 class GaussianBlur(object):

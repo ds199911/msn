@@ -24,7 +24,7 @@ parser = args_parser()
 args = parser.parse_args()
 # print(args)
 
-from src.data_manager import (
+from data_manager import (
     init_data,
     init_ehr_data,
     make_transforms

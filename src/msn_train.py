@@ -41,6 +41,9 @@ from src.data_manager import (
 
 from torch.nn.parallel import DistributedDataParallel
 from src.medfuse.ehr_models import LSTM
+from src.mefuse_linear_eval import linear_eval
+import yaml
+import pprint
 # --
 log_timings = True
 log_freq = 10
@@ -101,8 +104,16 @@ def main(args, medfuse_params=None):
     pin_mem = False if 'pin_mem' not in args['data'] else args['data']['pin_mem']
     num_workers = 1 if 'num_workers' not in args['data'] else args['data']['num_workers']
     distributed = args['data']['distributed']
+
+    evaluation = args['evaluation']['eval']
+    fname = args['evaluation']['fname']
+    with open(fname, 'r') as y_file:
+        eval_params = yaml.load(y_file, Loader=yaml.FullLoader)
+        logger.info('loaded params...')
+        pp = pprint.PrettyPrinter(indent=4)
+        pp.pprint(eval_params)
+    
     try:
-        #img augmentations
         color_jitter = args['data']['color_jitter_strength']
         root_path = args['data']['root_path']
         image_folder = args['data']['image_folder']
@@ -114,6 +125,7 @@ def main(args, medfuse_params=None):
         views = focal_views+rand_views
     except:
         #ehr augmentation
+        evalution = False
         views = args['data']['views']
         augmentation = args['data']['augmentation']
     # --
@@ -333,13 +345,9 @@ def main(args, medfuse_params=None):
         maxp_meter = AverageMeter()
         time_meter = AverageMeter()
         data_meter = AverageMeter()
-        # # ## TODO: Delete the timer
-        # import time
-        # start_time = time.time()
+    
         for itr, data in enumerate(unsupervised_loader):
-            # logger.info("--- %s seconds ---" % (time.time() - start_time))
-            # start_time = time.time()
-            # continue
+        
             def load_imgs():
                 # -- unsupervised imgs
                 imgs = [u.to(device, non_blocking=True) for u in data[0]]
@@ -461,13 +469,14 @@ def main(args, medfuse_params=None):
                                        grad_stats.last_layer,
                                        grad_stats.min,
                                        grad_stats.max))
-            log_stats()
+            # log_stats()
             assert not np.isnan(loss), 'loss is nan'
 
         # -- Save Checkpoint after every epoch
         logger.info('avg. loss %.3f' % loss_meter.avg)
         save_checkpoint(epoch+1)
-
+        if (epoch % 5 == 0) and evaluation:
+            linear_eval(eval_params, modality, medfuse_params)
 
 def load_checkpoint(
     device,

@@ -3,7 +3,7 @@ criterion:
   final_sharpen: 0.25
   me_max: true
   memax_weight: 1.0
-  num_proto: 256
+  num_proto: 64
   start_sharpen: 0.25
   temperature: 0.1
   batch_size: 64
@@ -20,11 +20,12 @@ data:
   focal_size: 96
   rand_views: 1
   focal_views: 10
+  ehr_augmentation: gaussian
   # root_path: /datasets01/
   root_path: .
 logging:
   folder: checkpoint/msn_fusion_logs/
-  write_tag: msn-experiment-fusion-256
+  write_tag: msn-experiment-fusion-64
 meta:
   bottleneck: 1
   copy_data: false

@@ -115,6 +115,7 @@ def main(args, medfuse_params=None):
     rand_views = args['data']['rand_views']
     focal_views = args['data']['focal_views']
     focal_size = args['data']['focal_size']
+    ehr_augmentation = args['data']['ehr_augmentation']
     # --
 
     # -- OPTIMIZATION
@@ -134,13 +135,13 @@ def main(args, medfuse_params=None):
     # logger.info(medfuse_args)
     # ----------------------------------------------------------------------- #
 
-    try:
-        mp.set_start_method('spawn')
-    except Exception:
-        pass
+    # try:
+    #     mp.set_start_method('spawn')
+    # except Exception:
+    #     pass
 
     # -- init torch distributed backend
-    world_size, rank = init_distributed()
+    # world_size, rank = init_distributed()
     world_size, rank = 1, 0
     # logger.info(f'Initialized (rank/world-size) {rank}/{world_size}')
     # if rank > 0:
@@ -219,7 +220,9 @@ def main(args, medfuse_params=None):
          training=True,
          copy_data=copy_data,
          args=medfuse_params,
-         rand_views=rand_views+1)
+         rand_views=rand_views+1,
+         ehr_augmentation=ehr_augmentation,
+         distributed=False)
     ipe = len(unsupervised_loader)
     logger.info(f'iterations per epoch: {ipe}')
 
@@ -252,11 +255,11 @@ def main(args, medfuse_params=None):
         iterations_per_epoch=ipe,
         warmup=warmup,
         num_epochs=num_epochs)
-    if world_size > 1:
-        encoder = DistributedDataParallel(encoder)
-        target_encoder = DistributedDataParallel(target_encoder)
-        for p in target_encoder.parameters():
-            p.requires_grad = False
+    # if world_size > 1:
+    #     encoder = DistributedDataParallel(encoder)
+    #     target_encoder = DistributedDataParallel(target_encoder)
+    #     for p in target_encoder.parameters():
+    #         p.requires_grad = False
 
     # -- momentum schedule
     _start_m, _final_m = 0.996, 1.0
@@ -350,6 +353,9 @@ def main(args, medfuse_params=None):
                 # print('imgs',len(imgs))
                 # print(len(ehr), ehr[0].shape, ehr[10].shape)
                 # print('imgs',len(imgs), imgs[0].shape)
+                for image in imgs:
+                    if not (image.shape == (64,3,224,224) or image.shape == (64,3,96,96)):
+                        logger.info([i.shape for i in imgs])
                 z = encoder(ehr[1:], seq_length, imgs[1:], return_before_head=True, patch_drop=patch_drop)
                 with torch.no_grad():
                     h = target_encoder(ehr[0], seq_length, imgs[0], return_before_head=True)

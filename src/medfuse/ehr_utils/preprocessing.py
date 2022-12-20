@@ -56,7 +56,6 @@ class Discretizer:
             max_hours = end - first_time
 
         N_bins = int(max_hours / self._timestep + 1.0 - eps)
-
         cur_len = 0
         begin_pos = [0 for i in range(N_channels)]
         end_pos = [0 for i in range(N_channels)]
@@ -68,13 +67,11 @@ class Discretizer:
             else:
                 end_pos[i] = begin_pos[i] + 1
             cur_len = end_pos[i]
-
         data = np.zeros(shape=(N_bins, cur_len), dtype=float)
         mask = np.zeros(shape=(N_bins, N_channels), dtype=int)
         original_value = [["" for j in range(N_channels)] for i in range(N_bins)]
         total_data = 0
         unused_data = 0
-
         def write(data, bin_id, channel, value, begin_pos):
             channel_id = self._channel_to_id[channel]
             if self._is_categorical_channel[channel]:
@@ -160,7 +157,7 @@ class Discretizer:
         self._done_count += 1
         self._empty_bins_sum += empty_bins / (N_bins + eps)
         self._unused_data_sum += unused_data / (total_data + eps)
-
+        
         if self._store_masks:
             data = np.hstack([data, mask.astype(np.float32)])
 
@@ -180,7 +177,8 @@ class Discretizer:
                 new_header.append("mask->" + channel)
 
         new_header = ",".join(new_header)
-
+        # print(new_header)
+        # print(data.shape)
         return (data, new_header)
 
     def print_statistics(self):
